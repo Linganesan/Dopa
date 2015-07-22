@@ -17,8 +17,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".mindpalace"
+            android:name=".Mindpalace"
             android:label="@string/title_activity_mindpalace" >
+        </activity>
+        <activity
+            android:name=".Practice"
+            android:label="@string/title_activity_practice" >
+        </activity>
+        <activity
+            android:name=".Score"
+            android:label="@string/title_activity_score" >
         </activity>
     </application>
 

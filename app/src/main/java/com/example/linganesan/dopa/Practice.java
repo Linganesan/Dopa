@@ -6,18 +6,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class mindpalace extends ActionBarActivity {
+public class Practice extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mindpalace);
+        setContentView(R.layout.activity_practice);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_mindpalace, menu);
+        getMenuInflater().inflate(R.menu.menu_practice, menu);
         return true;
     }
 

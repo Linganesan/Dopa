@@ -8,4 +8,6 @@
     <string name="practice">New Button</string>
     <string name="score">New Button</string>
     <string name="title_activity_mindpalace">mindpalace</string>
+    <string name="title_activity_practice">practice</string>
+    <string name="title_activity_score">score</string>
 </resources>

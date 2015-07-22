@@ -16,13 +16,17 @@ public class MainActivity extends ActionBarActivity {
 
     public static final String PREFS_NAME = "MyPrefsFile";
 
-    Button button;
+    Button mindpalace;
+    Button practice;
+    Button score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mindpalace = (Button) findViewById(R.id.button);
+        practice = (Button) findViewById(R.id.button2);
+        score = (Button) findViewById(R.id.button3);
 
-        button = (Button) findViewById(R.id.button);
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         boolean dialogShown = settings.getBoolean("dialogShown", false);
@@ -60,12 +64,32 @@ public class MainActivity extends ActionBarActivity {
             editor.commit();
         }
 
-        button.setOnClickListener(new OnClickListener() {
+        mindpalace.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
 
                 // Start NewActivity.class
                 Intent myIntent = new Intent(MainActivity.this,
-                        mindpalace.class);
+                        Mindpalace.class);
+                startActivity(myIntent);
+            }
+        });
+
+        practice.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+
+                // Start NewActivity.class
+                Intent myIntent = new Intent(MainActivity.this,
+                        Practice.class);
+                startActivity(myIntent);
+            }
+        });
+
+        score.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+
+                // Start NewActivity.class
+                Intent myIntent = new Intent(MainActivity.this,
+                        Score.class);
                 startActivity(myIntent);
             }
         });
