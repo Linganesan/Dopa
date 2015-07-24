@@ -19,6 +19,8 @@ public class MainActivity extends ActionBarActivity {
     Button mindpalace;
     Button practice;
     Button score;
+    Button games;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
         mindpalace = (Button) findViewById(R.id.button);
         practice = (Button) findViewById(R.id.button2);
         score = (Button) findViewById(R.id.button3);
-
+        games = (Button) findViewById(R.id.button4);
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         boolean dialogShown = settings.getBoolean("dialogShown", false);
@@ -41,9 +43,9 @@ public class MainActivity extends ActionBarActivity {
 
             // set dialog message
             alertDialogBuilder
-                    .setMessage("First Create a MindPalace or use the default one")
+                    .setMessage("Create a MindPalace")
                     .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     // if this button is clicked, just close
                                     // the dialog box and do nothing
@@ -83,6 +85,17 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(myIntent);
             }
         });
+
+        games.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+
+                // Start NewActivity.class
+                Intent myIntent = new Intent(MainActivity.this,
+                        games.class);
+                startActivity(myIntent);
+            }
+        });
+
 
         score.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
