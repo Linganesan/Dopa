@@ -57,20 +57,9 @@ public class Mindpalace extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mindpalace);
-
-
-        dataList = (ListView) findViewById(R.id.listView);
-        spinner = (Spinner) findViewById(R.id.mindpalaceselect);
-        list = new ArrayList<String>();
-        addItemsOnSpinner("New");
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
-
-
+        // set screen
+        Set_Add_Update_Screen();
         addListenerOnButton();
-
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -86,8 +75,6 @@ public class Mindpalace extends ActionBarActivity {
             }
 
         });
-
-
         /**
          * create DatabaseHandler object
          */
@@ -163,8 +150,6 @@ public class Mindpalace extends ActionBarActivity {
         });
         final AlertDialog dialog = builder.create();
 
-        addLoci = (Button) findViewById(R.id.addloci);
-
         addLoci.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog.show();
@@ -175,6 +160,22 @@ public class Mindpalace extends ActionBarActivity {
     }
 
 
+
+    public void Set_Add_Update_Screen() {
+        addLoci = (Button) findViewById(R.id.addloci);
+        spinner = (Spinner) findViewById(R.id.mindpalaceselect);
+        btnSubmit = (Button) findViewById(R.id.button7);
+        dataList = (ListView) findViewById(R.id.listView);
+
+        spinner = (Spinner) findViewById(R.id.mindpalaceselect);
+        list = new ArrayList<String>();
+        addItemsOnSpinner("New");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+
+    }
 
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
@@ -189,11 +190,6 @@ public class Mindpalace extends ActionBarActivity {
 
     //get the selected dropdown list value
     public void addListenerOnButton() {
-
-        spinner = (Spinner) findViewById(R.id.mindpalaceselect);
-
-        btnSubmit = (Button) findViewById(R.id.button7);
-
         btnSubmit.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -204,12 +200,6 @@ public class Mindpalace extends ActionBarActivity {
         });
 
     }
-
-
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -231,8 +221,6 @@ public class Mindpalace extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
     /**
      * On activity result

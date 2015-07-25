@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import android.content.SharedPreferences;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.content.Intent;
 import android.view.View.OnClickListener;
@@ -27,10 +29,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mindpalace = (Button) findViewById(R.id.button);
-        practice = (Button) findViewById(R.id.button2);
-        score = (Button) findViewById(R.id.button3);
-        games = (Button) findViewById(R.id.button4);
+
+        // set screen
+        Set_Add_Update_Screen();
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         boolean dialogShown = settings.getBoolean("dialogShown", false);
@@ -108,6 +109,15 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(myIntent);
             }
         });
+
+    }
+
+    public void Set_Add_Update_Screen() {
+
+        mindpalace = (Button) findViewById(R.id.button);
+        practice = (Button) findViewById(R.id.button2);
+        score = (Button) findViewById(R.id.button3);
+        games = (Button) findViewById(R.id.button4);
 
     }
 
