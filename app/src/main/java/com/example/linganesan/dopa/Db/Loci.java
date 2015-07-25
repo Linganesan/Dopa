@@ -1,8 +1,6 @@
 package com.example.linganesan.dopa.Db;
 
-/**
- * Created by linganesan on 7/25/15.
- */
+
 public class Loci {
     // private variables
     int _id;
