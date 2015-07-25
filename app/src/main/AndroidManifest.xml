@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Mindpalace"
+            android:name=".mindpalace.Mindpalace"
             android:label="@string/title_activity_mindpalace" >
         </activity>
         <activity

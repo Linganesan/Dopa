@@ -13,13 +13,19 @@
     <string name="title_activity_cardgame">Card Game</string>
     <string name="title_activity_games">Other Games</string>
 
-    <string-array name="type">
+    <string-array name="gametype">
         <item>New Game</item>
         <item>4 X 4</item>
         <item>4 X 5</item>
         <item>4 X 6</item>
         <item>4 X 7</item>
         <item>4 X 8</item>
+    </string-array>
+
+    <string-array name="mindpalcechoice">
+        <item>New</item>
+
+
     </string-array>
 
 

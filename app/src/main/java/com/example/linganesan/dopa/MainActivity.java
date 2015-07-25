@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.view.View.OnClickListener;
 import android.view.View;
 
+import com.example.linganesan.dopa.mindpalace.Mindpalace;
+
 public class MainActivity extends ActionBarActivity {
 
     public static final String PREFS_NAME = "MyPrefsFile";

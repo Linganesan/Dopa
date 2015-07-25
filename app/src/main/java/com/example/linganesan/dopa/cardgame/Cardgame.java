@@ -67,7 +67,7 @@ public class Cardgame extends ActionBarActivity {
 
         Spinner s = (Spinner) findViewById(R.id.Spinner01);
         ArrayAdapter adapter = ArrayAdapter.createFromResource(
-                this, R.array.type, android.R.layout.simple_spinner_item);
+                this, R.array.gametype, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
 
