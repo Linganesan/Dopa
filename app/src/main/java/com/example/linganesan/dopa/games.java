@@ -7,11 +7,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import com.example.linganesan.dopa.cardgame.Cardgame;
+import com.example.linganesan.dopa.gamecollection.Cardgame;
+import com.example.linganesan.dopa.gamecollection.MemorizeGame;
+
 
 public class games extends ActionBarActivity {
 
     Button cardgame;
+    Button memorizegame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +22,7 @@ public class games extends ActionBarActivity {
         setContentView(R.layout.activity_games);
 
         cardgame = (Button) findViewById(R.id.cardgame);
-
+        memorizegame=(Button) findViewById(R.id.memorizegame);
 
 
 
@@ -34,6 +37,17 @@ public class games extends ActionBarActivity {
                 startActivity(myIntent);
             }
         });
+
+        memorizegame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+
+                // Start NewActivity.class
+                Intent myIntent = new Intent(games.this,
+                        MemorizeGame.class);
+                startActivity(myIntent);
+            }
+        });
+
     }
 
     @Override

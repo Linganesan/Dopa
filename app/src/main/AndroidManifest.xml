@@ -9,7 +9,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,23 +18,27 @@
         </activity>
         <activity
             android:name=".mindpalace.Mindpalace"
-            android:label="@string/title_activity_mindpalace">
+            android:label="@string/title_activity_mindpalace" >
         </activity>
         <activity
             android:name=".Practice"
-            android:label="@string/title_activity_practice">
+            android:label="@string/title_activity_practice" >
         </activity>
         <activity
             android:name=".Score"
-            android:label="@string/title_activity_score">
+            android:label="@string/title_activity_score" >
         </activity>
         <activity
-            android:name=".cardgame.Cardgame"
-            android:label="@string/title_activity_cardgame">
+            android:name=".gamecollection.Cardgame"
+            android:label="@string/title_activity_cardgame" >
         </activity>
         <activity
             android:name=".games"
-            android:label="@string/title_activity_games">
+            android:label="@string/title_activity_games" >
+        </activity>
+        <activity
+            android:name=".gamecollection.MemorizeGame"
+            android:label="@string/title_activity_memorize_game" >
         </activity>
     </application>
 

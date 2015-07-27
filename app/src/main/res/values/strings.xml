@@ -28,5 +28,10 @@
 
     </string-array>
 
+    <string name="title_activity_cardgame2">cardgame2</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_memorize_game">MemorizeGame</string>
+
 
 </resources>

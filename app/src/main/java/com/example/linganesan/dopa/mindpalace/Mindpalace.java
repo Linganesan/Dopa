@@ -82,14 +82,14 @@ public class Mindpalace extends ActionBarActivity {
         /**
          * Reading and getting all records from database
          */
-        List<Loci> contacts = db.getAllContacts();
-        for (Loci cn : contacts) {
+        List<Loci> places = db.getAllContacts();
+        for (Loci cn : places) {
             String log = "ID:" + cn.getID() + " Name: " + cn.getName()
                     + " ,Image: " + cn.getImage();
 
             // Writing Contacts to log
             Log.d("Result: ", log);
-            // add contacts data in arrayList
+            // add places data in arrayList
             imageArry.add(cn);
 
         }
@@ -186,8 +186,6 @@ public class Mindpalace extends ActionBarActivity {
             list.add(item);
     }
 
-
-
     //get the selected dropdown list value
     public void addListenerOnButton() {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -200,6 +198,7 @@ public class Mindpalace extends ActionBarActivity {
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
