@@ -4,7 +4,54 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.linganesan.dopa.Mindpalace"
+    tools:context="com.example.linganesan.dopa.mindpalace.Mindpalace"
     android:background="@drawable/bg">
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mindpalaceselect"
+        android:layout_column="9" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/button7"
+        android:layout_column="9"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/name"
+        android:layout_alignRight="@+id/button7"
+        android:layout_alignEnd="@+id/button7"
+        android:layout_below="@+id/mindpalaceselect"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Loci"
+        android:id="@+id/addloci"
+        android:layout_below="@+id/name"
+        android:layout_alignLeft="@+id/button7"
+        android:layout_alignStart="@+id/button7" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/addloci"
+        android:layout_alignRight="@+id/mindpalaceselect"
+        android:layout_alignEnd="@+id/mindpalaceselect"
+        android:layout_above="@+id/button7" />
 
 </RelativeLayout>

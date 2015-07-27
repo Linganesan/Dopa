@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Mindpalace"
+            android:name=".mindpalace.Mindpalace"
             android:label="@string/title_activity_mindpalace" >
         </activity>
         <activity
@@ -29,12 +29,16 @@
             android:label="@string/title_activity_score" >
         </activity>
         <activity
-            android:name=".cardgame.Cardgame"
+            android:name=".gamecollection.Cardgame"
             android:label="@string/title_activity_cardgame" >
         </activity>
         <activity
             android:name=".games"
             android:label="@string/title_activity_games" >
+        </activity>
+        <activity
+            android:name=".gamecollection.MemorizeGame"
+            android:label="@string/title_activity_memorize_game" >
         </activity>
     </application>
 
