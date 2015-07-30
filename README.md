@@ -9,7 +9,7 @@ Project Objectives
 
 2.Introduce/remind and ingrain Method of loci strategy
 
-3. Interesting game like strategies that to enrich indirect/passive learning ('challenge a friend' feature)
+3.Interesting game like strategies that to enrich indirect/passive learning ('challenge a friend' feature)
 
 4.User specific profiling (progress)
 
