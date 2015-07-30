@@ -14,3 +14,20 @@ Project Objectives
 4.User specific profiling (progress)
 
 5.General purpose (exams, speech, presentation, phone numbers, lists, infact anything)
+
+
+Expected Deliverable
+*********************
+An Android APP (Dopa), which is 
+
+1.Well generalized and
+
+2.Highly considering the user experience
+
+which has
+
+1.Theory section (study hall) to get to know the techniques
+
+2.A training section (m-gym) to practice the techniques (customizable) 
+
+3.A competition section (the arena) to compete with himself/herself (and with perhaps with their friends)
