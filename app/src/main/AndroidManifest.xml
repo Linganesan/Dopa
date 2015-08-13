@@ -40,6 +40,14 @@
             android:name=".gamecollection.MemorizeGame"
             android:label="@string/title_activity_memorize_game" >
         </activity>
+        <activity
+            android:name=".mindpalace.Add_Loci"
+            android:label="@string/title_activity_add__loci" >
+        </activity>
+        <activity
+            android:name=".mindpalace.Add_Update_Loci"
+            android:label="@string/title_activity_add__update__loci" >
+        </activity>
     </application>
 
 </manifest>

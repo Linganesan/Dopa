@@ -46,7 +46,7 @@ public class DisplayImageActivity extends Activity {
 				 * Deleting records from database
 				 */
 				Log.d("Delete Image: ", "Deleting.....");
-				db.deleteContact(new Loci(imageId));
+				db.deleteLoci(new Loci(imageId));
 				// /after deleting data go to main page
 				Intent i = new Intent(DisplayImageActivity.this,
 						Mindpalace.class);

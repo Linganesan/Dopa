@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.view.View.OnClickListener;
 import android.view.View;
 
+import com.example.linganesan.dopa.mindpalace.Add_Loci;
+import com.example.linganesan.dopa.mindpalace.Add_Update_Loci;
 import com.example.linganesan.dopa.mindpalace.Mindpalace;
 
 public class MainActivity extends ActionBarActivity {
@@ -104,9 +106,8 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View arg0) {
 
                 // Start NewActivity.class
-                Intent myIntent = new Intent(MainActivity.this,
-                        Score.class);
-                startActivity(myIntent);
+                Intent myIntent = new Intent(MainActivity.this,Add_Loci.class);
+               startActivity(myIntent);
             }
         });
 

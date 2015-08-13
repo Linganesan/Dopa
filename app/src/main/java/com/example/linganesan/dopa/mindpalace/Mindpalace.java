@@ -37,7 +37,8 @@ public class Mindpalace extends ActionBarActivity {
     private Button btnSubmit;
     private Button addLoci;
     public List<String> list;
-    private ListView listview;
+    private ListView dataList;
+
 
     private TextView name;
 
@@ -46,7 +47,7 @@ public class Mindpalace extends ActionBarActivity {
     private static final int CAMERA_REQUEST = 1;
     private static final int PICK_FROM_GALLERY = 2;
 
-    ListView dataList;
+
 
     byte[] imageName;
     int imageId;
@@ -65,13 +66,11 @@ public class Mindpalace extends ActionBarActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 showToast("Spinner1: position=" + position + " id=" + id);
-
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
+              //  selectTable();
             }
 
         });
@@ -82,7 +81,7 @@ public class Mindpalace extends ActionBarActivity {
         /**
          * Reading and getting all records from database
          */
-        List<Loci> places = db.getAllContacts();
+        List<Loci> places = db.getAllLoci();
         for (Loci cn : places) {
             String log = "ID:" + cn.getID() + " Name: " + cn.getName()
                     + " ,Image: " + cn.getImage();
@@ -152,13 +151,16 @@ public class Mindpalace extends ActionBarActivity {
 
         addLoci.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                dialog.show();
+            dialog.show();
             }
         });
 
 
     }
 
+
+    public void selectTable(){
+    }
 
 
     public void Set_Add_Update_Screen() {
@@ -243,7 +245,7 @@ public class Mindpalace extends ActionBarActivity {
 
                     // Inserting Contacts
                     Log.d("Insert: ", "Inserting ..");
-                    db.addContact(new Loci("Android", imageInByte));
+                    db.addLoci(new Loci("Android", imageInByte));
                     Intent i = new Intent(Mindpalace.this,
                             Mindpalace.class);
                     startActivity(i);
@@ -263,7 +265,7 @@ public class Mindpalace extends ActionBarActivity {
 
                     // Inserting Contacts
                     Log.d("Insert: ", "Inserting ..");
-                    db.addContact(new Loci("Android", imageInByte));
+                    db.addLoci(new Loci("Android", imageInByte));
                     Intent i = new Intent(Mindpalace.this,
                             Mindpalace.class);
                     startActivity(i);
