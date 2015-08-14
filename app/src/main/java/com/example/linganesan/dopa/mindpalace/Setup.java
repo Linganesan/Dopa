@@ -20,6 +20,7 @@ package com.example.linganesan.dopa.mindpalace;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -55,11 +56,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Setup extends ListActivity {
+public class Setup extends Activity {
 
 	/** Items entered by the user is stored in this ArrayList variable */
 	ArrayList<String> list = new ArrayList<String>();
-
+	ListView l;
 
 
 	/** Declaring an ArrayAdapter to set items to ListView */
@@ -77,20 +78,27 @@ public class Setup extends ListActivity {
 
 		/** Reference to the button of the layout main.xml */
 		Button btn = (Button) findViewById(R.id.btnAdd);
-
+		l=(ListView) findViewById(R.id.list);
 
 
 		/** Defining the ArrayAdapter to set items to ListView */
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,list);
 
 		/** Defining a click event listener for the button "Add" */
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				EditText edit = (EditText) findViewById(R.id.txtItem);
-				list.add(edit.getText().toString());
-				edit.setText("");
-				adapter.notifyDataSetChanged();
+				String tmp= edit.getText().toString();
+				if(tmp==null || edit.getText().toString().length() <= 0){
+					edit.setError("Enter the Loci");
+				}else{
+					list.add(edit.getText().toString());
+					edit.setText("");
+					adapter.notifyDataSetChanged();
+					l.setAdapter(adapter);
+				}
+
 			}
 		};
 
@@ -98,6 +106,12 @@ public class Setup extends ListActivity {
 		btn.setOnClickListener(listener);
 
 		/** Setting the adapter to the ListView */
-		setListAdapter(adapter);
+
+		}
+
+
+
+
+
+
 	}
-}
