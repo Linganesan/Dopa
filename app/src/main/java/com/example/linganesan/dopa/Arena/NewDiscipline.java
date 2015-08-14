@@ -7,18 +7,18 @@ import android.view.MenuItem;
 
 import com.example.linganesan.dopa.R;
 
-public class Cards extends AppCompatActivity {
+public class NewDiscipline extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card__dis);
+        setContentView(R.layout.activity_new_discipline);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_card__dis, menu);
+        getMenuInflater().inflate(R.menu.menu_new_discipline, menu);
         return true;
     }
 

@@ -23,11 +23,11 @@ public class Arena extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_practice);
+        setContentView(R.layout.activity_arena);
 
 
         this.setListAdapter(new ArrayAdapter<String>(
-                this, R.layout.discipline_list,
+                this, R.layout.activity_discipline_list,
                 R.id.Itemname,discipline ));
 
         Set_Add_Update_Screen();
@@ -39,7 +39,12 @@ public class Arena extends ListActivity {
 
         if(position==0){
             Intent myIntent = new Intent(Arena.this,
-                    Cards.class);
+                    Configure.class);
+            startActivity(myIntent);
+
+        }else if(position==1){
+            Intent myIntent = new Intent(Arena.this,
+                    NewDiscipline.class);
             startActivity(myIntent);
 
         }

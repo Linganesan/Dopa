@@ -19,44 +19,18 @@
 package com.example.linganesan.dopa.mindpalace;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ListActivity;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
-import android.view.ContextMenu;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.SimpleCursorAdapter.ViewBinder;
-import android.widget.TextView;
 
-import com.example.linganesan.dopa.Db.Loci;
 import com.example.linganesan.dopa.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Setup extends Activity {
+public class SetupLoci extends Activity {
 
 	/** Items entered by the user is stored in this ArrayList variable */
 	ArrayList<String> list = new ArrayList<String>();
@@ -74,7 +48,7 @@ public class Setup extends Activity {
 		super.onCreate(savedInstanceState);
 
 		/** Setting a custom layout for the list activity */
-		setContentView(R.layout.setup);
+		setContentView(R.layout.activity_setup_loci);
 
 		/** Reference to the button of the layout main.xml */
 		Button btn = (Button) findViewById(R.id.btnAdd);

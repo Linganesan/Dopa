@@ -49,7 +49,7 @@
             android:label="update" >
         </activity>
         <activity
-            android:name=".mindpalace.Setup"
+            android:name=".mindpalace.SetupLoci"
             android:label="Add" >
         </activity>
         <activity
@@ -57,8 +57,12 @@
             android:label="@string/title_activity_help" >
         </activity>
         <activity
-            android:name=".Arena.Cards"
+            android:name=".Arena.Configure"
             android:label="Cards" >
+        </activity>
+        <activity
+            android:name=".Arena.NewDiscipline"
+            android:label="@string/title_activity_new_discipline" >
         </activity>
     </application>
 

@@ -17,26 +17,15 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mind Palace"
-        android:id="@+id/mindpalace"
-        android:textStyle="bold"
-        android:layout_gravity="center|top"
-        android:layout_above="@+id/arena"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_alignRight="@+id/arena"
-        android:layout_alignEnd="@+id/arena" />
-
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Arena"
         android:id="@+id/arena"
         android:textStyle="bold"
-        android:layout_above="@+id/score"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView" />
+        android:layout_marginTop="54dp"
+        android:layout_below="@+id/button2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -44,31 +33,22 @@
         android:text="Library"
         android:id="@+id/lib"
         android:textStyle="bold"
-        android:layout_below="@+id/games"
-        android:layout_alignRight="@+id/games"
-        android:layout_alignEnd="@+id/games"
-        android:layout_alignLeft="@+id/arena"
-        android:layout_alignStart="@+id/arena" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="More Games"
-        android:id="@+id/games"
-        android:textStyle="bold"
-        android:layout_below="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView" />
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/arena"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score"
-        android:id="@+id/score"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_alignRight="@+id/arena"
-        android:layout_alignEnd="@+id/arena"
-        android:textStyle="bold" />
+        android:text="Play"
+        android:id="@+id/button2"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

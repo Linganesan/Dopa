@@ -13,16 +13,12 @@ import android.view.View.OnClickListener;
 import android.view.View;
 
 import com.example.linganesan.dopa.Arena.Arena;
-import com.example.linganesan.dopa.mindpalace.Setup;
 
 public class MainActivity extends ActionBarActivity {
 
     public static final String PREFS_NAME = "MyPrefsFile";
 
-    Button mindpalace;
-    Button practice;
-    Button score;
-    Button games;
+    Button arena;
     Button lib;
 
     @Override
@@ -69,48 +65,20 @@ public class MainActivity extends ActionBarActivity {
             editor.commit();
         }
 
-        mindpalace.setOnClickListener(new OnClickListener() {
-            public void onClick(View arg0) {
+                arena.setOnClickListener(new OnClickListener() {
+                    public void onClick(View arg0) {
 
-                // Start NewActivity.class
-                Intent myIntent = new Intent(MainActivity.this, Setup.class);
-                startActivity(myIntent);
-            }
-        });
-
-        practice.setOnClickListener(new OnClickListener() {
-            public void onClick(View arg0) {
-
-                // Start NewActivity.class
-                Intent myIntent = new Intent(MainActivity.this,
-                        Arena.class);
-                startActivity(myIntent);
-            }
-        });
-
-        games.setOnClickListener(new OnClickListener() {
-            public void onClick(View arg0) {
-
-                // Start NewActivity.class
-                Intent myIntent = new Intent(MainActivity.this,
-                        games.class);
-                startActivity(myIntent);
-            }
-        });
+                        // Start NewActivity.class
+                        Intent myIntent = new Intent(MainActivity.this,
+                                Arena.class);
+                        startActivity(myIntent);
+                    }
+                });
 
 
-        score.setOnClickListener(new OnClickListener() {
-            public void onClick(View arg0) {
-
-                // Start NewActivity.class
-                Intent myIntent = new Intent(MainActivity.this,Score.class);
-               startActivity(myIntent);
-            }
-        });
 
         lib.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-
                 // Start NewActivity.class
                 Intent myIntent = new Intent(MainActivity.this, Help.class);
                 startActivity(myIntent);
@@ -121,10 +89,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void Set_Add_Update_Screen() {
 
-        mindpalace = (Button) findViewById(R.id.mindpalace);
-        practice = (Button) findViewById(R.id.arena);
-        score = (Button) findViewById(R.id.score);
-        games = (Button) findViewById(R.id.games);
+        arena = (Button) findViewById(R.id.arena);
         lib = (Button) findViewById(R.id.lib);
 
     }
