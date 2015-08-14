@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.example.linganesan.dopa.R;
 import com.example.linganesan.dopa.mindpalace.Mindpalace;
-
+/**
 public class DisplayImageActivity extends Activity {
 	Button btnDelete;
 	ImageView imageDetail;
@@ -25,9 +25,7 @@ public class DisplayImageActivity extends Activity {
 		setContentView(R.layout.display);
 		btnDelete = (Button) findViewById(R.id.btnDelete);
 		imageDetail = (ImageView) findViewById(R.id.imageView1);
-		/**
-		 * getting intent data from search and previous screen
-		 */
+
 		Intent intnt = getIntent();
 		theImage = (Bitmap) intnt.getParcelableExtra("imagename");
 		imageId = intnt.getIntExtra("imageid", 20);
@@ -37,14 +35,10 @@ public class DisplayImageActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				/**
-				 * create DatabaseHandler object
-				 */
+
 				DataBaseHandler db = new DataBaseHandler(
 						DisplayImageActivity.this);
-				/**
-				 * Deleting records from database
-				 */
+
 				Log.d("Delete Image: ", "Deleting.....");
 				db.deleteLoci(new Loci(imageId));
 				// /after deleting data go to main page
@@ -57,3 +51,5 @@ public class DisplayImageActivity extends Activity {
 
 	}
 }
+
+**/

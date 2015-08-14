@@ -7,16 +7,13 @@ import android.view.MenuItem;
 import android.content.SharedPreferences;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.content.Intent;
 import android.view.View.OnClickListener;
 import android.view.View;
 
-import com.example.linganesan.dopa.mindpalace.Add_Loci;
-import com.example.linganesan.dopa.mindpalace.Add_Update_Loci;
-import com.example.linganesan.dopa.mindpalace.Mindpalace;
+import com.example.linganesan.dopa.Arena.Arena;
+import com.example.linganesan.dopa.mindpalace.Setup;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -26,6 +23,7 @@ public class MainActivity extends ActionBarActivity {
     Button practice;
     Button score;
     Button games;
+    Button lib;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
                     this);
 
             // set title
-            alertDialogBuilder.setTitle("Hello! MemoryLord");
+            alertDialogBuilder.setTitle("Hi! MemoryLord");
 
             // set dialog message
             alertDialogBuilder
@@ -75,8 +73,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View arg0) {
 
                 // Start NewActivity.class
-                Intent myIntent = new Intent(MainActivity.this,
-                        Mindpalace.class);
+                Intent myIntent = new Intent(MainActivity.this, Setup.class);
                 startActivity(myIntent);
             }
         });
@@ -86,7 +83,7 @@ public class MainActivity extends ActionBarActivity {
 
                 // Start NewActivity.class
                 Intent myIntent = new Intent(MainActivity.this,
-                        Practice.class);
+                        Arena.class);
                 startActivity(myIntent);
             }
         });
@@ -106,8 +103,17 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View arg0) {
 
                 // Start NewActivity.class
-                Intent myIntent = new Intent(MainActivity.this,Add_Loci.class);
+                Intent myIntent = new Intent(MainActivity.this,Score.class);
                startActivity(myIntent);
+            }
+        });
+
+        lib.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+
+                // Start NewActivity.class
+                Intent myIntent = new Intent(MainActivity.this, Help.class);
+                startActivity(myIntent);
             }
         });
 
@@ -115,10 +121,11 @@ public class MainActivity extends ActionBarActivity {
 
     public void Set_Add_Update_Screen() {
 
-        mindpalace = (Button) findViewById(R.id.button);
-        practice = (Button) findViewById(R.id.button2);
-        score = (Button) findViewById(R.id.button3);
-        games = (Button) findViewById(R.id.button4);
+        mindpalace = (Button) findViewById(R.id.mindpalace);
+        practice = (Button) findViewById(R.id.arena);
+        score = (Button) findViewById(R.id.score);
+        games = (Button) findViewById(R.id.games);
+        lib = (Button) findViewById(R.id.lib);
 
     }
 

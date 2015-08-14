@@ -26,8 +26,8 @@ import com.example.linganesan.dopa.R;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-
-public class Add_Loci extends ActionBarActivity {
+/**
+public class Add extends ActionBarActivity {
     Button add_btn;
     ListView loci_listview;
     ArrayList<Loci> loci_data = new ArrayList<Loci>();
@@ -42,7 +42,7 @@ public class Add_Loci extends ActionBarActivity {
         try {
             loci_listview = (ListView) findViewById(R.id.list);
             loci_listview.setItemsCanFocus(false);
-            add_btn = (Button) findViewById(R.id.add_btn);
+            add_btn = (Button) findViewById(R.id.add_loci);
 
             Set_Referash_Data();
 
@@ -55,8 +55,8 @@ public class Add_Loci extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent add_user = new Intent(Add_Loci.this,
-                        Add_Update_Loci.class);
+                Intent add_user = new Intent(Add.this,
+                        Update.class);
                 add_user.putExtra("called", "add");
                 add_user.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -86,7 +86,7 @@ public class Add_Loci extends ActionBarActivity {
             loci_data.add(lc);
         }
         db.close();
-        cAdapter = new Loci_Adapter(Add_Loci.this, R.layout.listview_row,loci_data);
+        cAdapter = new Loci_Adapter(Add.this, R.layout.listview,loci_data);
         loci_listview.setAdapter(cAdapter);
         cAdapter.notifyDataSetChanged();
     }
@@ -156,11 +156,12 @@ public class Add_Loci extends ActionBarActivity {
                     // TODO Auto-generated method stub
                     Log.i("Edit Button Clicked", "**********");
 
-                    Intent update_user = new Intent(activity,
-                            Add_Update_Loci.class);
-                    update_user.putExtra("called", "update");
-                    update_user.putExtra("USER_ID", v.getTag().toString());
-                    activity.startActivity(update_user);
+                    Intent update_loci = new Intent(activity,
+                            Update.class);
+                    update_loci.putExtra("called", "update");
+
+                    update_loci.putExtra("USER_ID",v.getTag().toString());
+                    activity.startActivity(update_loci);
 
                 }
             });
@@ -185,8 +186,8 @@ public class Add_Loci extends ActionBarActivity {
                                     // MyDataObject.remove(positionToRemove);
                                     DataBaseHandler dBHandler = new DataBaseHandler(
                                             activity.getApplicationContext());
-                                 //   dBHandler.deleteLoci(user_id);
-                                    Add_Loci.this.onResume();
+                                  dBHandler.deleteLoci(new Loci(user_id));
+                                    Add.this.onResume();
 
                                 }
                             });
@@ -208,3 +209,4 @@ public class Add_Loci extends ActionBarActivity {
     }
 
 }
+**/

@@ -1,6 +1,5 @@
 package com.example.linganesan.dopa.mindpalace;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,13 +21,12 @@ import android.widget.Toast;
 import com.example.linganesan.dopa.Db.DataBaseHandler;
 import com.example.linganesan.dopa.Db.Loci;
 import com.example.linganesan.dopa.R;
-import com.example.linganesan.dopa.mindpalace.Mindpalace;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-
-public class Add_Update_Loci extends ActionBarActivity {
+/**
+public class Update extends ActionBarActivity {
     EditText add_name;
     byte[] image;
     ImageView  img;
@@ -43,7 +41,7 @@ public class Add_Update_Loci extends ActionBarActivity {
     private static final int PICK_FROM_GALLERY = 2;
 
 
-    String 	valid_name = "mani",
+    String 	valid_name = null,
             Toast_msg = null,
             valid_user_id = "";
     int USER_ID;
@@ -72,15 +70,27 @@ public class Add_Update_Loci extends ActionBarActivity {
 
             Loci loci = dbHandler.getLoci(USER_ID);
 
+
+
             add_name.setText(loci.getName());
-            image.clone();
+
             Intent intnt = getIntent();
-            image = (byte[])loci.getImage();
-            imageId = intnt.getIntExtra("imageid", 20);
-            Log.d("Image ID:****", String.valueOf(imageId));
+            byte[] image = (byte[])loci.getImage();
+            image.clone();
+            if(image!=null){
+                int a= loci.getID();
+
+                Toast_msg = "successfully";
+                Show_Toast(Toast_msg);
+
+            }
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(image);
+            Bitmap theImage = BitmapFactory.decodeStream(imageStream);
             img.setImageBitmap(theImage);
 
-            // dbHandler.close();
+            Toast_msg = "success";
+            Show_Toast(Toast_msg);
+             dbHandler.close();
         }
 
 
@@ -137,12 +147,7 @@ public class Add_Update_Loci extends ActionBarActivity {
             @Override
 
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                // check the value state is null or not
-                if (valid_name != null) {
-                    dialog.show();
-
-                }
+                dialog.show();
 
             }
         });
@@ -152,7 +157,6 @@ public class Add_Update_Loci extends ActionBarActivity {
             @Override
 
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 // check the value state is null or not
                 if (valid_name != null) {
 
@@ -162,6 +166,7 @@ public class Add_Update_Loci extends ActionBarActivity {
                     Toast_msg = "Data inserted successfully";
                     Show_Toast(Toast_msg);
                     Reset_Text();
+                    Reset_Image();
 
                 }
 
@@ -172,19 +177,18 @@ public class Add_Update_Loci extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-              //  valid_name = add_name.getText().toString();
+              valid_name = add_name.getText().toString();
 
 
                 // check the value state is null or not
                 if (valid_name != null ) {
 
-                    dbHandler.updateContact(new Loci(USER_ID,valid_name,image));
+                    dbHandler.updateContact(new Loci(valid_name,image));
                     dbHandler.close();
                     Toast_msg = "Data Update successfully";
                     Show_Toast(Toast_msg);
                     Reset_Text();
+                    Reset_Image();
                 } else {
                     Toast_msg = "Sorry Some Fields are missing.\nPlease Fill up all.";
                     Show_Toast(Toast_msg);
@@ -197,8 +201,8 @@ public class Add_Update_Loci extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent view_user = new Intent(Add_Update_Loci.this,
-                        Add_Loci.class);
+                Intent view_user = new Intent(Update.this,
+                        Add.class);
                 view_user.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(view_user);
@@ -211,8 +215,8 @@ public class Add_Update_Loci extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent view_user = new Intent(Add_Update_Loci.this,
-                        Add_Loci.class);
+                Intent view_user = new Intent(Update.this,
+                        Add.class);
                 view_user.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(view_user);
@@ -221,6 +225,8 @@ public class Add_Update_Loci extends ActionBarActivity {
         });
 
     }
+
+
 
     public void Set_Add_Update_Screen() {
 
@@ -242,26 +248,6 @@ public class Add_Update_Loci extends ActionBarActivity {
 
     }
 
-    public void Is_Valid_Sign_Number_Validation(int MinLen, int MaxLen,
-                                                EditText edt) throws NumberFormatException {
-        if (edt.getText().toString().length() <= 0) {
-            edt.setError("Number Only");
-
-        } else if (edt.getText().toString().length() < MinLen) {
-            edt.setError("Minimum length " + MinLen);
-
-
-        } else if (edt.getText().toString().length() > MaxLen) {
-            edt.setError("Maximum length " + MaxLen);
-
-
-        } else {
-
-
-        }
-
-    } // END OF Edittext validation
-
     public void Is_Valid_Person_Name(EditText edt) throws NumberFormatException {
         if (edt.getText().toString().length() <= 0) {
             //edt.setError("Accept Alphabets Only.");
@@ -280,11 +266,11 @@ public class Add_Update_Loci extends ActionBarActivity {
     public void Reset_Text() {
 
         add_name.getText().clear();
-
-
     }
 
-
+    private void Reset_Image() {
+        img.setImageBitmap(null);
+    }
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -307,12 +293,6 @@ public class Add_Update_Loci extends ActionBarActivity {
                     Log.d("Insert: ", "Inserting ..");
                     setImage(imageInByte);
 
-                   // dbHandler.addLoci(new Loci("Android", imageInByte));
-                    Intent i = new Intent(Add_Update_Loci.this,
-                            Add_Update_Loci.class);
-                    startActivity(i);
-                    finish();
-
                 }
                 break;
             case PICK_FROM_GALLERY:
@@ -329,11 +309,6 @@ public class Add_Update_Loci extends ActionBarActivity {
                     Log.d("Insert: ", "Inserting ..");
                     setImage(imageInByte);
 
-                   // dbHandler.addLoci(new Loci("Android", imageInByte));
-                    Intent i = new Intent(Add_Update_Loci.this,
-                            Add_Update_Loci.class);
-                    startActivity(i);
-                    finish();
                 }
 
                 break;
@@ -349,9 +324,7 @@ public class Add_Update_Loci extends ActionBarActivity {
 
     }
 
-    /**
-     * open camera method
-     */
+   
     public void callCamera() {
         Intent cameraIntent = new Intent(
                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -364,9 +337,7 @@ public class Add_Update_Loci extends ActionBarActivity {
 
     }
 
-    /**
-     * open gallery method
-     */
+
 
     public void callGallery() {
         Intent intent = new Intent();
@@ -385,3 +356,4 @@ public class Add_Update_Loci extends ActionBarActivity {
     }
 
 }
+**/

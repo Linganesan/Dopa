@@ -13,25 +13,15 @@
         android:id="@+id/mindpalaceselect"
         android:layout_column="9" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:id="@+id/button7"
-        android:layout_column="9"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/name"
-        android:layout_alignRight="@+id/button7"
-        android:layout_alignEnd="@+id/button7"
         android:layout_below="@+id/mindpalaceselect"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -40,8 +30,7 @@
         android:text="Add Loci"
         android:id="@+id/addloci"
         android:layout_below="@+id/name"
-        android:layout_alignLeft="@+id/button7"
-        android:layout_alignStart="@+id/button7" />
+        android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -51,7 +40,6 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/addloci"
         android:layout_alignRight="@+id/mindpalaceselect"
-        android:layout_alignEnd="@+id/mindpalaceselect"
-        android:layout_above="@+id/button7" />
+        android:layout_alignEnd="@+id/mindpalaceselect" />
 
 </RelativeLayout>

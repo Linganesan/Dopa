@@ -21,12 +21,12 @@
             android:label="@string/title_activity_mindpalace" >
         </activity>
         <activity
-            android:name=".Practice"
-            android:label="@string/title_activity_practice" >
+            android:name=".Arena.Arena"
+            android:label="Arena" >
         </activity>
         <activity
             android:name=".Score"
-            android:label="@string/title_activity_score" >
+            android:label="User Profiling" >
         </activity>
         <activity
             android:name=".gamecollection.Cardgame"
@@ -41,12 +41,24 @@
             android:label="@string/title_activity_memorize_game" >
         </activity>
         <activity
-            android:name=".mindpalace.Add_Loci"
-            android:label="@string/title_activity_add__loci" >
+            android:name=".mindpalace.Add"
+            android:label="Mind Palace" >
         </activity>
         <activity
-            android:name=".mindpalace.Add_Update_Loci"
-            android:label="@string/title_activity_add__update__loci" >
+            android:name=".mindpalace.Update"
+            android:label="update" >
+        </activity>
+        <activity
+            android:name=".mindpalace.Setup"
+            android:label="Add" >
+        </activity>
+        <activity
+            android:name=".Help"
+            android:label="@string/title_activity_help" >
+        </activity>
+        <activity
+            android:name=".Arena.Cards"
+            android:label="Cards" >
         </activity>
     </application>
 

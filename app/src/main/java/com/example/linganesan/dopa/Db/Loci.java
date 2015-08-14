@@ -24,10 +24,12 @@ public class Loci {
         this._image = image;
 
     }
-    public Loci(int keyId) {
-        this._id = keyId;
+    public Loci(int id,String name) {
+        this._name = name;
+        this._id = id;
 
     }
+
 
     // getting ID
     public int getID() {
@@ -49,14 +51,19 @@ public class Loci {
         this._name = name;
     }
 
-    // getting phone number
+    // getting image
     public byte[] getImage() {
         return this._image;
     }
 
-    // setting phone number
+    // settingimage
     public void setImage(byte[] image) {
         this._image = image;
+    }
+
+    @Override
+    public String toString() {
+        return this._id + ". " + this._name;
     }
 
 }

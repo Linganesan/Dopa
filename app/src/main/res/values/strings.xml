@@ -34,6 +34,8 @@
     <string name="title_activity_memorize_game">MemorizeGame</string>
     <string name="title_activity_add__loci">Add_Loci</string>
     <string name="title_activity_add__update__loci">Add_Update_Loci</string>
+    <string name="title_activity_help">Help</string>
+    <string name="title_activity_card__dis">Card_Dis</string>
 
 
 </resources>

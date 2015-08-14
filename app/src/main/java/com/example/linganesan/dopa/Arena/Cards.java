@@ -1,23 +1,24 @@
-package com.example.linganesan.dopa;
+package com.example.linganesan.dopa.Arena;
 
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.linganesan.dopa.R;
 
-public class Practice extends ActionBarActivity {
+public class Cards extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_practice);
+        setContentView(R.layout.activity_card__dis);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_practice, menu);
+        getMenuInflater().inflate(R.menu.menu_card__dis, menu);
         return true;
     }
 
