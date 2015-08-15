@@ -13,32 +13,33 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/imageButton"
+            android:id="@+id/btnrecall1"
             android:layout_weight="0.24" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/imageButton2"
+            android:id="@+id/btnrecall2"
             android:layout_weight="0.25" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/imageButton3"
+            android:id="@+id/btnrecall3"
             android:layout_weight="0.24" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/imageButton4"
+            android:id="@+id/btnrecall4"
             android:layout_weight="0.24" />
     </LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_weight="0.22"></TableLayout>
+        android:layout_weight="0.22"
+        android:id="@+id/recalltable"></TableLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -50,7 +51,7 @@
         <android.support.v4.view.ViewPager
             android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:id="@+id/view"
+            android:id="@+id/recallslideview"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.57" />
 
