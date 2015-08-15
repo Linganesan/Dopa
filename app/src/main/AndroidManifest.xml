@@ -6,9 +6,10 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name = "com.kuviam.dopa.db.GreenDaoApplication">>
         <activity
-            android:name=".MainActivity"
+            android:name="com.kuviam.dopa.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,65 +18,50 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".mindpalace.Mindpalace"
+            android:name="com.kuviam.dopa.mindpalace.Mindpalace"
             android:label="@string/title_activity_mindpalace" >
         </activity>
         <activity
-            android:name=".Arena.Arena"
+            android:name="com.kuviam.dopa.Arena.Arena"
             android:label="Arena" >
         </activity>
         <activity
-            android:name=".Score"
-            android:label="User Profiling" >
-        </activity>
-        <activity
-            android:name=".gamecollection.Cardgame"
+            android:name="com.kuviam.dopa.gamecollection.Cardgame"
             android:label="@string/title_activity_cardgame" >
         </activity>
         <activity
-            android:name=".games"
+            android:name="com.kuviam.dopa.games"
             android:label="@string/title_activity_games" >
         </activity>
         <activity
-            android:name=".gamecollection.MemorizeGame"
-            android:label="@string/title_activity_memorize_game" >
-        </activity>
-        <activity
-            android:name=".mindpalace.Add"
-            android:label="Mind Palace" >
-        </activity>
-        <activity
-            android:name=".mindpalace.Update"
-            android:label="update" >
-        </activity>
-        <activity
-            android:name=".mindpalace.NewLoci"
+            android:name="com.kuviam.dopa.mindpalace.NewLoci"
             android:label="Add" >
         </activity>
         <activity
-            android:name=".Help"
+            android:name="com.kuviam.dopa.Help"
             android:label="@string/title_activity_help" >
         </activity>
         <activity
-            android:name=".Arena.Configure"
+            android:name="com.kuviam.dopa.Arena.Configure"
             android:label="Cards" >
         </activity>
         <activity
-            android:name=".Arena.NewDiscipline"
+            android:name="com.kuviam.dopa.Arena.NewDiscipline"
             android:label="@string/title_activity_new_discipline" >
         </activity>
         <activity
-            android:name=".Arena.Mgym"
+            android:name="com.kuviam.dopa.Arena.Mgym"
             android:label="@string/title_activity_mgym" >
         </activity>
         <activity
-            android:name=".Arena.Score"
+            android:name="com.kuviam.dopa.Arena.Score"
             android:label="@string/title_activity_score" >
         </activity>
         <activity
-            android:name=".Arena.Recall"
+            android:name="com.kuviam.dopa.Arena.Recall"
             android:label="@string/title_activity_recall" >
         </activity>
+
     </application>
 
 </manifest>
