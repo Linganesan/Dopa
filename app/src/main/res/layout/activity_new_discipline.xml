@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/edtname"
+            android:id="@+id/txtdisname"
             android:hint="Enter Discipline Name "
             android:layout_weight="0.55" />
     </LinearLayout>
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText2"
+            android:id="@+id/txtdis"
             android:hint="Enter your Text "
             android:layout_weight="1.03" />
 
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD"
-            android:id="@+id/button3" />
+            android:id="@+id/btndisadd" />
     </LinearLayout>
 
     <LinearLayout
@@ -70,7 +70,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="257dp"
-            android:id="@+id/listView3"
+            android:id="@+id/listdis"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="22dp"
         android:text="Keep the Order"
-        android:id="@+id/checkBox"
+        android:id="@+id/cb_dis"
         android:layout_gravity="center_horizontal"
         android:checked="true" />
 
@@ -87,7 +87,7 @@
         android:layout_width="114dp"
         android:layout_height="wrap_content"
         android:text="DONE"
-        android:id="@+id/button4"
+        android:id="@+id/btndisdone"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

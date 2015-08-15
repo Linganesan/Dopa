@@ -7,48 +7,42 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 
 import com.example.linganesan.dopa.R;
 
-public class Configure extends AppCompatActivity {
-    Button start;
-    EditText time,items;
-    ListView locilist;
+public class Mgym extends AppCompatActivity {
+    Button done;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_configure);
+        setContentView(R.layout.activity_mgym);
 
         Set_Add_Update_Screen();
 
-        start.setOnClickListener(new View.OnClickListener() {
+        done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
                 // Start NewActivity.class
-                Intent myIntent = new Intent(Configure.this, Mgym.class);
+                Intent myIntent = new Intent(Mgym.this, Recall.class);
                 startActivity(myIntent);
             }
         });
 
 
+    }
+
+    private void Set_Add_Update_Screen(){
+
+        done= (Button) findViewById(R.id.btnmgymdone);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_card__dis, menu);
+        getMenuInflater().inflate(R.menu.menu_mgym, menu);
         return true;
-    }
-
-    private void Set_Add_Update_Screen(){
-        time = (EditText) findViewById(R.id.txttime);
-        items=(EditText)findViewById(R.id.txtitem);
-        start= (Button) findViewById(R.id.btnstart);
-        locilist=(ListView)findViewById(R.id.listloci);
     }
 
     @Override

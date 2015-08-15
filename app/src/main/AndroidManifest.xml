@@ -49,7 +49,7 @@
             android:label="update" >
         </activity>
         <activity
-            android:name=".mindpalace.SetupLoci"
+            android:name=".mindpalace.NewLoci"
             android:label="Add" >
         </activity>
         <activity
@@ -63,6 +63,18 @@
         <activity
             android:name=".Arena.NewDiscipline"
             android:label="@string/title_activity_new_discipline" >
+        </activity>
+        <activity
+            android:name=".Arena.Mgym"
+            android:label="@string/title_activity_mgym" >
+        </activity>
+        <activity
+            android:name=".Arena.Score"
+            android:label="@string/title_activity_score" >
+        </activity>
+        <activity
+            android:name=".Arena.Recall"
+            android:label="@string/title_activity_recall" >
         </activity>
     </application>
 

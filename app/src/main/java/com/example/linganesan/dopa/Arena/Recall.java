@@ -12,44 +12,39 @@ import android.widget.ListView;
 
 import com.example.linganesan.dopa.R;
 
-public class Configure extends AppCompatActivity {
-    Button start;
-    EditText time,items;
-    ListView locilist;
+public class Recall extends AppCompatActivity{
+    Button check;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_configure);
-
+        setContentView(R.layout.activity_recall);
         Set_Add_Update_Screen();
 
-        start.setOnClickListener(new View.OnClickListener() {
+        check.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
                 // Start NewActivity.class
-                Intent myIntent = new Intent(Configure.this, Mgym.class);
+                Intent myIntent = new Intent(Recall.this, Score.class);
                 startActivity(myIntent);
             }
         });
+    }
 
+    private void Set_Add_Update_Screen(){
 
+        check= (Button) findViewById(R.id.btnrecallchk);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_card__dis, menu);
+        getMenuInflater().inflate(R.menu.menu_recall, menu);
         return true;
     }
 
-    private void Set_Add_Update_Screen(){
-        time = (EditText) findViewById(R.id.txttime);
-        items=(EditText)findViewById(R.id.txtitem);
-        start= (Button) findViewById(R.id.btnstart);
-        locilist=(ListView)findViewById(R.id.listloci);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

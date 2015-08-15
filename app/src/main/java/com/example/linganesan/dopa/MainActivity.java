@@ -65,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
             editor.commit();
         }
 
-                arena.setOnClickListener(new OnClickListener() {
+        arena.setOnClickListener(new OnClickListener() {
                     public void onClick(View arg0) {
 
                         // Start NewActivity.class

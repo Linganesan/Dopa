@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Build your loci"
+        android:id="@+id/textView8"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_weight="0.37" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Title"
+            android:id="@+id/textView9"
+            android:layout_weight="0.56"
+            android:gravity="center_vertical|center_horizontal" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/txtlociname" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <EditText
+            android:id="@+id/txtlcitem"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Enter your loci "
+            />
+
+        <Button
+            android:id="@+id/btnlcadd"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Loci"
+            android:layout_toRightOf="@id/btnlcadd"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="275dp"
+        android:weightSum="1">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="371dp"
+            android:layout_height="51dp"
+            android:layout_weight="0.94" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DONE"
+        android:id="@+id/btnlcdone"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

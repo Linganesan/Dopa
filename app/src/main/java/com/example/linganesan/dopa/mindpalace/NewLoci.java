@@ -30,7 +30,7 @@ import com.example.linganesan.dopa.R;
 
 import java.util.ArrayList;
 
-public class SetupLoci extends Activity {
+public class NewLoci extends Activity {
 
 	/** Items entered by the user is stored in this ArrayList variable */
 	ArrayList<String> list = new ArrayList<String>();
@@ -48,10 +48,10 @@ public class SetupLoci extends Activity {
 		super.onCreate(savedInstanceState);
 
 		/** Setting a custom layout for the list activity */
-		setContentView(R.layout.activity_setup_loci);
+		setContentView(R.layout.activity_new_loci);
 
 		/** Reference to the button of the layout main.xml */
-		Button btn = (Button) findViewById(R.id.btnAdd);
+		Button btn = (Button) findViewById(R.id.btnlcadd);
 		l=(ListView) findViewById(R.id.list);
 
 
@@ -62,7 +62,7 @@ public class SetupLoci extends Activity {
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				EditText edit = (EditText) findViewById(R.id.txtItem);
+				EditText edit = (EditText) findViewById(R.id.txtlcitem);
 				String tmp= edit.getText().toString();
 				if(tmp==null || edit.getText().toString().length() <= 0){
 					edit.setError("Enter the Loci");
