@@ -12,14 +12,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.example.linganesan.dopa.R;
 import com.kuviam.dopa.Arena.Arena;
+import com.kuviam.dopa.mindpalace.Mindpalace;
 
 public class MainActivity extends ActionBarActivity {
 
     public static final String PREFS_NAME = "MyPrefsFile";
 
-    Button arena;
+    Button arena,mindpalace;
     Button lib;
 
     @Override
@@ -85,12 +85,21 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        mindpalace.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+                // Start NewActivity.class
+                Intent myIntent = new Intent(MainActivity.this, Mindpalace.class);
+                startActivity(myIntent);
+            }
+        });
+
     }
 
     public void Set_Add_Update_Screen() {
 
-        arena = (Button) findViewById(R.id.arena);
+        arena = (Button) findViewById(R.id.btnarena);
         lib = (Button) findViewById(R.id.lib);
+        mindpalace = (Button) findViewById(R.id.btnmind);
 
     }
 

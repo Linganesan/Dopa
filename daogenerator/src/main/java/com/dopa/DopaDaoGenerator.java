@@ -58,28 +58,28 @@ public class DopaDaoGenerator {
         locus_text_list.addIdProperty().autoincrement();
         Property locusId1 = locus_text_list.addLongProperty("locusId").notNull().getProperty();
         locus_text_list.addToOne(locus, locusId1);
-        locus_text_list.addStringProperty("item").unique().notNull();
+        locus_text_list.addStringProperty("item").notNull();
 
         //Locus image type table
         Entity locus_image_list = schema.addEntity("Locus_image_list");
         locus_image_list.addIdProperty().autoincrement();
         Property locusId2 = locus_image_list.addLongProperty("locusId").notNull().getProperty();
         locus_image_list.addToOne(locus, locusId2);
-        locus_image_list.addByteArrayProperty("item").unique().notNull();
+        locus_image_list.addByteArrayProperty("item").notNull();
 
         //Locus sound type table
         Entity locus_sound_list = schema.addEntity("Locus_sound_list");
         locus_sound_list.addIdProperty().autoincrement();
         Property locusId3 = locus_sound_list.addLongProperty("locusId").notNull().getProperty();
         locus_sound_list.addToOne(locus, locusId3);
-        locus_sound_list.addByteArrayProperty("item").unique().notNull();
+        locus_sound_list.addByteArrayProperty("item").notNull();
 
         //Locus sound type table
         Entity locus_number_list = schema.addEntity("Locus_number_list");
         locus_number_list.addIdProperty().autoincrement();
         Property locusId4 = locus_number_list.addLongProperty("locusId").notNull().getProperty();
         locus_number_list.addToOne(locus, locusId4);
-        locus_number_list.addLongProperty("item").unique().notNull();
+        locus_number_list.addLongProperty("item").notNull();
 
         //Discipline table
         Entity discipline = schema.addEntity("Discipline");
@@ -96,30 +96,30 @@ public class DopaDaoGenerator {
         //Discipline Text type table
         Entity discipline_text_list = schema.addEntity("Discipline_text_list");
         discipline_text_list.addIdProperty().autoincrement();
-        Property disciplineId1 = discipline_text_list.addLongProperty("locusId").notNull().getProperty();
+        Property disciplineId1 = discipline_text_list.addLongProperty("disciplineId").notNull().getProperty();
         discipline_text_list.addToOne(discipline, disciplineId1);
-        discipline_text_list.addStringProperty("item").unique().notNull();
+        discipline_text_list.addStringProperty("item").notNull();
 
         //Discipline image type table
         Entity discipline_image_list = schema.addEntity("Discipline_image_list");
         discipline_image_list.addIdProperty().autoincrement();
-        Property disciplineId2 = discipline_image_list.addLongProperty("locusId").notNull().getProperty();
+        Property disciplineId2 = discipline_image_list.addLongProperty("disciplineId").notNull().getProperty();
         discipline_image_list.addToOne(discipline, disciplineId2);
-        discipline_image_list.addByteArrayProperty("item").unique().notNull();
+        discipline_image_list.addByteArrayProperty("item").notNull();
 
         //Discipline sound type table
         Entity discipline_sound_list = schema.addEntity("Discipline_sound_list");
         discipline_sound_list.addIdProperty().autoincrement();
-        Property disciplineId3 = discipline_sound_list.addLongProperty("locusId").notNull().getProperty();
+        Property disciplineId3 = discipline_sound_list.addLongProperty("disciplineId").notNull().getProperty();
         discipline_sound_list.addToOne(discipline, disciplineId3);
-        discipline_sound_list.addByteArrayProperty("item").unique().notNull();
+        discipline_sound_list.addByteArrayProperty("item").notNull();
 
         //Discipline sound type table
         Entity discipline_number_list = schema.addEntity("Discipline_number_list");
         discipline_number_list.addIdProperty().autoincrement();
-        Property disciplineId4 = discipline_number_list.addLongProperty("locusId").notNull().getProperty();
+        Property disciplineId4 = discipline_number_list.addLongProperty("disciplineId").notNull().getProperty();
         discipline_number_list.addToOne(discipline, disciplineId4);
-        discipline_number_list.addLongProperty("item").unique().notNull();
+        discipline_number_list.addLongProperty("item").notNull();
 
         //Generate all tables
 

@@ -19,7 +19,7 @@ public class GreenDaoApplication extends Application {
 
     private void setupDatabase () {
         DaoMaster.DevOpenHelper helper =
-                new DaoMaster.DevOpenHelper (this, "MyGreenDao.db", null);
+                new DaoMaster.DevOpenHelper (this, "new.db", null);
         SQLiteDatabase db = helper.getWritableDatabase ();
         DaoMaster daoMaster = new DaoMaster (db);
         mDaoSession = daoMaster.newSession ();

@@ -12,29 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Select your discipline"
-            android:id="@+id/textView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/android:list"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textAlignment="center"
-            android:textIsSelectable="false"
-            android:textStyle="bold"
-            android:textColor="@color/button_material_dark"
-            android:gravity="center_vertical|center_horizontal" />
+        <Button
+            android:layout_width="346dp"
+            android:layout_height="wrap_content"
+            android:text="New Custom Discipline"
+            android:id="@+id/btndisnew" />
 
         <ListView
-            android:id="@+id/android:list"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arenalist" />
+
     </LinearLayout>
 
 </RelativeLayout>

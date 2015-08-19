@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.kuviam.dopa.MainActivity;
-import com.example.linganesan.dopa.R;
+import com.kuviam.dopa.R;
 
 public class Score extends AppCompatActivity {
     Button done;

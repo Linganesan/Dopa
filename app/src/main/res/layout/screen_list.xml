@@ -5,20 +5,34 @@
     android:orientation="horizontal"
     android:padding="10dp" >
 
-    <ImageView
-        android:id="@+id/imgIcon"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_weight="0.71"
-        android:gravity="center_vertical" />
-    
+    <ImageButton
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnlcselect"
+        android:src="@drawable/card7" />
+
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_height="61dp"
         android:gravity="center_vertical"
         android:textSize="14dp"
-        android:textColor="#ffffff"
-        android:layout_marginLeft="7dp" />
-      
+        android:textColor="#0e0007"
+        android:layout_marginLeft="7dp"
+        android:layout_weight="1.11"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="73dp"
+        android:id="@+id/btnlcedit"
+        android:src="@drawable/edit" />
+
+    <ImageButton
+        android:layout_width="61dp"
+        android:layout_height="73dp"
+        android:id="@+id/btnlcclose"
+        android:src="@drawable/cancel"
+        android:layout_weight="0.16" />
+
 </LinearLayout>

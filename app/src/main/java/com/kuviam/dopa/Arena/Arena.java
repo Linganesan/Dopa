@@ -1,16 +1,24 @@
 package com.kuviam.dopa.Arena;
 
-import android.app.ListActivity;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.linganesan.dopa.R;
+import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
 import com.kuviam.dopa.model.Discipline;
@@ -20,74 +28,79 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Arena extends ListActivity {
-    GreenDaoApplication mApplication ;
-    DaoSession mDaoSession ;
-    DisciplineDao mDisciplineDao ;
-    ArrayList< String >  list= new ArrayList<String>();
-
-
-
-    String[] discipline = {
-            "Cards",
-            "Custom",
-    };
+public class Arena extends Activity {
+    GreenDaoApplication mApplication;
+    DaoSession mDaoSession;
+    DisciplineDao mDisciplineDao;
+    ArrayList<String> list = new ArrayList<String>();
+    ListView lView;
+    DisciplineListAdapter userAdapter;
+    Button newdis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arena);
-
-        mApplication = (GreenDaoApplication)getApplication();
-        mDaoSession =  mApplication.getDaoSession();
-
-        InitSampleData ();
-
-        this.setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_discipline_list,
-                R.id.Itemname, list));
-
+        // = (ListView)findViewById(android.R.id.list);
+        mApplication = (GreenDaoApplication) getApplication();
+        mDaoSession = mApplication.getDaoSession();
         Set_Add_Update_Screen();
+        InitSampleData();
+        //defaultSetup();
+
+        /**
+         * set item into adapter
+         */
+        userAdapter = new DisciplineListAdapter(Arena.this, R.layout.activity_discipline_list,
+                list);
+        lView = (ListView) findViewById(R.id.arenalist);
+        lView.setItemsCanFocus(false);
+        lView.setAdapter(userAdapter);
+        /**
+         * get on item click listener
+         */
+        lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    final int position, long id) {
+                Log.i("List View Clicked", "**********");
+                Toast.makeText(Arena.this,
+                        "List View Clicked:" + position, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
+
+        newdis.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(Arena.this,
+                        NewDiscipline.class);
+                startActivity(myIntent);
+
+            }
+        });
+
+
     }
 
-    void  InitSampleData ()  {
-        mDisciplineDao  =  mDaoSession.getDisciplineDao();
-
-
-
-        list  =  new ArrayList<String>();
-
-        List< Discipline > disciplines  =  mDisciplineDao.loadAll();
-        for  ( Discipline discipline  :  disciplines )  {
-            list.add( "Name :"  +  discipline.getName ()  +  "\n No of items :"  +  discipline.getNo_of_items());
+    void InitSampleData() {
+        mDisciplineDao = mDaoSession.getDisciplineDao();
+        // list  =  new ArrayList<String>();
+        List<Discipline> disciplines = mDisciplineDao.loadAll();
+        for (Discipline discipline : disciplines) {
+            list.add("Name :" + discipline.getName() + "\n No of items :" + discipline.getNo_of_items());
         }
     }
-    void defaultSetup(){
+
+    void defaultSetup() {
         mDisciplineDao.deleteAll();
-        Discipline cards = new Discipline(2L,"Cards",52,"Admin",true,1000F,1000F,10F,10F);
-        Discipline custom=new Discipline();
-        custom.setId(1L);
-        custom.setName("Custom");
+        // Discipline cards = new Discipline(2L,"Cards",52,"Admin",true,1000F,1000F,10F,10F);
+        //Discipline custom=new Discipline();
+        //custom.setId(1L);
+        //custom.setName("Custom");
 
-        mDisciplineDao.insert(custom);
-        mDisciplineDao.insert(cards);
-
-
-    }
-    public void onListItemClick(ListView parent, View v,
-                                int position, long id) {
-        showToast("You have selected: " + list.get(position));
-
-        if (position == 1) {
-            Intent myIntent = new Intent(Arena.this,
-                    Configure.class);
-            startActivity(myIntent);
-
-        } else if (position == 0) {
-            Intent myIntent = new Intent(Arena.this,
-                    NewDiscipline.class);
-            startActivity(myIntent);
-
-        }
+        //mDisciplineDao.insert(custom);
+        //    mDisciplineDao.insert(cards);
 
 
     }
@@ -100,8 +113,9 @@ public class Arena extends ListActivity {
     }
 
     public void Set_Add_Update_Screen() {
-
-
+        newdis = (Button) findViewById(R.id.btndisnew);
+        //  this.setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_discipline_list,
+        //        R.id.Itemname, list));
     }
 
     void showToast(CharSequence msg) {
@@ -123,5 +137,85 @@ public class Arena extends ListActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    class DisciplineListAdapter extends ArrayAdapter<String> {
+        Context context;
+        int layoutResourceId;
+        ArrayList<String> data = new ArrayList<String>();
+
+        public DisciplineListAdapter(Context context, int layoutResourceId,
+                                     ArrayList<String> data) {
+            super(context, layoutResourceId, data);
+            this.layoutResourceId = layoutResourceId;
+            this.context = context;
+            this.data = data;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View row = convertView;
+            UserHolder holder = null;
+
+            if (row == null) {
+                LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+                row = inflater.inflate(layoutResourceId, parent, false);
+                holder = new UserHolder();
+                holder.textName = (TextView) row.findViewById(R.id.Itemname);
+                holder.btnEdit = (ImageButton) row.findViewById(R.id.btndisedit);
+                holder.btnDelete = (ImageButton) row.findViewById(R.id.btndisdelete);
+                holder.btnPlay = (ImageButton) row.findViewById(R.id.btndisplay);
+                row.setTag(holder);
+            } else {
+                holder = (UserHolder) row.getTag();
+            }
+            String tname = data.get(position);
+            holder.textName.setText(tname);
+            holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    Log.i("Edit Button Clicked", "**********");
+                    Toast.makeText(context, "Edit button Clicked",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+            holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    Log.i("Delete Button Clicked", "**********");
+                    Toast.makeText(context, "Delete button Clicked",
+                            Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+            holder.btnPlay.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    Log.i("Run Button Clicked", "**********");
+                    Toast.makeText(context, "Run button Clicked",
+                            Toast.LENGTH_LONG).show();
+                    Intent myIntent = new Intent(Arena.this,
+                            Configure.class);
+                    startActivity(myIntent);
+                }
+
+            });
+            return row;
+
+        }
+
+        class UserHolder {
+            TextView textName;
+            ImageButton btnEdit;
+            ImageButton btnDelete;
+            ImageButton btnPlay;
+        }
+    }
 
 }

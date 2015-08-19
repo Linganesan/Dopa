@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.linganesan.dopa.R;
+import com.kuviam.dopa.R;
 
 public class Configure extends AppCompatActivity {
     Button start;

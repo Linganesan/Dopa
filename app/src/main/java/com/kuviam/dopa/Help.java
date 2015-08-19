@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.linganesan.dopa.R;
+import com.kuviam.dopa.R;
 
 public class Help extends AppCompatActivity {
 
