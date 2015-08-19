@@ -52,7 +52,7 @@
             android:id="@+id/btnlcadd"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Add Loci"
+            android:text="Add "
             android:layout_toRightOf="@id/btnlcadd"
             />
 

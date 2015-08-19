@@ -70,7 +70,7 @@ public class Mindpalace extends Activity {
         newlc.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent myIntent = new Intent(Mindpalace.this,
-                        NewLoci.class);
+                        NewLocus.class);
                 startActivity(myIntent);
 
             }
@@ -102,7 +102,7 @@ public class Mindpalace extends Activity {
 
         if (position == 0) {
             Intent myIntent = new Intent(Mindpalace.this,
-                    NewLoci.class);
+                    NewLocus.class);
             startActivity(myIntent);
         }
     }

@@ -39,7 +39,7 @@ import com.kuviam.dopa.model.Locus_text_listDao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewLoci extends Activity {
+public class NewLocus extends Activity {
 
     /**
      * Items entered by the user is stored in this ArrayList variable
@@ -74,7 +74,7 @@ public class NewLoci extends Activity {
         super.onCreate(savedInstanceState);
 
         /** Setting a custom layout for the list activity */
-        setContentView(R.layout.activity_new_loci);
+        setContentView(R.layout.activity_new_locus);
         Set_Add_Update_Screen();
         mApplication = (GreenDaoApplication) getApplication();
         mDaoSession = mApplication.getDaoSession();
@@ -126,7 +126,7 @@ public class NewLoci extends Activity {
                         temp.setItem(list.get(i));
                         mLocus_text_listDao.insert(temp);
                     }
-                    Intent myIntent = new Intent(NewLoci.this, Mindpalace.class);
+                    Intent myIntent = new Intent(NewLocus.this, Mindpalace.class);
                     startActivity(myIntent);
 
                 } else {
