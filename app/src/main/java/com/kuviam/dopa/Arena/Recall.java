@@ -32,7 +32,7 @@ public class Recall extends AppCompatActivity{
 
     private void Set_Add_Update_Screen(){
 
-        check= (Button) findViewById(R.id.btnrecallchk);
+        check= (Button) findViewById(R.id.btnrcdone);
 
     }
 

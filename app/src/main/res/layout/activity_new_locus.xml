@@ -11,7 +11,7 @@
         android:text="Build your loci"
         android:id="@+id/textView8"
         android:gravity="center_vertical|center_horizontal"
-        android:layout_weight="0.37" />
+        android:layout_weight="0.09" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -32,13 +32,15 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/txtlociname" />
+            android:id="@+id/txtlociname"
+            android:layout_weight="0.16" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
+        android:layout_height="55dp"
+        android:weightSum="1">
 
         <EditText
             android:id="@+id/txtlcitem"
@@ -46,11 +48,11 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:hint="Enter your loci "
-            />
+            android:layout_weight="0.95" />
 
         <Button
             android:id="@+id/btnlcadd"
-            android:layout_width="fill_parent"
+            android:layout_width="132dp"
             android:layout_height="wrap_content"
             android:text="Add "
             android:layout_toRightOf="@id/btnlcadd"
@@ -66,7 +68,7 @@
 
         <ListView
             android:id="@+id/list"
-            android:layout_width="371dp"
+            android:layout_width="match_parent"
             android:layout_height="51dp"
             android:layout_weight="0.94" />
     </LinearLayout>

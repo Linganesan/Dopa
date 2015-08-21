@@ -1,31 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <Chronometer
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/mgmtime"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="264dp">
+        android:layout_height="111dp"
+        android:weightSum="1"
+        android:layout_weight="0.31">
 
-        <android.support.v4.view.ViewPager
-            android:layout_width="151dp"
-            android:layout_height="175dp"
-            android:id="@+id/mgymslide"
-            android:layout_below="@+id/mgmtime"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_above="@+id/btnmgymdone"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center_horizontal" />
+        <ImageButton
+            android:layout_width="83dp"
+            android:layout_height="69dp"
+            android:id="@+id/btnmgymhint"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/hint" />
+
+        <Chronometer
+            android:layout_width="match_parent"
+            android:layout_height="119dp"
+            android:id="@+id/mgmtime"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical|center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:layout_weight="0.36">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:weightSum="1">
+
+            <ImageButton
+                android:layout_width="66dp"
+                android:layout_height="82dp"
+                android:id="@+id/btnmgymback"
+                android:layout_weight="0.09"
+                android:src="@drawable/back" />
+
+            <TextSwitcher
+                android:layout_width="132dp"
+                android:layout_height="74dp"
+                android:id="@+id/mgymtextSwitcher"
+                android:layout_weight="0.89" />
+
+            <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:id="@+id/btnmgymnext"
+                android:src="@drawable/next" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <Button

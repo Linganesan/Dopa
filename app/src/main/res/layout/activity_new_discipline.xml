@@ -5,7 +5,7 @@
     android:weightSum="1">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Build your new Discipline"
         android:id="@+id/textView6"
@@ -35,7 +35,7 @@
             android:ems="10"
             android:id="@+id/txtdisname"
             android:hint="Enter Discipline Name "
-            android:layout_weight="0.55" />
+            android:layout_weight="1.70" />
     </LinearLayout>
 
     <LinearLayout
@@ -45,7 +45,7 @@
         android:weightSum="1">
 
         <EditText
-            android:layout_width="132dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"

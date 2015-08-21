@@ -152,6 +152,7 @@ public class Mindpalace extends Activity {
             View row = convertView;
             UserHolder holder = null;
 
+
             if (row == null) {
                 LayoutInflater inflater = ((Activity) context).getLayoutInflater();
                 row = inflater.inflate(layoutResourceId, parent, false);
@@ -160,11 +161,13 @@ public class Mindpalace extends Activity {
                 holder.btnEdit = (ImageButton) row.findViewById(R.id.btnlcedit);
                 holder.btnDelete = (ImageButton) row.findViewById(R.id.btnlcclose);
                 holder.btnPlay = (ImageButton) row.findViewById(R.id.btnlcselect);
+                holder.btnPlay.setEnabled(false);
                 row.setTag(holder);
             } else {
                 holder = (UserHolder) row.getTag();
             }
             String tname = data.get(position);
+            final int id =position;
             holder.textName.setText(tname);
             holder.btnEdit.setOnClickListener(new View.OnClickListener() {
 
@@ -172,8 +175,7 @@ public class Mindpalace extends Activity {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     Log.i("Edit Button Clicked", "**********");
-                    Toast.makeText(context, "Edit button Clicked",
-                            Toast.LENGTH_LONG).show();
+                    showToast(Integer.toString(id) + ": Edit button Clicked");
                 }
             });
             holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -182,8 +184,7 @@ public class Mindpalace extends Activity {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     Log.i("Delete Button Clicked", "**********");
-                    Toast.makeText(context, "Delete button Clicked",
-                            Toast.LENGTH_LONG).show();
+                    showToast(Integer.toString(id) + ": Delete button Clicked");
 
                 }
             });
@@ -194,8 +195,7 @@ public class Mindpalace extends Activity {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     Log.i("Run Button Clicked", "**********");
-                    Toast.makeText(context, "Run button Clicked",
-                            Toast.LENGTH_LONG).show();
+                    showToast(Integer.toString(id) + ": Select button Clicked");
 
                 }
 

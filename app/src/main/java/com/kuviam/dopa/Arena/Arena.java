@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kuviam.dopa.MainActivity;
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
@@ -41,7 +42,6 @@ public class Arena extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arena);
-        // = (ListView)findViewById(android.R.id.list);
         mApplication = (GreenDaoApplication) getApplication();
         mDaoSession = mApplication.getDaoSession();
         Set_Add_Update_Screen();
@@ -90,6 +90,7 @@ public class Arena extends Activity {
         for (Discipline discipline : disciplines) {
             list.add("Name :" + discipline.getName() + "\n No of items :" + discipline.getNo_of_items());
         }
+
     }
 
     void defaultSetup() {
@@ -109,6 +110,7 @@ public class Arena extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_practice, menu);
+
         return true;
     }
 
@@ -129,12 +131,19 @@ public class Arena extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case android.R.id.home:
+                Intent homeIntent = new Intent(this, MainActivity.class);
+                homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
         }
+        return (super.onOptionsItemSelected(item));
+        //noinspection SimplifiableIfStatement
+        //  if (id == R.id.action_settings) {
+        //     return true;
+        // }
 
-        return super.onOptionsItemSelected(item);
+        // return super.onOptionsItemSelected(item);
     }
 
 
@@ -152,7 +161,7 @@ public class Arena extends Activity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             View row = convertView;
             UserHolder holder = null;
 
@@ -176,8 +185,7 @@ public class Arena extends Activity {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     Log.i("Edit Button Clicked", "**********");
-                    Toast.makeText(context, "Edit button Clicked",
-                            Toast.LENGTH_LONG).show();
+                    showToast(Integer.toString(position) + ": Edit button Clicked");
                 }
             });
             holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -186,8 +194,7 @@ public class Arena extends Activity {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     Log.i("Delete Button Clicked", "**********");
-                    Toast.makeText(context, "Delete button Clicked",
-                            Toast.LENGTH_LONG).show();
+                    showToast(Integer.toString(position) + ": Delete button Clicked");
 
                 }
             });
@@ -196,13 +203,18 @@ public class Arena extends Activity {
 
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
+
+
                     Log.i("Run Button Clicked", "**********");
-                    Toast.makeText(context, "Run button Clicked",
-                            Toast.LENGTH_LONG).show();
+
+                    showToast(Integer.toString(position) + ": Test button Clicked");
+
                     Intent myIntent = new Intent(Arena.this,
                             Configure.class);
+                    myIntent.putExtra("intVariableName", position);
                     startActivity(myIntent);
+
+
                 }
 
             });

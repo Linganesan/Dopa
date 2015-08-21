@@ -5,69 +5,79 @@
     android:weightSum="1">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="78dp"
-        android:weightSum="1">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/btnrecall1"
-            android:layout_weight="0.24" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/btnrecall2"
-            android:layout_weight="0.25" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/btnrecall3"
-            android:layout_weight="0.24" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/btnrecall4"
-            android:layout_weight="0.24" />
-    </LinearLayout>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_weight="0.22"
-        android:id="@+id/recalltable"></TableLayout>
-
-    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="94dp"
-        android:layout_weight="0.63"
-        android:weightSum="1">
+        android:layout_height="111dp"
+        android:weightSum="1"
+        android:layout_weight="0.31">
 
-        <android.support.v4.view.ViewPager
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:id="@+id/recallslideview"
+        <ImageButton
+            android:layout_width="83dp"
+            android:layout_height="69dp"
+            android:id="@+id/btnrchint"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.57" />
+            android:src="@drawable/hint" />
 
+        <Chronometer
+            android:layout_width="match_parent"
+            android:layout_height="119dp"
+            android:id="@+id/rctime"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical|center_horizontal" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="131dp">
+        android:layout_height="82dp"
+        android:layout_weight="0.36"
+        android:weightSum="1">
 
-        <Button
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:id="@+id/editText2" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="376dp"
+            android:layout_height="wrap_content"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Check"
-            android:id="@+id/btnrecallchk"
-            android:layout_gravity="center_horizontal" />
+            android:weightSum="1"
+            android:layout_weight="0.27">
+
+            <ImageButton
+                android:layout_width="67dp"
+                android:layout_height="82dp"
+                android:id="@+id/btnrcback"
+                android:src="@drawable/back" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.97" />
+
+            <ImageButton
+                android:layout_width="65dp"
+                android:layout_height="85dp"
+                android:id="@+id/btnrcnext"
+                android:src="@drawable/next" />
+        </LinearLayout>
+
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/btnrcdone"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

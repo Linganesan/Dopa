@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:weightSum="1">
 
     <ImageButton
         android:layout_width="56dp"
@@ -19,20 +20,20 @@
         android:textSize="14dp"
         android:textColor="#0e0007"
         android:layout_marginLeft="7dp"
-        android:layout_weight="1.11"
+        android:layout_weight="0.82"
         android:textStyle="bold" />
 
     <ImageButton
         android:layout_width="wrap_content"
-        android:layout_height="73dp"
+        android:layout_height="67dp"
         android:id="@+id/btnlcedit"
         android:src="@drawable/edit" />
 
     <ImageButton
-        android:layout_width="61dp"
-        android:layout_height="73dp"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
         android:id="@+id/btnlcclose"
         android:src="@drawable/cancel"
-        android:layout_weight="0.16" />
+        android:layout_weight="0.06" />
 
 </LinearLayout>
