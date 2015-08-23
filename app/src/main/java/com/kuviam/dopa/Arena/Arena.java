@@ -24,6 +24,8 @@ import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
 import com.kuviam.dopa.model.Discipline;
 import com.kuviam.dopa.model.DisciplineDao;
+import com.kuviam.dopa.model.Discipline_text_list;
+import com.kuviam.dopa.model.Discipline_text_listDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +35,13 @@ public class Arena extends Activity {
     GreenDaoApplication mApplication;
     DaoSession mDaoSession;
     DisciplineDao mDisciplineDao;
+    Discipline_text_listDao mDiscipline_text_listDao;
     ArrayList<String> list = new ArrayList<String>();
     ListView lView;
     DisciplineListAdapter userAdapter;
     Button newdis;
+
+    List<Discipline> disciplines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +90,9 @@ public class Arena extends Activity {
 
     void InitSampleData() {
         mDisciplineDao = mDaoSession.getDisciplineDao();
+        mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
         // list  =  new ArrayList<String>();
-        List<Discipline> disciplines = mDisciplineDao.loadAll();
+        disciplines = mDisciplineDao.loadAll();
         for (Discipline discipline : disciplines) {
             list.add("Name :" + discipline.getName() + "\n No of items :" + discipline.getNo_of_items());
         }
@@ -94,16 +100,10 @@ public class Arena extends Activity {
     }
 
     void defaultSetup() {
+        mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
         mDisciplineDao.deleteAll();
-        // Discipline cards = new Discipline(2L,"Cards",52,"Admin",true,1000F,1000F,10F,10F);
-        //Discipline custom=new Discipline();
-        //custom.setId(1L);
-        //custom.setName("Custom");
-
-        //mDisciplineDao.insert(custom);
-        //    mDisciplineDao.insert(cards);
-
-
+        mDiscipline_text_listDao.deleteAll();
+        mDaoSession.clear();
     }
 
     @Override
@@ -116,8 +116,7 @@ public class Arena extends Activity {
 
     public void Set_Add_Update_Screen() {
         newdis = (Button) findViewById(R.id.btndisnew);
-        //  this.setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_discipline_list,
-        //        R.id.Itemname, list));
+
     }
 
     void showToast(CharSequence msg) {
@@ -179,6 +178,7 @@ public class Arena extends Activity {
             }
             String tname = data.get(position);
             holder.textName.setText(tname);
+           // holder.btnDelete.setEnabled(false);
             holder.btnEdit.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -195,29 +195,50 @@ public class Arena extends Activity {
                     // TODO Auto-generated method stub
                     Log.i("Delete Button Clicked", "**********");
                     showToast(Integer.toString(position) + ": Delete button Clicked");
+                    long disID = (long) (int) position;
+
+
+                  //  mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
+                  //  mDisciplineDao = mDaoSession.getDisciplineDao();
+
+                    Discipline deldis = disciplines.get(position);
+                    showToast(String.valueOf(deldis.getId()));
+
+
+                    List<Discipline_text_list> items = deldis.getDiscipline_text_listList();
+                    mDiscipline_text_listDao.deleteInTx(items);
+
+                    mDisciplineDao.delete(deldis);
+                    //disciplines.remove(position);
+                    List<Discipline> newdisciplines = mDisciplineDao.loadAll();
+                    //mDisciplineDao.deleteAll();
+
+                    mDaoSession.clear();
+                    finish();
+                    startActivity(getIntent());
 
                 }
             });
+
 
             holder.btnPlay.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
+                                                  @Override
+                                                  public void onClick(View v) {
+
+                                                      Log.i("Run Button Clicked", "**********");
+                                                      showToast(Integer.toString(position) + ": Test button Clicked");
+                                                      Intent myIntent = new Intent(Arena.this,
+                                                              Configure.class);
+                                                      myIntent.putExtra("intVariableName", position);
+                                                      startActivity(myIntent);
 
 
-                    Log.i("Run Button Clicked", "**********");
+                                                  }
 
-                    showToast(Integer.toString(position) + ": Test button Clicked");
+                                              }
 
-                    Intent myIntent = new Intent(Arena.this,
-                            Configure.class);
-                    myIntent.putExtra("intVariableName", position);
-                    startActivity(myIntent);
-
-
-                }
-
-            });
+            );
             return row;
 
         }

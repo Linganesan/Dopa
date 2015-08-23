@@ -12,6 +12,7 @@
     <string name="title_activity_score">Score</string>
     <string name="title_activity_cardgame">Card Game</string>
     <string name="title_activity_games">Other Games</string>
+    <string name="MindpalaceButton">Mindpalace</string>
 
     <string-array name="gametype">
         <item>New Game</item>

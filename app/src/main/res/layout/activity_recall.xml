@@ -37,7 +37,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="61dp"
-            android:id="@+id/editText2" />
+            android:id="@+id/rcedittext" />
 
         <LinearLayout
             android:orientation="vertical"

@@ -4,6 +4,7 @@ import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Property;
 import de.greenrobot.daogenerator.Schema;
+import de.greenrobot.daogenerator.ToMany;
 
 public class DopaDaoGenerator {
 
@@ -19,33 +20,6 @@ public class DopaDaoGenerator {
     public static void main(String args[]) throws Exception {
         Schema schema = new Schema(1, "com.kuviam.dopa.model");
 
-
-        //Run table
-        Entity run = schema.addEntity("Run");
-        run.addIdProperty().autoincrement();
-        run.addStringProperty("discipline").notNull();
-        run.addStringProperty("locus");
-        run.addIntProperty("no_of_items");
-        run.addFloatProperty("practice_time");
-        run.addFloatProperty("recall_time");
-        run.addFloatProperty("assigned_practice_time");
-        run.addFloatProperty("assigned_recall_time");
-        run.addStringProperty("status");
-        run.addFloatProperty("per_practice_time");
-        run.addFloatProperty("per_recall_time");
-        run.addDateProperty("start_timestamp");
-
-        //Run_Item_list table
-        Entity runitemlist = schema.addEntity("Run_discipline_item_list");
-        runitemlist.addIdProperty().autoincrement();
-        runitemlist.addIntProperty("discipline_item").notNull();
-        runitemlist.addIntProperty("recall_attempt");
-        runitemlist.addIntProperty("practice_attempt");
-        Property runId = runitemlist.addLongProperty("runId").notNull().getProperty();
-        runitemlist.addToOne(run, runId);
-        runitemlist.addBooleanProperty("Status");
-        runitemlist.addFloatProperty("practice_time");
-        runitemlist.addFloatProperty("recall_time");
         //Locus table
         Entity locus = schema.addEntity("Locus");
         locus.addIdProperty().autoincrement();
@@ -57,7 +31,8 @@ public class DopaDaoGenerator {
         Entity locus_text_list = schema.addEntity("Locus_text_list");
         locus_text_list.addIdProperty().autoincrement();
         Property locusId1 = locus_text_list.addLongProperty("locusId").notNull().getProperty();
-        locus_text_list.addToOne(locus, locusId1);
+        //locus_text_list.addToOne(locus, locusId1);
+        ToMany locusToTextItems = locus.addToMany(locus_text_list,locusId1);
         locus_text_list.addStringProperty("item").notNull();
 
         //Locus image type table
@@ -97,7 +72,8 @@ public class DopaDaoGenerator {
         Entity discipline_text_list = schema.addEntity("Discipline_text_list");
         discipline_text_list.addIdProperty().autoincrement();
         Property disciplineId1 = discipline_text_list.addLongProperty("disciplineId").notNull().getProperty();
-        discipline_text_list.addToOne(discipline, disciplineId1);
+        //discipline_text_list.addToOne(discipline, disciplineId1);
+        ToMany disciplineToTextItems = discipline.addToMany(discipline_text_list,disciplineId1);
         discipline_text_list.addStringProperty("item").notNull();
 
         //Discipline image type table
@@ -120,6 +96,36 @@ public class DopaDaoGenerator {
         Property disciplineId4 = discipline_number_list.addLongProperty("disciplineId").notNull().getProperty();
         discipline_number_list.addToOne(discipline, disciplineId4);
         discipline_number_list.addLongProperty("item").notNull();
+
+        //Run table
+        Entity run = schema.addEntity("Run");
+        run.addIdProperty().autoincrement();
+        run.addStringProperty("discipline").notNull();
+        run.addStringProperty("locus");
+        run.addIntProperty("no_of_items");
+        run.addFloatProperty("practice_time");
+        run.addFloatProperty("recall_time");
+        run.addFloatProperty("assigned_practice_time");
+        run.addFloatProperty("assigned_recall_time");
+        run.addStringProperty("status");
+        run.addFloatProperty("per_practice_time");
+        run.addFloatProperty("per_recall_time");
+        run.addDateProperty("start_timestamp");
+
+        //Run_Item_list table
+        Entity runitemlist = schema.addEntity("Run_discipline_item_list");
+        runitemlist.addIdProperty().autoincrement();
+        runitemlist.addIntProperty("discipline_item").notNull();
+        runitemlist.addIntProperty("recall_attempt");
+        runitemlist.addIntProperty("practice_attempt");
+        Property runId = runitemlist.addLongProperty("runId").notNull().getProperty();
+       // runitemlist.addToOne(run, runId);
+        ToMany runToItems = run.addToMany(runitemlist, runId);
+
+        runitemlist.addBooleanProperty("Status");
+        runitemlist.addFloatProperty("practice_time");
+        runitemlist.addFloatProperty("recall_time");
+
 
         //Generate all tables
 

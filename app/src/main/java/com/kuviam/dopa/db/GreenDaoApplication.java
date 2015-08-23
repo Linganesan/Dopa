@@ -12,20 +12,20 @@ public class GreenDaoApplication extends Application {
     DaoSession mDaoSession;
 
 
-    public void onCreate () {
-        super.onCreate ();
-        setupDatabase ();
+    public void onCreate() {
+        super.onCreate();
+        setupDatabase();
     }
 
-    private void setupDatabase () {
+    private void setupDatabase() {
         DaoMaster.DevOpenHelper helper =
-                new DaoMaster.DevOpenHelper (this, "new.db", null);
-        SQLiteDatabase db = helper.getWritableDatabase ();
-        DaoMaster daoMaster = new DaoMaster (db);
-        mDaoSession = daoMaster.newSession ();
+                new DaoMaster.DevOpenHelper(this, "kanna.db", null);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(db);
+        mDaoSession = daoMaster.newSession();
     }
 
-    public DaoSession getDaoSession () {
+    public DaoSession getDaoSession() {
         return mDaoSession;
     }
 }

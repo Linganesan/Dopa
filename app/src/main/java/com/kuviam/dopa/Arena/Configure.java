@@ -3,8 +3,8 @@ package com.kuviam.dopa.Arena;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,42 +21,55 @@ import android.widget.Toast;
 
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
+import com.kuviam.dopa.mindpalace.NewLocus;
 import com.kuviam.dopa.model.DaoSession;
 import com.kuviam.dopa.model.Discipline;
 import com.kuviam.dopa.model.DisciplineDao;
 import com.kuviam.dopa.model.Locus;
 import com.kuviam.dopa.model.LocusDao;
+import com.kuviam.dopa.model.Run;
+import com.kuviam.dopa.model.RunDao;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Configure extends AppCompatActivity {
-    Button start;
-    EditText time,items;
-    ListView locilist;
-    TextView disname;
-    Long intValue;
+    private Button start, newlocus;
+    private EditText ptime, rtime, items;
+    private ListView locilist;
+    private TextView disname;
+    private int intValue;
+    private Run run;
+    private Float pti, rti;
+    private TextView slocus;
 
-    GreenDaoApplication mApplication;
-    DaoSession mDaoSession;
-    LocusDao mLocusDao;
-    DisciplineDao mDisciplineDao;
-    Discipline discipline;
-    ArrayList<String> list = new ArrayList<String>();
-   LocusListAdapter userAdapter;
+    private List<Locus> loci;
+
+    private GreenDaoApplication mApplication;
+    private DaoSession mDaoSession;
+    private LocusDao mLocusDao;
+    private Locus locus;
+    private DisciplineDao mDisciplineDao;
+    private Discipline discipline;
+    private RunDao mRunDao;
+
+    private ArrayList<String> list = new ArrayList<String>();
+    private LocusListAdapter userAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configure);
         Intent mIntent = getIntent();
-        intValue = Long.valueOf(mIntent.getIntExtra("intVariableName", 0))+1;
+        intValue = mIntent.getIntExtra("intVariableName", 0);
         Set_Add_Update_Screen();
         mApplication = (GreenDaoApplication) getApplication();
         mDaoSession = mApplication.getDaoSession();
 
-        mDisciplineDao=mDaoSession.getDisciplineDao();
-        discipline=mDisciplineDao.load(intValue);
+        mDisciplineDao = mDaoSession.getDisciplineDao();
+
+        List<Discipline> disciplines = mDisciplineDao.loadAll();
+        discipline=disciplines.get(intValue);
 
         disname.setText(discipline.getName());
 
@@ -71,14 +84,24 @@ public class Configure extends AppCompatActivity {
 
         start.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                int intValue =8;
+
                 // Start NewActivity.class
-                Intent myIntent = new Intent(Configure.this, Mgym.class);
-                myIntent.putExtra("intVariableName", intValue);
-                startActivity(myIntent);
+                if(addDb()) {
+                    Long runid = run.getId();
+
+                    Intent myIntent = new Intent(Configure.this, Mgym.class);
+                    myIntent.putExtra("longVariableName", runid);
+                    startActivity(myIntent);
+                }
             }
         });
 
+        newlocus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(Configure.this, NewLocus.class);
+                startActivity(myIntent);
+            }
+        });
 
 
     }
@@ -90,11 +113,34 @@ public class Configure extends AppCompatActivity {
     void InitSampleData() {
         mLocusDao = mDaoSession.getLocusDao();
         // list  =  new ArrayList<String>();
-        List<Locus> loci = mLocusDao.loadAll();
+        loci = mLocusDao.loadAll();
         for (Locus locus : loci) {
             list.add("Name :" + locus.getName() + "\n ID:" + locus.getId());
         }
     }
+
+    public boolean addDb() {
+        if (ptime.getText().toString() != null && rtime.getText().toString() != null
+                && locus != null && discipline != null) {
+            pti = Float.valueOf(ptime.getText().toString());
+            rti = Float.valueOf(rtime.getText().toString());
+            mRunDao = mDaoSession.getRunDao();
+            run = new Run();
+            run.setAssigned_practice_time(pti);
+            run.setAssigned_recall_time(rti);
+            run.setDiscipline(discipline.getName());
+            run.setLocus(locus.getName());
+            mRunDao.insert(run);
+            return true;
+
+        } else {
+
+            showToast("Error");
+            return false;
+
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -103,12 +149,17 @@ public class Configure extends AppCompatActivity {
         return true;
     }
 
-    private void Set_Add_Update_Screen(){
-        time = (EditText) findViewById(R.id.txttime);
-        items=(EditText)findViewById(R.id.txtitem);
-        start= (Button) findViewById(R.id.btnstart);
-        locilist=(ListView)findViewById(R.id.listloci);
-        disname=(TextView)findViewById(R.id.disname);
+    private void Set_Add_Update_Screen() {
+        ptime = (EditText) findViewById(R.id.txtmgymtime);
+        rtime = (EditText) findViewById(R.id.txtrecalltime);
+        newlocus = (Button) findViewById(R.id.btnmgmnewlocus);
+        // items=(EditText)findViewById(R.id.nonetxt);
+        start = (Button) findViewById(R.id.btnstart);
+        locilist = (ListView) findViewById(R.id.listloci);
+        disname = (TextView) findViewById(R.id.disname);
+        slocus = (TextView) findViewById(R.id.selectedloucs);
+
+        newlocus.setEnabled(false);
 
     }
 
@@ -142,7 +193,7 @@ public class Configure extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             View row = convertView;
             UserHolder holder = null;
 
@@ -154,6 +205,9 @@ public class Configure extends AppCompatActivity {
                 holder.btnEdit = (ImageButton) row.findViewById(R.id.btnlcedit);
                 holder.btnDelete = (ImageButton) row.findViewById(R.id.btnlcclose);
                 holder.btnPlay = (ImageButton) row.findViewById(R.id.btnlcselect);
+                holder.btnDelete.setEnabled(false);
+
+                holder.btnEdit.setEnabled(false);
 
                 row.setTag(holder);
             } else {
@@ -191,6 +245,12 @@ public class Configure extends AppCompatActivity {
                     Log.i("Run Button Clicked", "**********");
                     Toast.makeText(context, "Run button Clicked",
                             Toast.LENGTH_LONG).show();
+                    mLocusDao = mDaoSession.getLocusDao();
+
+                    locus = loci.get(position);
+
+                    showToast(locus.getName().toString());
+                    slocus.setText(locus.getName().toString());
 
                 }
 

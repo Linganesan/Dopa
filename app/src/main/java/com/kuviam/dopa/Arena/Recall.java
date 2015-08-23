@@ -7,11 +7,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextSwitcher;
 
 import com.kuviam.dopa.R;
 
 public class Recall extends AppCompatActivity{
     Button check;
+    ImageButton next,pre,hint;
+    Chronometer timer;
+    EditText entertext;
 
 
     @Override
@@ -33,6 +40,12 @@ public class Recall extends AppCompatActivity{
     private void Set_Add_Update_Screen(){
 
         check= (Button) findViewById(R.id.btnrcdone);
+        next=(ImageButton) findViewById(R.id.btnrcnext);
+        pre=(ImageButton) findViewById(R.id.btnrcback);
+        hint=(ImageButton) findViewById(R.id.btnrchint);
+        timer=(Chronometer) findViewById(R.id.rctime);
+        entertext=(EditText)findViewById(R.id.rcedittext);
+
 
     }
 

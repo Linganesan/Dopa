@@ -107,13 +107,18 @@ public class NewDiscipline extends Activity {
                     custom.setIs_Ordered(chkbx.isChecked());
                     int size = list.size();
                     custom.setNo_of_items(size);
+
                     mDisciplineDao.insertOrReplace(custom);
+                    disciplineID=custom.getId();
+
                     mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
                     for (int i = 0; i < list.size(); i++) {
                         Discipline_text_list temp = new Discipline_text_list();
-                        temp.setDisciplineId(custom.getId());
+                        temp.setDisciplineId(disciplineID);
                         temp.setItem(list.get(i));
                         mDiscipline_text_listDao.insert(temp);
+                        showToast(temp.getId().toString());
+
                     }
                     Intent myIntent = new Intent(NewDiscipline.this, Arena.class);
                     startActivity(myIntent);
@@ -214,14 +219,6 @@ public class NewDiscipline extends Activity {
     void defaultSetup() {
         mDisciplineDao.deleteAll();
         mDiscipline_text_listDao.deleteAll();
-        // Discipline cards = new Discipline(2L,"Cards",52,"Admin",true,1000F,1000F,10F,10F);
-        //Discipline custom=new Discipline();
-        //custom.setId(1L);
-        //custom.setName("Custom");
-
-        //mDisciplineDao.insert(custom);
-        //    mDisciplineDao.insert(cards);
-
 
     }
 

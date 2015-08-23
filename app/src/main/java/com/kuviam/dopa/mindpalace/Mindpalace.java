@@ -21,8 +21,12 @@ import android.widget.Toast;
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
+import com.kuviam.dopa.model.Discipline;
+import com.kuviam.dopa.model.Discipline_text_list;
 import com.kuviam.dopa.model.Locus;
 import com.kuviam.dopa.model.LocusDao;
+import com.kuviam.dopa.model.Locus_text_list;
+import com.kuviam.dopa.model.Locus_text_listDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +36,13 @@ public class Mindpalace extends Activity {
     GreenDaoApplication mApplication;
     DaoSession mDaoSession;
     LocusDao mLocusDao;
+    Locus_text_listDao mLocus_text_listDao;
     ArrayList<String> list = new ArrayList<String>();
     ListView lView;
     LocusListAdapter userAdapter;
     Button newlc;
+
+    List<Locus> loci;
 
 
     @Override
@@ -46,6 +53,7 @@ public class Mindpalace extends Activity {
         mDaoSession = mApplication.getDaoSession();
         Set_Add_Update_Screen();
         InitSampleData();
+        //defaut_setup();
 
         userAdapter = new LocusListAdapter(Mindpalace.this, R.layout.screen_list,
                 list);
@@ -80,32 +88,25 @@ public class Mindpalace extends Activity {
     private void Set_Add_Update_Screen() {
         newlc = (Button) findViewById(R.id.bthaddlc);
         lView = (ListView) findViewById(R.id.locuslist);
-
-
-        // this.setListAdapter(new ArrayAdapter<String>(this, R.layout.screen_list,
-        //         R.id.txtTitle, list));
-
     }
 
     void InitSampleData() {
         mLocusDao = mDaoSession.getLocusDao();
+        mLocus_text_listDao = mDaoSession.getLocus_text_listDao();
         // list  =  new ArrayList<String>();
-        List<Locus> loci = mLocusDao.loadAll();
+        loci = mLocusDao.loadAll();
         for (Locus locus : loci) {
             list.add("Name :" + locus.getName() + "\n ID:" + locus.getId());
         }
     }
 
-    public void onListItemClick(ListView parent, View v,
-                                int position, long id) {
-        showToast("You have selected: " + list.get(position));
+    void defaut_setup() {
+        mLocusDao.deleteAll();
+        mLocus_text_listDao.deleteAll();
+        mDaoSession.clear();
 
-        if (position == 0) {
-            Intent myIntent = new Intent(Mindpalace.this,
-                    NewLocus.class);
-            startActivity(myIntent);
-        }
     }
+
 
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
@@ -167,7 +168,8 @@ public class Mindpalace extends Activity {
                 holder = (UserHolder) row.getTag();
             }
             String tname = data.get(position);
-            final int id =position;
+           // holder.btnDelete.setEnabled(false);
+            final int id = position;
             holder.textName.setText(tname);
             holder.btnEdit.setOnClickListener(new View.OnClickListener() {
 
@@ -185,6 +187,25 @@ public class Mindpalace extends Activity {
                     // TODO Auto-generated method stub
                     Log.i("Delete Button Clicked", "**********");
                     showToast(Integer.toString(id) + ": Delete button Clicked");
+
+                    Locus dellc = loci.get(id);
+                    showToast(String.valueOf(dellc.getId()));
+
+
+                    List<Locus_text_list> items = dellc.getLocus_text_listList();
+
+                    mLocus_text_listDao.deleteInTx(items);
+
+
+                    mLocusDao.delete(dellc);
+
+                    List<Locus> newloci = mLocusDao.loadAll();
+
+                    mDaoSession.clear();
+
+
+                    finish();
+                    startActivity(getIntent());
 
                 }
             });

@@ -119,12 +119,16 @@ public class NewLocus extends Activity {
                 if (custom != null) {
                     custom.setName(name.getText().toString());
                     mLocusDao.insertOrReplace(custom);
+
+                    locusID=custom.getId();
                     mLocus_text_listDao = mDaoSession.getLocus_text_listDao();
                     for (int i = 0; i < list.size(); i++) {
                         Locus_text_list temp = new Locus_text_list();
-                        temp.setLocusId(custom.getId());
+                        temp.setLocusId(locusID);
                         temp.setItem(list.get(i));
                         mLocus_text_listDao.insert(temp);
+                        showToast(temp.getId().toString());
+
                     }
                     Intent myIntent = new Intent(NewLocus.this, Mindpalace.class);
                     startActivity(myIntent);
@@ -160,9 +164,9 @@ public class NewLocus extends Activity {
                 custom.setName(validname);
                 custom.setCreator(creator);
 
-                mLocusDao.insert(custom);
-                locusID = custom.getId();
-                showToast(locusID.toString());
+               // mLocusDao.insert(custom);
+                //locusID = custom.getId();
+                //showToast(locusID.toString());
                 firstcon = true;
             } else {
                 name.setError("You already have this name");

@@ -15,8 +15,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/txttime"
-        android:layout_alignEnd="@+id/txttime"
+        android:layout_alignRight="@+id/txtmgymtime"
+        android:layout_alignEnd="@+id/txtmgymtime"
         android:gravity="center_vertical|center_horizontal" />
 
     <TextView
@@ -24,23 +24,25 @@
         android:layout_height="wrap_content"
         android:text="Select practice time"
         android:id="@+id/textView3"
-        android:layout_alignTop="@+id/txttime"
+        android:layout_alignTop="@+id/txtmgymtime"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:gravity="center_vertical|center_horizontal"
         android:layout_above="@+id/textView2"
-        android:layout_toStartOf="@+id/txttime"
-        android:layout_toLeftOf="@+id/txttime" />
+        android:layout_toStartOf="@+id/txtmgymtime"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="time"
         android:ems="10"
-        android:id="@+id/txttime"
+        android:id="@+id/txtmgymtime"
         android:layout_above="@+id/textView2"
-        android:layout_alignLeft="@+id/txtitem"
-        android:layout_alignStart="@+id/txtitem" />
+        android:layout_toLeftOf="@+id/nonetxt"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,23 +52,39 @@
         android:layout_weight="0.30"
         android:textAlignment="center"
         android:gravity="center_vertical|center_horizontal"
-        android:layout_alignTop="@+id/txtitem"
-        android:layout_alignBottom="@+id/txtitem"
+        android:layout_alignTop="@+id/nonetxt"
+        android:layout_alignBottom="@+id/nonetxt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/txtitem"
-        android:layout_toStartOf="@+id/txtitem" />
+        android:layout_toStartOf="@+id/nonetxt"
+        android:layout_alignRight="@+id/btnstart"
+        android:layout_alignEnd="@+id/btnstart" />
 
     <EditText
         android:layout_width="109dp"
         android:layout_height="wrap_content"
         android:inputType="numberSigned"
         android:ems="10"
-        android:id="@+id/txtitem"
+        android:id="@+id/nonetxt"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="80dp" />
+        android:layout_marginTop="80dp"
+        android:layout_toRightOf="@+id/linearLayout2"
+        android:layout_toEndOf="@+id/linearLayout2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/txtrecalltime"
+        android:layout_row="1"
+        android:layout_column="25"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:layout_alignBottom="@+id/textView2" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -76,7 +94,8 @@
         android:layout_alignParentStart="true"
         android:weightSum="1"
         android:layout_above="@+id/btnstart"
-        android:layout_below="@+id/textView10">
+        android:id="@+id/linearLayout2"
+        android:layout_below="@+id/textView2">
 
         <TextView
             android:layout_width="83dp"
@@ -88,12 +107,28 @@
             android:layout_alignLeft="@+id/btnstart"
             android:layout_alignStart="@+id/btnstart"
             android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.26" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Construct New Locus"
+            android:id="@+id/btnmgmnewlocus"
             android:layout_gravity="center_horizontal" />
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="117dp"
             android:id="@+id/listloci" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/selectedloucs"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.58"
+            android:gravity="center_vertical|center_horizontal" />
     </LinearLayout>
 
     <Button
@@ -103,28 +138,5 @@
         android:id="@+id/btnstart"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter no of items"
-        android:id="@+id/textView10"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_toLeftOf="@+id/editText"
-        android:layout_toStartOf="@+id/editText"
-        android:gravity="center_vertical|center_horizontal" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_below="@+id/txtitem"
-        android:layout_alignLeft="@+id/txtitem"
-        android:layout_alignStart="@+id/txtitem" />
 
 </RelativeLayout>
