@@ -4,7 +4,8 @@
 	android:layout_height="fill_parent"
 	android:orientation="horizontal"
 	android:weightSum="1"
-	tools:context="com.kuviam.dopa.Arena.Arena">
+	tools:context="com.kuviam.dopa.Arena.Arena"
+	android:gravity="top">
 
 	<ImageButton
 		android:layout_width="wrap_content"

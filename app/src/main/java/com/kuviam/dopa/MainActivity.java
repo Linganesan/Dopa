@@ -1,11 +1,11 @@
 package com.kuviam.dopa;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,11 +15,11 @@ import android.widget.Button;
 import com.kuviam.dopa.Arena.Arena;
 import com.kuviam.dopa.mindpalace.Mindpalace;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     public static final String PREFS_NAME = "MyPrefsFile";
 
-    Button arena,mindpalace;
+    Button arena, mindpalace;
     Button lib;
 
     @Override
@@ -43,7 +43,7 @@ public class MainActivity extends ActionBarActivity {
 
             // set dialog message
             alertDialogBuilder
-                    .setMessage("Create a MindPalace")
+                    .setMessage("Create your own MindPalace")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -72,7 +72,9 @@ public class MainActivity extends ActionBarActivity {
                 // Start NewActivity.class
                 Intent myIntent = new Intent(MainActivity.this,
                         Arena.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -81,7 +83,9 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View arg0) {
                 // Start NewActivity.class
                 Intent myIntent = new Intent(MainActivity.this, Help.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -89,14 +93,15 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View arg0) {
                 // Start NewActivity.class
                 Intent myIntent = new Intent(MainActivity.this, Mindpalace.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                overridePendingTransition(0, 0);
             }
         });
 
     }
 
     public void Set_Add_Update_Screen() {
-
         arena = (Button) findViewById(R.id.btnarena);
         lib = (Button) findViewById(R.id.lib);
         mindpalace = (Button) findViewById(R.id.btnmind);
@@ -123,5 +128,9 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed() {
+       //disable back button
     }
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1"
+    android:background="@drawable/bg">
 
     <LinearLayout
         android:orientation="vertical"
@@ -47,13 +48,13 @@
                 android:src="@drawable/back" />
 
             <TextSwitcher
-                android:layout_width="132dp"
+                android:layout_width="match_parent"
                 android:layout_height="74dp"
                 android:id="@+id/mgymtextSwitcher"
                 android:layout_weight="0.89" />
 
             <ImageButton
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/btnmgymnext"
                 android:src="@drawable/next" />
@@ -62,7 +63,7 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="167dp"
         android:layout_height="wrap_content"
         android:text="Done"
         android:id="@+id/btnmgymdone"

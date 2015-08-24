@@ -80,7 +80,9 @@ public class Arena extends Activity {
             public void onClick(View arg0) {
                 Intent myIntent = new Intent(Arena.this,
                         NewDiscipline.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                overridePendingTransition(0, 0);
 
             }
         });
@@ -134,15 +136,13 @@ public class Arena extends Activity {
             case android.R.id.home:
                 Intent homeIntent = new Intent(this, MainActivity.class);
                 homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                homeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(homeIntent);
+                overridePendingTransition(0, 0);
+
         }
         return (super.onOptionsItemSelected(item));
-        //noinspection SimplifiableIfStatement
-        //  if (id == R.id.action_settings) {
-        //     return true;
-        // }
 
-        // return super.onOptionsItemSelected(item);
     }
 
 
@@ -197,10 +197,6 @@ public class Arena extends Activity {
                     showToast(Integer.toString(position) + ": Delete button Clicked");
                     long disID = (long) (int) position;
 
-
-                  //  mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
-                  //  mDisciplineDao = mDaoSession.getDisciplineDao();
-
                     Discipline deldis = disciplines.get(position);
                     showToast(String.valueOf(deldis.getId()));
 
@@ -209,13 +205,15 @@ public class Arena extends Activity {
                     mDiscipline_text_listDao.deleteInTx(items);
 
                     mDisciplineDao.delete(deldis);
-                    //disciplines.remove(position);
                     List<Discipline> newdisciplines = mDisciplineDao.loadAll();
-                    //mDisciplineDao.deleteAll();
+
 
                     mDaoSession.clear();
+                    Intent intent = getIntent();
                     finish();
-                    startActivity(getIntent());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
 
                 }
             });
@@ -249,6 +247,13 @@ public class Arena extends Activity {
             ImageButton btnDelete;
             ImageButton btnPlay;
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent myIntent = new Intent(Arena.this, MainActivity.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(myIntent);
+        overridePendingTransition(0, 0);
     }
 
 }

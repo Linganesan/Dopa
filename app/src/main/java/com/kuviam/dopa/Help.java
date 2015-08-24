@@ -1,5 +1,6 @@
 package com.kuviam.dopa;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,7 +8,7 @@ import android.view.MenuItem;
 
 import com.kuviam.dopa.R;
 
-public class Help extends AppCompatActivity {
+public class Help extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

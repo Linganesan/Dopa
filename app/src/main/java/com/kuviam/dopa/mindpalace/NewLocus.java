@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,6 +59,8 @@ public class NewLocus extends Activity {
     Locus_text_listDao mLocus_text_listDao;
     ArrayList<String> list = new ArrayList<String>();
 
+    int intValue;
+
 
     /**
      * Declaring an ArrayAdapter to set items to ListView
@@ -75,6 +78,8 @@ public class NewLocus extends Activity {
 
         /** Setting a custom layout for the list activity */
         setContentView(R.layout.activity_new_locus);
+        Intent mIntent = getIntent();
+        intValue = mIntent.getIntExtra("intVariableName", 0);
         Set_Add_Update_Screen();
         mApplication = (GreenDaoApplication) getApplication();
         mDaoSession = mApplication.getDaoSession();
@@ -120,23 +125,41 @@ public class NewLocus extends Activity {
                     custom.setName(name.getText().toString());
                     mLocusDao.insertOrReplace(custom);
 
-                    locusID=custom.getId();
+                    locusID = custom.getId();
                     mLocus_text_listDao = mDaoSession.getLocus_text_listDao();
                     for (int i = 0; i < list.size(); i++) {
                         Locus_text_list temp = new Locus_text_list();
                         temp.setLocusId(locusID);
                         temp.setItem(list.get(i));
                         mLocus_text_listDao.insert(temp);
-                        showToast(temp.getId().toString());
+                        //showToast(temp.getId().toString());
 
                     }
-                    Intent myIntent = new Intent(NewLocus.this, Mindpalace.class);
-                    startActivity(myIntent);
+                    if (intValue == 5) {
+                        onBackPressed();
+
+                    } else {
+                        Intent myIntent = new Intent(NewLocus.this, Mindpalace.class);
+                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(myIntent);
+                        overridePendingTransition(0, 0);
+                    }
 
                 } else {
                     showToast("Error in Db connection");
                 }
 
+            }
+        });
+
+        l.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = l.getItemAtPosition(position).toString();
+                showToast("You selected : " + item);
+                adapter.remove(item);
+                list.remove(item);
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -163,10 +186,6 @@ public class NewLocus extends Activity {
                 custom = new Locus();
                 custom.setName(validname);
                 custom.setCreator(creator);
-
-               // mLocusDao.insert(custom);
-                //locusID = custom.getId();
-                //showToast(locusID.toString());
                 firstcon = true;
             } else {
                 name.setError("You already have this name");

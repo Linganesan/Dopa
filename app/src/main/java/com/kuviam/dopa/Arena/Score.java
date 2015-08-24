@@ -1,5 +1,6 @@
 package com.kuviam.dopa.Arena;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import android.widget.Button;
 import com.kuviam.dopa.MainActivity;
 import com.kuviam.dopa.R;
 
-public class Score extends AppCompatActivity {
+public class Score extends Activity {
     Button done;
 
     @Override
@@ -23,10 +24,11 @@ public class Score extends AppCompatActivity {
 
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-
                 // Start NewActivity.class
                 Intent myIntent = new Intent(Score.this, MainActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                overridePendingTransition(0, 0);
             }
         });
 

@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ import com.kuviam.dopa.model.RunDao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Configure extends AppCompatActivity {
+public class Configure extends Activity {
     private Button start, newlocus;
     private EditText ptime, rtime, items;
     private ListView locilist;
@@ -88,7 +89,6 @@ public class Configure extends AppCompatActivity {
                 // Start NewActivity.class
                 if(addDb()) {
                     Long runid = run.getId();
-
                     Intent myIntent = new Intent(Configure.this, Mgym.class);
                     myIntent.putExtra("longVariableName", runid);
                     startActivity(myIntent);
@@ -98,7 +98,9 @@ public class Configure extends AppCompatActivity {
 
         newlocus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                int intchoice=5;
                 Intent myIntent = new Intent(Configure.this, NewLocus.class);
+                myIntent.putExtra("intVariableName",intchoice);
                 startActivity(myIntent);
             }
         });
@@ -141,7 +143,13 @@ public class Configure extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent myIntent = new Intent(Configure.this, Arena.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(myIntent);
+        overridePendingTransition(0, 0);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -158,8 +166,6 @@ public class Configure extends AppCompatActivity {
         locilist = (ListView) findViewById(R.id.listloci);
         disname = (TextView) findViewById(R.id.disname);
         slocus = (TextView) findViewById(R.id.selectedloucs);
-
-        newlocus.setEnabled(false);
 
     }
 
@@ -205,9 +211,13 @@ public class Configure extends AppCompatActivity {
                 holder.btnEdit = (ImageButton) row.findViewById(R.id.btnlcedit);
                 holder.btnDelete = (ImageButton) row.findViewById(R.id.btnlcclose);
                 holder.btnPlay = (ImageButton) row.findViewById(R.id.btnlcselect);
-                holder.btnDelete.setEnabled(false);
+                //holder.btnDelete.setEnabled(false);
+                holder.btnDelete.setVisibility(RelativeLayout.GONE);
 
-                holder.btnEdit.setEnabled(false);
+
+               // holder.btnEdit.setEnabled(false);
+                holder.btnEdit.setVisibility(RelativeLayout.GONE);
+
 
                 row.setTag(holder);
             } else {

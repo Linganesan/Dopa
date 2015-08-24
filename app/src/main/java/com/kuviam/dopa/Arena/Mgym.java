@@ -59,7 +59,7 @@ public class Mgym extends Activity {
     List<Locus> loci;
     long runid;
     int counter = 0;
-    int dissize, lcsize;
+    int dissize;
     String showhint;
 
 
@@ -91,7 +91,6 @@ public class Mgym extends Activity {
                 textView.setTextColor(Color.RED);
                 textView.setGravity(Gravity.CENTER_HORIZONTAL);
                 textView.setTypeface(Typeface.DEFAULT_BOLD);
-               // textView.setShadowLayer(10, 10, 10, Color.BLACK);
                 return textView;
             }
         });
@@ -105,15 +104,17 @@ public class Mgym extends Activity {
 
         pre.setEnabled(false);
         textsw.setText(dislist.get(counter).getItem().toString());
-        showhint=hints.get(counter).getItem().toString();
+        showhint = hints.get(counter).getItem().toString();
 
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
-                // Start NewActivity.class
+                Long runid = run.getId();
                 Intent myIntent = new Intent(Mgym.this, Recall.class);
-
+                myIntent.putExtra("longVariableName", runid);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -124,7 +125,7 @@ public class Mgym extends Activity {
                 ++counter;
                 if (counter >= 0 && counter < dissize) {
                     textsw.setText(dislist.get(counter).getItem().toString());
-                    showhint=hints.get(counter).getItem().toString();
+                    showhint = hints.get(counter).getItem().toString();
                     pre.setEnabled(true);
 
                 } else {
@@ -140,7 +141,7 @@ public class Mgym extends Activity {
                 --counter;
                 if (counter > -1 && counter <= dissize) {
                     textsw.setText(dislist.get(counter).getItem().toString());
-                    showhint=hints.get(counter).getItem().toString();
+                    showhint = hints.get(counter).getItem().toString();
                     next.setEnabled(true);
                 } else {
                     pre.setEnabled(false);
@@ -180,7 +181,7 @@ public class Mgym extends Activity {
                 }
             }
 
-            hints=locus.getLocus_text_listList();
+            hints = locus.getLocus_text_listList();
 
 
             mDiscipline_text_list = mDaoSession.getDiscipline_text_listDao();
@@ -209,6 +210,14 @@ public class Mgym extends Activity {
         textsw = (TextSwitcher) findViewById(R.id.mgymtextSwitcher);
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent myIntent = new Intent(Mgym.this, Arena.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(myIntent);
+        overridePendingTransition(0, 0);
     }
 
     @Override

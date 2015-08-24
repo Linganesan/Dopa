@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -74,6 +75,7 @@ public class NewDiscipline extends Activity {
                 String tmp = text.getText().toString();
                 if (tmp == null || text.getText().toString().length() <= 0) {
                     text.setError("Enter the Discipline");
+                    done.setEnabled(false);
                 } else {
                     if (!firstcon) {
                         addDb();
@@ -82,13 +84,14 @@ public class NewDiscipline extends Activity {
                     for (int i = 0; i < list.size(); i++) {
                         if (tmp.equals(list.get(i))) {
                             text.setError("Already have this item");
-
                             check = false;
                         }
                     }
                     if (check && firstcon) {
                         list.add(tmp);
                         text.setText("");
+                        name.setError(null);
+                        text.setError(null);
                         adapter.notifyDataSetChanged();
                         dislist.setAdapter(adapter);
                     }
@@ -102,14 +105,14 @@ public class NewDiscipline extends Activity {
 
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                if (custom != null) {
+                if (custom != null && list.size() != 0) {
                     custom.setName(name.getText().toString());
                     custom.setIs_Ordered(chkbx.isChecked());
                     int size = list.size();
                     custom.setNo_of_items(size);
 
                     mDisciplineDao.insertOrReplace(custom);
-                    disciplineID=custom.getId();
+                    disciplineID = custom.getId();
 
                     mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
                     for (int i = 0; i < list.size(); i++) {
@@ -121,7 +124,10 @@ public class NewDiscipline extends Activity {
 
                     }
                     Intent myIntent = new Intent(NewDiscipline.this, Arena.class);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
                     startActivity(myIntent);
+                    overridePendingTransition(0, 0);
 
                 } else {
                     showToast("Error in Db connection");
@@ -130,6 +136,16 @@ public class NewDiscipline extends Activity {
             }
         });
 
+        dislist.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = dislist.getItemAtPosition(position).toString();
+                showToast("You selected : " + item);
+                adapter.remove(item);
+                list.remove(item);
+                adapter.notifyDataSetChanged();
+            }
+        });
 
 
     }
@@ -151,22 +167,14 @@ public class NewDiscipline extends Activity {
                 }
             }
             if (check) {
-                showToast("HIiiiii");
                 String validname = name.getText().toString();
                 boolean is_ordered = chkbx.isChecked();
                 String creator = "User";
-                // Discipline cards = new Discipline(2L,"Cards",52,"Admin",true,1000F,1000F,10F,10F);
                 custom = new Discipline();
-                //custom.setId(1L);
                 custom.setName(validname);
                 custom.setCreator(creator);
                 custom.setIs_Ordered(is_ordered);
 
-                // mDisciplineDao = mDaoSession.getDisciplineDao();
-
-                mDisciplineDao.insert(custom);
-                disciplineID = custom.getId();
-                showToast(disciplineID.toString());
                 firstcon = true;
             } else {
                 name.setError("You already have this name");
@@ -203,6 +211,12 @@ public class NewDiscipline extends Activity {
         chkbx = (CheckBox) findViewById(R.id.cb_dis);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent myIntent = new Intent(NewDiscipline.this, Arena.class);
+        startActivity(myIntent);
+    }
+
     void InitSampleData() {
         mDisciplineDao = mDaoSession.getDisciplineDao();
 
@@ -221,6 +235,7 @@ public class NewDiscipline extends Activity {
         mDiscipline_text_listDao.deleteAll();
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

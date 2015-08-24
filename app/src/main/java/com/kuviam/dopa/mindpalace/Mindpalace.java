@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kuviam.dopa.MainActivity;
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
@@ -203,9 +204,11 @@ public class Mindpalace extends Activity {
 
                     mDaoSession.clear();
 
-
+                    Intent intent = getIntent();
                     finish();
-                    startActivity(getIntent());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
 
                 }
             });
@@ -231,6 +234,14 @@ public class Mindpalace extends Activity {
             ImageButton btnDelete;
             ImageButton btnPlay;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent myIntent = new Intent(Mindpalace.this, MainActivity.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(myIntent);
+        overridePendingTransition(0, 0);
     }
 
 
