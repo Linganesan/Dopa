@@ -27,47 +27,46 @@ import java.util.List;
 
 public class NewDiscipline extends Activity {
 
-    Button done, add;
-    EditText name, text;
-    ListView dislist;
-    CheckBox chkbx;
-    Long disciplineID;
-    Discipline custom;
-    boolean firstcon;
+    private Button done, add;
+    private EditText name, text;
+    private ListView dislist;
+    private CheckBox chkbx;
+    private Long disciplineID;
+    private Discipline custom;
+    private boolean firstcon;
 
-    GreenDaoApplication mApplication;
-    DaoSession mDaoSession;
-    DisciplineDao mDisciplineDao;
-    Discipline_text_listDao mDiscipline_text_listDao;
-    ArrayList<String> list = new ArrayList<String>();
+    private GreenDaoApplication mApplication;
+    private DaoSession mDaoSession;
+    private DisciplineDao mDisciplineDao;
+    private Discipline_text_listDao mDiscipline_text_listDao;
+    private ArrayList<String> list = new ArrayList<String>();
 
 
-    /**
-     * Declaring an ArrayAdapter to set items to ListView
-     */
-    ArrayAdapter<String> adapter;
-
+    // Declaring an ArrayAdapter to set items to ListView
+    private ArrayAdapter<String> adapter;
+    private int disID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_discipline);
+        Intent mIntent = getIntent();
+        disID = mIntent.getIntExtra("intVariableName", -1);
 
         Set_Add_Update_Screen();
         mApplication = (GreenDaoApplication) getApplication();
         mDaoSession = mApplication.getDaoSession();
 
+        checkEdit();
 
         // InitSampleData();
-        // mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
-
         mDisciplineDao = mDaoSession.getDisciplineDao();
         // defaultSetup();
 
-        /** Defining the ArrayAdapter to set items to ListView */
+        //Defining the ArrayAdapter to set items to ListView
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
 
-        /** Defining a click event listener for the button "Add" */
+        // Defining a click event listener for the button "Add"
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +75,11 @@ public class NewDiscipline extends Activity {
                 if (tmp == null || text.getText().toString().length() <= 0) {
                     text.setError("Enter the Discipline");
                     done.setEnabled(false);
+                } else if (name.getText().toString().length() <= 0) {
+                    name.setError("Enter the title");
+
                 } else {
+
                     if (!firstcon) {
                         addDb();
                     }
@@ -96,8 +99,6 @@ public class NewDiscipline extends Activity {
                         dislist.setAdapter(adapter);
                     }
                 }
-
-
             }
         };
 
@@ -146,10 +147,13 @@ public class NewDiscipline extends Activity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void checkEdit(){
+
 
 
     }
-
 
     public void addDb() {
         boolean check;
@@ -187,19 +191,15 @@ public class NewDiscipline extends Activity {
             name.setError("Enter the name");
             firstcon = false;
         }
-
     }
 
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_new_discipline, menu);
-        return true;
-
+    public void defaultSetup() {
+        mDisciplineDao.deleteAll();
+        mDiscipline_text_listDao.deleteAll();
     }
 
     private void Set_Add_Update_Screen() {
@@ -212,30 +212,18 @@ public class NewDiscipline extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_new_discipline, menu);
+        return true;
+
+    }
+
+    @Override
     public void onBackPressed() {
         Intent myIntent = new Intent(NewDiscipline.this, Arena.class);
         startActivity(myIntent);
     }
-
-    void InitSampleData() {
-        mDisciplineDao = mDaoSession.getDisciplineDao();
-
-        Discipline temp;
-
-        list = new ArrayList<String>();
-
-        List<Discipline> disciplines = mDisciplineDao.loadAll();
-        for (Discipline discipline : disciplines) {
-            list.add("Name:" + discipline.getName() + "\n No of items:" + discipline.getNo_of_items());
-        }
-    }
-
-    void defaultSetup() {
-        mDisciplineDao.deleteAll();
-        mDiscipline_text_listDao.deleteAll();
-
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

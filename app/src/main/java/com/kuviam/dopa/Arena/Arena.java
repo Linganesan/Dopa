@@ -56,7 +56,7 @@ public class Arena extends Activity {
         /**
          * set item into adapter
          */
-        userAdapter = new DisciplineListAdapter(Arena.this, R.layout.activity_discipline_list,
+        userAdapter = new DisciplineListAdapter(Arena.this, R.layout.layout_discipline_list,
                 list);
         lView = (ListView) findViewById(R.id.arenalist);
         lView.setItemsCanFocus(false);
@@ -83,11 +83,8 @@ public class Arena extends Activity {
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
                 overridePendingTransition(0, 0);
-
             }
         });
-
-
     }
 
     void InitSampleData() {
@@ -145,7 +142,6 @@ public class Arena extends Activity {
 
     }
 
-
     class DisciplineListAdapter extends ArrayAdapter<String> {
         Context context;
         int layoutResourceId;
@@ -171,21 +167,29 @@ public class Arena extends Activity {
                 holder.textName = (TextView) row.findViewById(R.id.Itemname);
                 holder.btnEdit = (ImageButton) row.findViewById(R.id.btndisedit);
                 holder.btnDelete = (ImageButton) row.findViewById(R.id.btndisdelete);
-                holder.btnPlay = (ImageButton) row.findViewById(R.id.btndisplay);
+                holder.btnSelect = (ImageButton) row.findViewById(R.id.btndisplay);
                 row.setTag(holder);
             } else {
                 holder = (UserHolder) row.getTag();
             }
             String tname = data.get(position);
             holder.textName.setText(tname);
-           // holder.btnDelete.setEnabled(false);
             holder.btnEdit.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     Log.i("Edit Button Clicked", "**********");
-                    showToast(Integer.toString(position) + ": Edit button Clicked");
+                    //showToast(Integer.toString(position) + ": Edit button Clicked");
+                    Intent myIntent = new Intent(Arena.this,
+                            NewDiscipline.class);
+                    myIntent.putExtra("intVariableName", position);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(myIntent);
+                    overridePendingTransition(0, 0);
+
+
+
                 }
             });
             holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -194,7 +198,7 @@ public class Arena extends Activity {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     Log.i("Delete Button Clicked", "**********");
-                    showToast(Integer.toString(position) + ": Delete button Clicked");
+                    //showToast(Integer.toString(position) + ": Delete button Clicked");
                     long disID = (long) (int) position;
 
                     Discipline deldis = disciplines.get(position);
@@ -219,24 +223,18 @@ public class Arena extends Activity {
             });
 
 
-            holder.btnPlay.setOnClickListener(new View.OnClickListener() {
+            holder.btnSelect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                                                  @Override
-                                                  public void onClick(View v) {
-
-                                                      Log.i("Run Button Clicked", "**********");
-                                                      showToast(Integer.toString(position) + ": Test button Clicked");
-                                                      Intent myIntent = new Intent(Arena.this,
-                                                              Configure.class);
-                                                      myIntent.putExtra("intVariableName", position);
-                                                      startActivity(myIntent);
-
-
-                                                  }
-
-                                              }
-
-            );
+                    Log.i("Run Button Clicked", "**********");
+                    showToast(Integer.toString(position) + ": Test button Clicked");
+                    Intent myIntent = new Intent(Arena.this,
+                            Configure.class);
+                    myIntent.putExtra("intVariableName", position);
+                    startActivity(myIntent);
+                }
+            });
             return row;
 
         }
@@ -245,9 +243,10 @@ public class Arena extends Activity {
             TextView textName;
             ImageButton btnEdit;
             ImageButton btnDelete;
-            ImageButton btnPlay;
+            ImageButton btnSelect;
         }
     }
+
     @Override
     public void onBackPressed() {
         Intent myIntent = new Intent(Arena.this, MainActivity.class);

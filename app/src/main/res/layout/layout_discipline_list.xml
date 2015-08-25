@@ -11,26 +11,27 @@
 		android:layout_width="wrap_content"
 		android:layout_height="70dp"
 		android:id="@+id/btndisplay"
-		android:src="@drawable/icon" />
+		android:src="@drawable/icon"
+		android:layout_weight="0.12" />
 
 	<TextView
 		android:id="@+id/Itemname"
 		android:layout_width="wrap_content"
-		android:layout_height="62dp"
+		android:layout_height="70dp"
 		android:textSize="20sp" 
 		android:paddingTop="5dp"
-		android:layout_weight="0.75" />
+		android:layout_weight="0.65" />
 
 	<ImageButton
 		android:layout_width="wrap_content"
-		android:layout_height="63dp"
+		android:layout_height="70dp"
 		android:id="@+id/btndisedit"
 		android:src="@drawable/edit"
-		android:layout_weight="0.09" />
+		android:layout_weight="0.12" />
 
 	<ImageButton
 		android:layout_width="wrap_content"
-		android:layout_height="67dp"
+		android:layout_height="70dp"
 		android:id="@+id/btndisdelete"
 		android:src="@drawable/cancel"
 		android:layout_weight="0.12" />

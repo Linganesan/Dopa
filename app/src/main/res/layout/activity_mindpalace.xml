@@ -24,7 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add New Locus"
-            android:id="@+id/bthaddlc" />
+            android:id="@+id/bthaddlc"
+            android:textStyle="bold"
+            android:textColor="@color/primary_dark_material_dark" />
 
         <ListView
             android:layout_width="match_parent"

@@ -7,33 +7,35 @@
     android:weightSum="1">
 
     <ImageButton
-        android:layout_width="56dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
         android:id="@+id/btnlcselect"
-        android:src="@drawable/card7" />
+        android:src="@drawable/card7"
+        android:layout_weight="0.12" />
 
     <TextView
         android:id="@+id/txtTitle"
-        android:layout_width="80dp"
-        android:layout_height="61dp"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
         android:gravity="center_vertical"
         android:textSize="14dp"
         android:textColor="#0e0007"
         android:layout_marginLeft="7dp"
-        android:layout_weight="0.82"
+        android:layout_weight="0.65"
         android:textStyle="bold" />
 
     <ImageButton
         android:layout_width="wrap_content"
-        android:layout_height="67dp"
+        android:layout_height="70dp"
         android:id="@+id/btnlcedit"
-        android:src="@drawable/edit" />
+        android:src="@drawable/edit"
+        android:layout_weight="0.12" />
 
     <ImageButton
         android:layout_width="wrap_content"
-        android:layout_height="65dp"
+        android:layout_height="70dp"
         android:id="@+id/btnlcclose"
         android:src="@drawable/cancel"
-        android:layout_weight="0.06" />
+        android:layout_weight="0.12" />
 
 </LinearLayout>

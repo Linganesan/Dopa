@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +23,6 @@ import com.kuviam.dopa.MainActivity;
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
-import com.kuviam.dopa.model.Discipline;
-import com.kuviam.dopa.model.Discipline_text_list;
 import com.kuviam.dopa.model.Locus;
 import com.kuviam.dopa.model.LocusDao;
 import com.kuviam.dopa.model.Locus_text_list;
@@ -56,7 +55,7 @@ public class Mindpalace extends Activity {
         InitSampleData();
         //defaut_setup();
 
-        userAdapter = new LocusListAdapter(Mindpalace.this, R.layout.screen_list,
+        userAdapter = new LocusListAdapter(Mindpalace.this, R.layout.layout_locus_list,
                 list);
 
         lView.setItemsCanFocus(false);
@@ -154,7 +153,6 @@ public class Mindpalace extends Activity {
             View row = convertView;
             UserHolder holder = null;
 
-
             if (row == null) {
                 LayoutInflater inflater = ((Activity) context).getLayoutInflater();
                 row = inflater.inflate(layoutResourceId, parent, false);
@@ -164,52 +162,42 @@ public class Mindpalace extends Activity {
                 holder.btnDelete = (ImageButton) row.findViewById(R.id.btnlcclose);
                 holder.btnPlay = (ImageButton) row.findViewById(R.id.btnlcselect);
                 holder.btnPlay.setEnabled(false);
+                holder.btnPlay.setVisibility(RelativeLayout.GONE);
                 row.setTag(holder);
             } else {
                 holder = (UserHolder) row.getTag();
             }
             String tname = data.get(position);
-           // holder.btnDelete.setEnabled(false);
+            // holder.btnDelete.setEnabled(false);
             final int id = position;
             holder.textName.setText(tname);
             holder.btnEdit.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
                     Log.i("Edit Button Clicked", "**********");
-                    showToast(Integer.toString(id) + ": Edit button Clicked");
+                    //showToast(Integer.toString(id) + ": Edit button Clicked");
                 }
             });
             holder.btnDelete.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
                     Log.i("Delete Button Clicked", "**********");
-                    showToast(Integer.toString(id) + ": Delete button Clicked");
-
+                    //showToast(Integer.toString(id) + ": Delete button Clicked");
                     Locus dellc = loci.get(id);
                     showToast(String.valueOf(dellc.getId()));
 
-
                     List<Locus_text_list> items = dellc.getLocus_text_listList();
-
                     mLocus_text_listDao.deleteInTx(items);
-
-
                     mLocusDao.delete(dellc);
-
                     List<Locus> newloci = mLocusDao.loadAll();
-
                     mDaoSession.clear();
-
                     Intent intent = getIntent();
                     finish();
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
-
                 }
             });
 
@@ -217,9 +205,8 @@ public class Mindpalace extends Activity {
 
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
                     Log.i("Run Button Clicked", "**********");
-                    showToast(Integer.toString(id) + ": Select button Clicked");
+                    //showToast(Integer.toString(id) + ": Select button Clicked");
 
                 }
 

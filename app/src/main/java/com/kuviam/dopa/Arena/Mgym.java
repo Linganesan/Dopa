@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,32 +37,38 @@ import com.kuviam.dopa.model.RunDao;
 import java.util.List;
 
 public class Mgym extends Activity {
-    Button done;
-    ImageButton next, pre, hint;
-    TextSwitcher textsw;
-    Chronometer timer;
-    Discipline discipline;
-    Locus locus;
-    Run run;
-    List<Discipline_text_list> dislist;
-    List<Locus_text_list> lclist;
 
-    GreenDaoApplication mApplication;
-    DaoSession mDaoSession;
-    LocusDao mLocusDao;
-    DisciplineDao mDisciplineDao;
-    RunDao mRunDao;
-    Discipline_text_listDao mDiscipline_text_list;
-    Locus_text_listDao mLocus_text_list;
-    List<Locus_text_list> hints;
+    private MalibuCountDownTimer countDownTimer;
+    private boolean timerHasStarted = false;
+    private TextView text;
+    private Button done;
+    private ImageButton next, pre, hint;
+    private TextSwitcher textsw;
+    private Chronometer timer;
+    private Discipline discipline;
+    private Locus locus;
+    private Run run;
+    private List<Discipline_text_list> dislist;
+    private List<Locus_text_list> lclist;
 
-    List<Discipline> disciplines;
-    List<Locus> loci;
-    long runid;
-    int counter = 0;
-    int dissize;
-    String showhint;
+    private GreenDaoApplication mApplication;
+    private DaoSession mDaoSession;
+    private LocusDao mLocusDao;
+    private DisciplineDao mDisciplineDao;
+    private RunDao mRunDao;
+    private Discipline_text_listDao mDiscipline_text_list;
+    private Locus_text_listDao mLocus_text_list;
+    private List<Locus_text_list> hints;
 
+    private List<Discipline> disciplines;
+    private List<Locus> loci;
+    private long runid;
+    private int counter = 0;
+    private int dissize;
+    private String showhint;
+
+    private long startTime;
+    private final long interval = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +76,11 @@ public class Mgym extends Activity {
         setContentView(R.layout.activity_mgym);
         Intent mIntent = getIntent();
         runid = mIntent.getLongExtra("longVariableName", 0);
-        String val = Long.toString(runid);
-        showToast(val);
+        //String val = Long.toString(runid);
+        //showToast(val);
 
         Set_Add_Update_Screen();
+
 
         mApplication = (GreenDaoApplication) getApplication();
         mDaoSession = mApplication.getDaoSession();
@@ -81,6 +89,10 @@ public class Mgym extends Activity {
         run = mRunDao.load(runid);
 
         setupDb();
+
+        countDownTimer = new MalibuCountDownTimer(startTime, interval);
+        text.setText(text.getText() + String.valueOf(startTime));
+        startTimer();
 
         textsw.setFactory(new ViewFactory() {
 
@@ -108,7 +120,6 @@ public class Mgym extends Activity {
 
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-
                 Long runid = run.getId();
                 Intent myIntent = new Intent(Mgym.this, Recall.class);
                 myIntent.putExtra("longVariableName", runid);
@@ -121,7 +132,6 @@ public class Mgym extends Activity {
         next.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 ++counter;
                 if (counter >= 0 && counter < dissize) {
                     textsw.setText(dislist.get(counter).getItem().toString());
@@ -152,17 +162,24 @@ public class Mgym extends Activity {
 
         hint.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-
                 showToast(showhint);
             }
         });
+    }
 
+    private void startTimer() {
+        if (!timerHasStarted) {
+            countDownTimer.start();
+            timerHasStarted = true;
+        } else {
+            countDownTimer.cancel();
+            timerHasStarted = false;
+        }
     }
 
     private void setupDb() {
         if (run != null) {
-            showToast("uggkk");
-
+            //showToast("uggkk");
             mDisciplineDao = mDaoSession.getDisciplineDao();
             disciplines = mDisciplineDao.loadAll();
             String disname = run.getDiscipline().toString();
@@ -193,6 +210,8 @@ public class Mgym extends Activity {
                 pre.setEnabled(false);
             }
 
+            startTime = run.getAssigned_practice_time() * 1000;
+
 
         } else {
 
@@ -206,18 +225,41 @@ public class Mgym extends Activity {
         next = (ImageButton) findViewById(R.id.btnmgymnext);
         pre = (ImageButton) findViewById(R.id.btnmgymback);
         hint = (ImageButton) findViewById(R.id.btnmgymhint);
-        timer = (Chronometer) findViewById(R.id.mgmtime);
         textsw = (TextSwitcher) findViewById(R.id.mgymtextSwitcher);
-
+        text = (TextView) this.findViewById(R.id.timer);
 
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent myIntent = new Intent(Mgym.this, Arena.class);
-        myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(myIntent);
-        overridePendingTransition(0, 0);
+    // CountDownTimer class
+    public class MalibuCountDownTimer extends CountDownTimer {
+
+        public MalibuCountDownTimer(long startTime, long interval) {
+            super(startTime, interval);
+        }
+
+        @Override
+        public void onFinish() {
+            text.setText("Time's up!");
+            Long runid = run.getId();
+            Intent myIntent = new Intent(Mgym.this, Recall.class);
+            myIntent.putExtra("longVariableName", runid);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(myIntent);
+            overridePendingTransition(0, 0);
+
+            // timeElapsedView.setText("Time Elapsed: " + String.valueOf(startTime));
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            text.setText("Time remain:" + millisUntilFinished / 1000);
+            //timeElapsed = (startTime - millisUntilFinished)/1000;
+            //timeElapsedView.setText("Time Elapsed: " + String.valueOf(timeElapsed));
+        }
+    }
+
+    void showToast(CharSequence msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -227,9 +269,9 @@ public class Mgym extends Activity {
         return true;
     }
 
-    void showToast(CharSequence msg) {
-
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    @Override
+    public void onBackPressed() {
+        //Alert
     }
 
     @Override

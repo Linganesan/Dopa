@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.kuviam.dopa.Arena.Configure;
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
@@ -42,16 +43,12 @@ import java.util.List;
 
 public class NewLocus extends Activity {
 
-    /**
-     * Items entered by the user is stored in this ArrayList variable
-     */
-
-    Button done, add;
-    EditText name, text;
-    ListView l;
-    Long locusID;
-    Locus custom;
-    boolean firstcon;
+    private Button done, add;
+    private EditText name, text;
+    private ListView l;
+    private Long locusID;
+    private Locus custom;
+    private boolean firstcon;
 
     GreenDaoApplication mApplication;
     DaoSession mDaoSession;
@@ -59,14 +56,12 @@ public class NewLocus extends Activity {
     Locus_text_listDao mLocus_text_listDao;
     ArrayList<String> list = new ArrayList<String>();
 
-    int intValue;
-
+    private int lcID;
 
     /**
      * Declaring an ArrayAdapter to set items to ListView
      */
     ArrayAdapter<String> adapter;
-
 
     /**
      * Called when the activity is first created.
@@ -79,7 +74,7 @@ public class NewLocus extends Activity {
         /** Setting a custom layout for the list activity */
         setContentView(R.layout.activity_new_locus);
         Intent mIntent = getIntent();
-        intValue = mIntent.getIntExtra("intVariableName", 0);
+        lcID = mIntent.getIntExtra("intVariableName", -1);
         Set_Add_Update_Screen();
         mApplication = (GreenDaoApplication) getApplication();
         mDaoSession = mApplication.getDaoSession();
@@ -93,6 +88,9 @@ public class NewLocus extends Activity {
                 String tmp = text.getText().toString();
                 if (tmp == null || text.getText().toString().length() <= 0) {
                     text.setError("Enter the Item");
+                } else if (name.getText().toString().length() <= 0) {
+                    name.setError("Enter the title");
+
                 } else {
                     if (!firstcon) {
                         addDb();
@@ -101,13 +99,14 @@ public class NewLocus extends Activity {
                     for (int i = 0; i < list.size(); i++) {
                         if (tmp.equals(list.get(i))) {
                             text.setError("Already have this item");
-
                             check = false;
                         }
                     }
                     if (check && firstcon) {
                         list.add(tmp);
                         text.setText("");
+                        name.setError(null);
+                        text.setError(null);
                         adapter.notifyDataSetChanged();
                         l.setAdapter(adapter);
                     }
@@ -135,8 +134,12 @@ public class NewLocus extends Activity {
                         //showToast(temp.getId().toString());
 
                     }
-                    if (intValue == 5) {
-                        onBackPressed();
+                    if (lcID >= 0) {
+                        Intent myIntent = new Intent(NewLocus.this, Configure.class);
+                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        myIntent.putExtra("intVariableName", lcID);
+                        startActivity(myIntent);
+                        overridePendingTransition(0, 0);
 
                     } else {
                         Intent myIntent = new Intent(NewLocus.this, Mindpalace.class);
@@ -176,7 +179,6 @@ public class NewLocus extends Activity {
                 if (d.equals(ckname)) {
                     showToast("ddddd");
                     check = false;
-
                 }
             }
             if (check) {
@@ -192,7 +194,6 @@ public class NewLocus extends Activity {
                 showToast("You already have this name");
                 name.setText("");
                 firstcon = false;
-
             }
         } else {
             name.setError("Enter the name");
@@ -213,8 +214,5 @@ public class NewLocus extends Activity {
         l = (ListView) findViewById(R.id.list);
         /** Defining the ArrayAdapter to set items to ListView */
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-
     }
-
-
 }

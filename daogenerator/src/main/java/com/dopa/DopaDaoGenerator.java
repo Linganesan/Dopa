@@ -32,7 +32,7 @@ public class DopaDaoGenerator {
         locus_text_list.addIdProperty().autoincrement();
         Property locusId1 = locus_text_list.addLongProperty("locusId").notNull().getProperty();
         //locus_text_list.addToOne(locus, locusId1);
-        ToMany locusToTextItems = locus.addToMany(locus_text_list,locusId1);
+        ToMany locusToTextItems = locus.addToMany(locus_text_list, locusId1);
         locus_text_list.addStringProperty("item").notNull();
 
         //Locus image type table
@@ -63,17 +63,17 @@ public class DopaDaoGenerator {
         discipline.addIntProperty("no_of_items").notNull();
         discipline.addStringProperty("creator");
         discipline.addBooleanProperty("is_Ordered");
-        discipline.addFloatProperty("practice_time");
-        discipline.addFloatProperty("recall_time");
-        discipline.addFloatProperty("per_practice_time");
-        discipline.addFloatProperty("per_recall_time");
+        discipline.addLongProperty("practice_time");
+        discipline.addLongProperty("recall_time");
+        discipline.addLongProperty("per_practice_time");
+        discipline.addLongProperty("per_recall_time");
 
         //Discipline Text type table
         Entity discipline_text_list = schema.addEntity("Discipline_text_list");
         discipline_text_list.addIdProperty().autoincrement();
         Property disciplineId1 = discipline_text_list.addLongProperty("disciplineId").notNull().getProperty();
         //discipline_text_list.addToOne(discipline, disciplineId1);
-        ToMany disciplineToTextItems = discipline.addToMany(discipline_text_list,disciplineId1);
+        ToMany disciplineToTextItems = discipline.addToMany(discipline_text_list, disciplineId1);
         discipline_text_list.addStringProperty("item").notNull();
 
         //Discipline image type table
@@ -103,28 +103,28 @@ public class DopaDaoGenerator {
         run.addStringProperty("discipline").notNull();
         run.addStringProperty("locus");
         run.addIntProperty("no_of_items");
-        run.addFloatProperty("practice_time");
-        run.addFloatProperty("recall_time");
-        run.addFloatProperty("assigned_practice_time");
-        run.addFloatProperty("assigned_recall_time");
+        run.addLongProperty("practice_time");
+        run.addLongProperty("recall_time");
+        run.addLongProperty("assigned_practice_time");
+        run.addLongProperty("assigned_recall_time");
         run.addStringProperty("status");
-        run.addFloatProperty("per_practice_time");
-        run.addFloatProperty("per_recall_time");
+        run.addLongProperty("per_practice_time");
+        run.addLongProperty("per_recall_time");
         run.addDateProperty("start_timestamp");
 
         //Run_Item_list table
         Entity runitemlist = schema.addEntity("Run_discipline_item_list");
         runitemlist.addIdProperty().autoincrement();
-        runitemlist.addIntProperty("discipline_item").notNull();
+        runitemlist.addLongProperty("discipline_item").notNull();
         runitemlist.addIntProperty("recall_attempt");
         runitemlist.addIntProperty("practice_attempt");
         Property runId = runitemlist.addLongProperty("runId").notNull().getProperty();
-       // runitemlist.addToOne(run, runId);
+        // runitemlist.addToOne(run, runId);
         ToMany runToItems = run.addToMany(runitemlist, runId);
 
         runitemlist.addBooleanProperty("Status");
-        runitemlist.addFloatProperty("practice_time");
-        runitemlist.addFloatProperty("recall_time");
+        runitemlist.addLongProperty("practice_time");
+        runitemlist.addLongProperty("recall_time");
 
 
         //Generate all tables

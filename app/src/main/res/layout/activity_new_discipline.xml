@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:weightSum="1"
-    android:background="@drawable/bg">
+    android:background="@drawable/bg"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -12,7 +13,9 @@
         android:id="@+id/textView6"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.06"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -27,7 +30,8 @@
             android:id="@+id/textView7"
             android:layout_weight="0.37"
             android:gravity="center_vertical|center_horizontal"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="20dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -36,7 +40,7 @@
             android:ems="10"
             android:id="@+id/txtdisname"
             android:hint="Enter Discipline Name "
-            android:layout_weight="1.70" />
+            android:layout_weight="0.49" />
     </LinearLayout>
 
     <LinearLayout
@@ -58,7 +62,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD"
-            android:id="@+id/btndisadd" />
+            android:id="@+id/btndisadd"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="20dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -90,6 +97,9 @@
         android:layout_height="wrap_content"
         android:text="DONE"
         android:id="@+id/btndisdone"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 </LinearLayout>
