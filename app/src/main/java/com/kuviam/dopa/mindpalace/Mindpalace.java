@@ -1,7 +1,9 @@
 package com.kuviam.dopa.mindpalace;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,17 +35,15 @@ import java.util.List;
 
 
 public class Mindpalace extends Activity {
-    GreenDaoApplication mApplication;
-    DaoSession mDaoSession;
-    LocusDao mLocusDao;
-    Locus_text_listDao mLocus_text_listDao;
-    ArrayList<String> list = new ArrayList<String>();
-    ListView lView;
-    LocusListAdapter userAdapter;
-    Button newlc;
-
-    List<Locus> loci;
-
+    private GreenDaoApplication mApplication;
+    private DaoSession mDaoSession;
+    private LocusDao mLocusDao;
+    private Locus_text_listDao mLocus_text_listDao;
+    private ArrayList<String> list = new ArrayList<String>();
+    private ListView lView;
+    private LocusListAdapter userAdapter;
+    private Button newlc;
+    private List<Locus> loci;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +54,6 @@ public class Mindpalace extends Activity {
         Set_Add_Update_Screen();
         InitSampleData();
         //defaut_setup();
-
-        userAdapter = new LocusListAdapter(Mindpalace.this, R.layout.layout_locus_list,
-                list);
-
         lView.setItemsCanFocus(false);
         lView.setAdapter(userAdapter);
         /**
@@ -75,6 +71,7 @@ public class Mindpalace extends Activity {
             }
         });
 
+        //Call new locus creation activity
         newlc.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent myIntent = new Intent(Mindpalace.this,
@@ -85,11 +82,15 @@ public class Mindpalace extends Activity {
         });
     }
 
+    //Initialize the layout
     private void Set_Add_Update_Screen() {
         newlc = (Button) findViewById(R.id.bthaddlc);
         lView = (ListView) findViewById(R.id.locuslist);
+        userAdapter = new LocusListAdapter(Mindpalace.this, R.layout.layout_locus_list,
+                list);
     }
 
+    //Fill the list view by the loci
     void InitSampleData() {
         mLocusDao = mDaoSession.getLocusDao();
         mLocus_text_listDao = mDaoSession.getLocus_text_listDao();
@@ -100,18 +101,17 @@ public class Mindpalace extends Activity {
         }
     }
 
+    //call when we want to reset the the database
     void defaut_setup() {
         mLocusDao.deleteAll();
         mLocus_text_listDao.deleteAll();
         mDaoSession.clear();
-
     }
 
-
+    //show messages in screen
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,6 +135,7 @@ public class Mindpalace extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Adaper class for loci view
     class LocusListAdapter extends ArrayAdapter<String> {
         Context context;
         int layoutResourceId;
@@ -177,6 +178,13 @@ public class Mindpalace extends Activity {
                 public void onClick(View v) {
                     Log.i("Edit Button Clicked", "**********");
                     //showToast(Integer.toString(id) + ": Edit button Clicked");
+                    Intent myIntent = new Intent(Mindpalace.this,
+                            NewLocus.class);
+                    myIntent.putExtra("VariableName", id);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(myIntent);
+                    overridePendingTransition(0, 0);
+
                 }
             });
             holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -185,19 +193,38 @@ public class Mindpalace extends Activity {
                 public void onClick(View v) {
                     Log.i("Delete Button Clicked", "**********");
                     //showToast(Integer.toString(id) + ": Delete button Clicked");
-                    Locus dellc = loci.get(id);
-                    showToast(String.valueOf(dellc.getId()));
+                    final Locus dellc = loci.get(id);
+                    //showToast(String.valueOf(dellc.getId()));
+                    AlertDialog.Builder alert = new AlertDialog.Builder(Mindpalace.this);
+                    alert.setTitle("Alert!");
+                    alert.setMessage("Are you sure to delete this Locus");
+                    alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
-                    List<Locus_text_list> items = dellc.getLocus_text_listList();
-                    mLocus_text_listDao.deleteInTx(items);
-                    mLocusDao.delete(dellc);
-                    List<Locus> newloci = mLocusDao.loadAll();
-                    mDaoSession.clear();
-                    Intent intent = getIntent();
-                    finish();
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            List<Locus_text_list> items = dellc.getLocus_text_listList();
+                            mLocus_text_listDao.deleteInTx(items);
+                            mLocusDao.delete(dellc);
+                            List<Locus> newloci = mLocusDao.loadAll();
+                            mDaoSession.clear();
+                            Intent intent = getIntent();
+                            finish();
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
+                            overridePendingTransition(0, 0);
+
+                        }
+                    });
+                    alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    alert.show();
                 }
             });
 
@@ -223,6 +250,7 @@ public class Mindpalace extends Activity {
         }
     }
 
+    //Override the back button press method
     @Override
     public void onBackPressed() {
         Intent myIntent = new Intent(Mindpalace.this, MainActivity.class);

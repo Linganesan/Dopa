@@ -1,6 +1,8 @@
 package com.kuviam.dopa.Arena;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,12 +36,14 @@ public class NewDiscipline extends Activity {
     private Long disciplineID;
     private Discipline custom;
     private boolean firstcon;
+    private Discipline discipline;
 
     private GreenDaoApplication mApplication;
     private DaoSession mDaoSession;
     private DisciplineDao mDisciplineDao;
     private Discipline_text_listDao mDiscipline_text_listDao;
     private ArrayList<String> list = new ArrayList<String>();
+    private List<Discipline_text_list> itemlist;
 
 
     // Declaring an ArrayAdapter to set items to ListView
@@ -51,20 +55,28 @@ public class NewDiscipline extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_discipline);
         Intent mIntent = getIntent();
-        disID = mIntent.getIntExtra("intVariableName", -1);
+        try {
+            disID = mIntent.getIntExtra("VariableName", -1);
+        } catch (Exception e) {
+        }
+
 
         Set_Add_Update_Screen();
         mApplication = (GreenDaoApplication) getApplication();
         mDaoSession = mApplication.getDaoSession();
-
-        checkEdit();
-
-        // InitSampleData();
         mDisciplineDao = mDaoSession.getDisciplineDao();
-        // defaultSetup();
 
         //Defining the ArrayAdapter to set items to ListView
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+
+        if (disID >= 0) {
+            checkEdit();
+            firstcon = true;
+        }
+
+        // InitSampleData();
+
+        // defaultSetup();
 
         // Defining a click event listener for the button "Add"
         View.OnClickListener listener = new View.OnClickListener() {
@@ -116,12 +128,17 @@ public class NewDiscipline extends Activity {
                     disciplineID = custom.getId();
 
                     mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
+                    List<Discipline_text_list> items = custom.getDiscipline_text_listList();
+                    mDiscipline_text_listDao.deleteInTx(items);
+                    mDaoSession.clear();
+
+                    //add each item to the discipline list database
                     for (int i = 0; i < list.size(); i++) {
                         Discipline_text_list temp = new Discipline_text_list();
                         temp.setDisciplineId(disciplineID);
                         temp.setItem(list.get(i));
                         mDiscipline_text_listDao.insert(temp);
-                        showToast(temp.getId().toString());
+                        //showToast(temp.getId().toString());
 
                     }
                     Intent myIntent = new Intent(NewDiscipline.this, Arena.class);
@@ -137,39 +154,75 @@ public class NewDiscipline extends Activity {
             }
         });
 
+        //Delete the record by click it
         dislist.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = dislist.getItemAtPosition(position).toString();
-                showToast("You selected : " + item);
-                adapter.remove(item);
-                list.remove(item);
-                adapter.notifyDataSetChanged();
+                final String item = dislist.getItemAtPosition(position).toString();
+                //showToast("You selected : " + item);
+                AlertDialog.Builder alert = new AlertDialog.Builder(NewDiscipline.this);
+                alert.setTitle("Alert!");
+                alert.setMessage("Are you sure to delete record");
+                alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapter.remove(item);
+                        list.remove(item);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
             }
         });
     }
 
-    private void checkEdit(){
+    /*
+  When we click edit buttom in the Arena for a particular discipline this method will call
+  in new discipline activity to auto fill the information vacancies by proper discipline
+   */
+    private void checkEdit() {
+        List<Discipline> disciplines = mDisciplineDao.loadAll();
+        discipline = disciplines.get(disID);
+        name.setText(discipline.getName().toString());
 
+        mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
+        itemlist = discipline.getDiscipline_text_listList();
 
-
+        for (int i = 0; i < itemlist.size(); i++) {
+            list.add(itemlist.get(i).getItem().toString());
+            adapter.notifyDataSetChanged();
+            dislist.setAdapter(adapter);
+        }
+        custom = discipline;
     }
 
+    //Method to initialize the Discipline and checks the userinputs
     public void addDb() {
         boolean check;
         if (name.getText().toString() != null) {
             List<Discipline> disciplines = mDisciplineDao.loadAll();
             String ckname = name.getText().toString();
             check = true;
-            for (int i = 0; i < disciplines.size(); i++) {
-                String d = disciplines.get(i).getName();
-                // showToast(d);
-                if (d.equals(ckname)) {
-                    showToast("ddddd");
-                    check = false;
 
+            if (disID < 0)
+                for (int i = 0; i < disciplines.size(); i++) {
+                    String d = disciplines.get(i).getName();
+                    // showToast(d);
+                    if (d.equals(ckname)) {
+                        //showToast("ddddd");
+                        check = false;
+
+                    }
                 }
-            }
             if (check) {
                 String validname = name.getText().toString();
                 boolean is_ordered = chkbx.isChecked();
@@ -193,6 +246,7 @@ public class NewDiscipline extends Activity {
         }
     }
 
+    //Show messages in android screen by small dialog
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }

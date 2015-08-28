@@ -1,6 +1,8 @@
 package com.kuviam.dopa.Arena;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;
 
+import com.kuviam.dopa.MainActivity;
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
@@ -93,7 +96,7 @@ public class Mgym extends Activity {
         countDownTimer = new MalibuCountDownTimer(startTime, interval);
         text.setText(text.getText() + String.valueOf(startTime));
         startTimer();
-
+        //setup textswitcher
         textsw.setFactory(new ViewFactory() {
 
             @Override
@@ -167,6 +170,7 @@ public class Mgym extends Activity {
         });
     }
 
+    //Startup the countdown time
     private void startTimer() {
         if (!timerHasStarted) {
             countDownTimer.start();
@@ -177,6 +181,7 @@ public class Mgym extends Activity {
         }
     }
 
+    //Initialize the Run entity and check the Db connection
     private void setupDb() {
         if (run != null) {
             //showToast("uggkk");
@@ -219,6 +224,7 @@ public class Mgym extends Activity {
         }
     }
 
+    //Initialize the layout
     private void Set_Add_Update_Screen() {
 
         done = (Button) findViewById(R.id.btnmgymdone);
@@ -258,6 +264,7 @@ public class Mgym extends Activity {
         }
     }
 
+    //show messages in screen
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
@@ -271,7 +278,28 @@ public class Mgym extends Activity {
 
     @Override
     public void onBackPressed() {
-        //Alert
+        AlertDialog.Builder alert = new AlertDialog.Builder(Mgym.this);
+        alert.setTitle("Abort!");
+        alert.setMessage("Are you sure to leave");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent myIntent = new Intent(Mgym.this, MainActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(myIntent);
+                overridePendingTransition(0, 0);
+            }
+        });
+        alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+        alert.show();
     }
 
     @Override

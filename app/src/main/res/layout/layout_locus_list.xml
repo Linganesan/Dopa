@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:id="@+id/btnlcselect"
-        android:src="@drawable/card7"
+        android:src="@drawable/card_back"
         android:layout_weight="0.12" />
 
     <TextView

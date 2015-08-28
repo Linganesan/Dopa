@@ -100,12 +100,11 @@ public class MainActivity extends Activity {
         });
 
     }
-
+    //Initialize the layout
     public void Set_Add_Update_Screen() {
         arena = (Button) findViewById(R.id.btnarena);
         lib = (Button) findViewById(R.id.lib);
         mindpalace = (Button) findViewById(R.id.btnmind);
-
     }
 
     @Override

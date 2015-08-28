@@ -25,7 +25,6 @@ import com.kuviam.dopa.mindpalace.NewLocus;
 import com.kuviam.dopa.model.DaoSession;
 import com.kuviam.dopa.model.Discipline;
 import com.kuviam.dopa.model.DisciplineDao;
-import com.kuviam.dopa.model.Discipline_text_list;
 import com.kuviam.dopa.model.Locus;
 import com.kuviam.dopa.model.LocusDao;
 import com.kuviam.dopa.model.Locus_text_list;
@@ -65,7 +64,7 @@ public class Configure extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configure);
         Intent mIntent = getIntent();
-        intValue = mIntent.getIntExtra("intVariableName", 0);
+        intValue = mIntent.getIntExtra("intVariableName", -1);
 
         Set_Add_Update_Screen();
 
@@ -77,8 +76,8 @@ public class Configure extends Activity {
         discipline = disciplines.get(intValue);
         disname.setText(discipline.getName().toString());
 
-
         InitSampleData();
+
         userAdapter = new LocusListAdapter(Configure.this, R.layout.layout_locus_list,
                 list);
         locilist.setItemsCanFocus(false);
@@ -107,16 +106,17 @@ public class Configure extends Activity {
 
     }
 
+    //show messages in screen
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    //Fill the list view by the loci
     void InitSampleData() {
         mLocusDao = mDaoSession.getLocusDao();
         loci = mLocusDao.loadAll();
         updatedloci = mLocusDao.loadAll();
-        List<Discipline_text_list> ref = discipline.getDiscipline_text_listList();
-        int size = ref.size();
+        int size = discipline.getNo_of_items();
         for (Locus locus : loci) {
             List<Locus_text_list> checklist = locus.getLocus_text_listList();
 
@@ -128,6 +128,7 @@ public class Configure extends Activity {
         }
     }
 
+    //Method to initialize the Run and checks the userinputs
     public boolean addDb() {
         if (ptime.getText().toString().length() > 0 && rtime.getText().toString().length() > 0
                 && locus != null && discipline != null) {
@@ -156,6 +157,7 @@ public class Configure extends Activity {
         }
     }
 
+    //Initialize the layout
     private void Set_Add_Update_Screen() {
         ptime = (EditText) findViewById(R.id.txtmgymtime);
         rtime = (EditText) findViewById(R.id.txtrecalltime);
@@ -196,7 +198,7 @@ public class Configure extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    //Adaper class for loci list view
     class LocusListAdapter extends ArrayAdapter<String> {
         Context context;
         int layoutResourceId;

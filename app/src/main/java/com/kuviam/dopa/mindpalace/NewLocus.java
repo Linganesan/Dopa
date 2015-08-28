@@ -19,6 +19,8 @@
 package com.kuviam.dopa.mindpalace;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -50,22 +52,20 @@ public class NewLocus extends Activity {
     private Locus custom;
     private boolean firstcon;
 
-    GreenDaoApplication mApplication;
-    DaoSession mDaoSession;
-    LocusDao mLocusDao;
-    Locus_text_listDao mLocus_text_listDao;
-    ArrayList<String> list = new ArrayList<String>();
+    private GreenDaoApplication mApplication;
+    private DaoSession mDaoSession;
+    private LocusDao mLocusDao;
+    private Locus_text_listDao mLocus_text_listDao;
+    private ArrayList<String> list = new ArrayList<String>();
+    private List<Locus_text_list> itemlist;
 
     private int lcID;
+    private int disID;
 
-    /**
-     * Declaring an ArrayAdapter to set items to ListView
-     */
-    ArrayAdapter<String> adapter;
+    //Declaring an ArrayAdapter to set items to ListView
+    private ArrayAdapter<String> adapter;
 
-    /**
-     * Called when the activity is first created.
-     */
+    //Called when the activity is first created.
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -74,11 +74,19 @@ public class NewLocus extends Activity {
         /** Setting a custom layout for the list activity */
         setContentView(R.layout.activity_new_locus);
         Intent mIntent = getIntent();
-        lcID = mIntent.getIntExtra("intVariableName", -1);
+        lcID = mIntent.getIntExtra("VariableName", -1);
+        disID = mIntent.getIntExtra("intVariableName", -1);
+
         Set_Add_Update_Screen();
         mApplication = (GreenDaoApplication) getApplication();
         mDaoSession = mApplication.getDaoSession();
         mLocusDao = mDaoSession.getLocusDao();
+
+        //If edit button is clicked in the Areana
+        if (lcID >= 0 && disID < 0) {
+            checkEdit();
+            firstcon = true;
+        }
 
 
         /** Defining a click event listener for the button "Add" */
@@ -126,6 +134,11 @@ public class NewLocus extends Activity {
 
                     locusID = custom.getId();
                     mLocus_text_listDao = mDaoSession.getLocus_text_listDao();
+
+                    List<Locus_text_list> items = custom.getLocus_text_listList();
+                    mLocus_text_listDao.deleteInTx(items);
+                    mDaoSession.clear();
+                    //add each item to the locus list database
                     for (int i = 0; i < list.size(); i++) {
                         Locus_text_list temp = new Locus_text_list();
                         temp.setLocusId(locusID);
@@ -133,11 +146,12 @@ public class NewLocus extends Activity {
                         mLocus_text_listDao.insert(temp);
                         //showToast(temp.getId().toString());
 
+
                     }
-                    if (lcID >= 0) {
+                    if (disID >= 0) {
                         Intent myIntent = new Intent(NewLocus.this, Configure.class);
                         myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        myIntent.putExtra("intVariableName", lcID);
+                        myIntent.putExtra("intVariableName", disID);
                         startActivity(myIntent);
                         overridePendingTransition(0, 0);
 
@@ -148,39 +162,86 @@ public class NewLocus extends Activity {
                         overridePendingTransition(0, 0);
                     }
 
-                } else {
+                } else
+
+                {
                     showToast("Error in Db connection");
                 }
 
             }
         });
 
+        //Delete the record by click it
         l.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = l.getItemAtPosition(position).toString();
-                showToast("You selected : " + item);
-                adapter.remove(item);
-                list.remove(item);
-                adapter.notifyDataSetChanged();
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                final String item = l.getItemAtPosition(position).toString();
+                //showToast("You selected : " + item);
+                AlertDialog.Builder alert = new AlertDialog.Builder(NewLocus.this);
+                alert.setTitle("Alert!");
+                alert.setMessage("Are you sure to delete record");
+                alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapter.remove(item);
+                        try {
+                            list.remove(position);
+                        }catch(Exception e){}
+                        adapter.notifyDataSetChanged();
+
+                    }
+                });
+                alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.show();
+
             }
         });
     }
 
+    /*
+    When we click edit buttom in the Mindpalace for a particular locus, this method will call
+    in new Locus activity to auto fill the information vacancies by proper locus
+     */
+    private void checkEdit() {
+        List<Locus> loci = mLocusDao.loadAll();
+        custom = loci.get(lcID);
+        name.setText(custom.getName().toString());
+
+        mLocus_text_listDao = mDaoSession.getLocus_text_listDao();
+        itemlist = custom.getLocus_text_listList();
+
+        for (int i = 0; i < itemlist.size(); i++) {
+            list.add(itemlist.get(i).getItem().toString());
+            adapter.notifyDataSetChanged();
+            l.setAdapter(adapter);
+        }
+    }
+
+    //Method to initialize the Locus and checks the userinputs
     public void addDb() {
         boolean check;
         if (name.getText().toString() != null) {
             List<Locus> loci = mLocusDao.loadAll();
             String ckname = name.getText().toString();
             check = true;
-            for (int i = 0; i < loci.size(); i++) {
-                String d = loci.get(i).getName();
-                // showToast(d);
-                if (d.equals(ckname)) {
-                    showToast("ddddd");
-                    check = false;
+            if (lcID < 0)
+                for (int i = 0; i < loci.size(); i++) {
+                    String d = loci.get(i).getName();
+                    // showToast(d);
+                    if (d.equals(ckname)) {
+                        //showToast("ddddd");
+                        check = false;
+                    }
                 }
-            }
             if (check) {
                 String validname = name.getText().toString();
 
@@ -202,10 +263,12 @@ public class NewLocus extends Activity {
 
     }
 
+    //Show messages in android screen by small dialog
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    //Initialize the layout
     private void Set_Add_Update_Screen() {
         name = (EditText) findViewById(R.id.txtlociname);
         text = (EditText) findViewById(R.id.txtlcitem);

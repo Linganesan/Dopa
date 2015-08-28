@@ -56,7 +56,7 @@ public class Score extends Activity {
     private long runid;
     private int dissize;
     private ArrayList<String> missinputs;
-    private int miss=0;
+    private int miss = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class Score extends Activity {
         Intent mIntent = getIntent();
         runid = mIntent.getLongExtra("longVariableName", 0);
         String val = Long.toString(runid);
-        showToast(val);
+        //showToast(val);
 
         Set_Add_Update_Screen();
 
@@ -114,8 +114,9 @@ public class Score extends Activity {
                         LayoutParams.WRAP_CONTENT));
                 //Create a TextView to the missed discipline item ID
                 TextView valueTV = new TextView(this);
+                int realvalue = current + 1;
                 valueTV.setId(current);
-                valueTV.setText(String.valueOf(current)+":");
+                valueTV.setText(String.valueOf(realvalue) + ":");
                 valueTV.setTextColor(Color.BLACK);
                 valueTV.setTextSize(20);
                 valueTV.setLayoutParams(new LayoutParams(
@@ -145,7 +146,7 @@ public class Score extends Activity {
     }
 
     private void setupTablelayout() {
-        int current=(int)(Math.random()*10);
+        int current = (int) (Math.random() * 10);
 
         // Create a Missed items heading TableRow and give it an ID
         TableRow Missed = new TableRow(this);
@@ -186,8 +187,8 @@ public class Score extends Activity {
         // Create a Missed items heading TableRow and give it an ID
         TableRow success = new TableRow(this);
         success.setBackgroundColor(Color.GREEN);
-        success .setId(100 + current);
-        success .setLayoutParams(new LayoutParams(
+        success.setId(100 + current);
+        success.setLayoutParams(new LayoutParams(
                 LayoutParams.FILL_PARENT,
                 LayoutParams.WRAP_CONTENT));
         //Create a TextView to the missed discipline item ID
@@ -202,10 +203,10 @@ public class Score extends Activity {
         success.addView(success1);
 
         //Create a TextView to the missed discipline item
-        TextView success2= new TextView(this);
+        TextView success2 = new TextView(this);
         success2.setId(200 + current);
         success2.setTextSize(20);
-        success2.setText(String.valueOf(dissize-miss));
+        success2.setText(String.valueOf(dissize - miss));
         success2.setTextColor(Color.BLACK);
         success2.setLayoutParams(new LayoutParams(
                 LayoutParams.MATCH_PARENT,
@@ -284,7 +285,7 @@ public class Score extends Activity {
             dissize = dislist.size();
 
             missinputs = new ArrayList<String>(dissize);
-            for(int i=0;i<dissize;i++){
+            for (int i = 0; i < dissize; i++) {
                 missinputs.add("");
             }
 
@@ -294,14 +295,14 @@ public class Score extends Activity {
     }
 
     public void findoutMisses() {
-        showToast(String.valueOf(runlist.size()));
+        //showToast(String.valueOf(runlist.size()));
         for (int i = 0; i < runlist.size(); i++) {
             String temp = dislist.get((int) runlist.get(i).getDiscipline_item()).getItem();
             if (!runlist.get(i).getStatus()) {
                 missinputs.set(i, temp);
                 miss++;
                 Log.d(String.valueOf(i), temp);
-            }else{
+            } else {
                 missinputs.set(i, "");
             }
 
@@ -313,10 +314,10 @@ public class Score extends Activity {
         table = (TableLayout) findViewById(R.id.scoretable);
     }
 
+    //show messages in screen
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -327,7 +328,7 @@ public class Score extends Activity {
 
     @Override
     public void onBackPressed() {
-        Intent myIntent = new Intent(Score.this, Arena.class);
+        Intent myIntent = new Intent(Score.this, MainActivity.class);
         myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(myIntent);
         overridePendingTransition(0, 0);

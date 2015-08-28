@@ -1,6 +1,8 @@
 package com.kuviam.dopa.Arena;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -14,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kuviam.dopa.MainActivity;
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
@@ -73,7 +76,7 @@ public class Recall extends Activity {
         Intent mIntent = getIntent();
         runid = mIntent.getLongExtra("longVariableName", 0);
         String val = Long.toString(runid);
-        showToast(val);
+        //showToast(val);
 
         Set_Add_Update_Screen();
 
@@ -104,7 +107,7 @@ public class Recall extends Activity {
                 } catch (Exception e) {
                 }
 
-                showToast(Integer.valueOf(dissize).toString());
+                //showToast(Integer.valueOf(dissize).toString());
                 addRecallList();
                 Intent myIntent = new Intent(Recall.this, Score.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -191,6 +194,7 @@ public class Recall extends Activity {
         });
     }
 
+    //Startup the countdown time
     private void startTimer() {
         if (!timerHasStarted) {
             countDownTimer.start();
@@ -201,6 +205,7 @@ public class Recall extends Activity {
         }
     }
 
+    //Initialize the layout
     private void Set_Add_Update_Screen() {
         //Set views
         check = (Button) findViewById(R.id.btnrcdone);
@@ -213,6 +218,7 @@ public class Recall extends Activity {
 
     }
 
+    //Initialize the Run entity and check the Db connection
     private void setupDb() {
         if (run != null) {
             //Identify the Discipline
@@ -260,6 +266,7 @@ public class Recall extends Activity {
         }
     }
 
+    //keep the userinputs to a list
     private void addRecallList() {
         Log.d("runID :", String.valueOf(run.getId()));
         for (int i = 0; i < dissize; i++) {
@@ -284,6 +291,7 @@ public class Recall extends Activity {
         }
     }
 
+    //show messages in screen
     void showToast(CharSequence msg) {
 
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
@@ -307,7 +315,7 @@ public class Recall extends Activity {
             } catch (Exception e) {
             }
 
-            showToast(Integer.valueOf(dissize).toString());
+            //showToast(Integer.valueOf(dissize).toString());
             addRecallList();
             Intent myIntent = new Intent(Recall.this, Score.class);
             myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -326,7 +334,6 @@ public class Recall extends Activity {
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -337,6 +344,29 @@ public class Recall extends Activity {
     @Override
     public void onBackPressed() {
         //Alert
+        AlertDialog.Builder alert = new AlertDialog.Builder(Recall.this);
+        alert.setTitle("Abort");
+        alert.setMessage("Are you sure to leave");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                addRecallList();
+                Intent myIntent = new Intent(Recall.this, MainActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(myIntent);
+                overridePendingTransition(0, 0);
+            }
+        });
+        alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+        alert.show();
     }
 
     @Override

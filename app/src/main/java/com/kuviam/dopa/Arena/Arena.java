@@ -1,7 +1,9 @@
 package com.kuviam.dopa.Arena;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,14 +34,14 @@ import java.util.List;
 
 
 public class Arena extends Activity {
-    GreenDaoApplication mApplication;
-    DaoSession mDaoSession;
-    DisciplineDao mDisciplineDao;
-    Discipline_text_listDao mDiscipline_text_listDao;
-    ArrayList<String> list = new ArrayList<String>();
-    ListView lView;
-    DisciplineListAdapter userAdapter;
-    Button newdis;
+    private GreenDaoApplication mApplication;
+    private DaoSession mDaoSession;
+    private DisciplineDao mDisciplineDao;
+    private Discipline_text_listDao mDiscipline_text_listDao;
+    private ArrayList<String> list = new ArrayList<String>();
+    private ListView lView;
+    private DisciplineListAdapter userAdapter;
+    private Button newdis;
 
     List<Discipline> disciplines;
 
@@ -53,11 +55,6 @@ public class Arena extends Activity {
         InitSampleData();
         //defaultSetup();
 
-        /**
-         * set item into adapter
-         */
-        userAdapter = new DisciplineListAdapter(Arena.this, R.layout.layout_discipline_list,
-                list);
         lView = (ListView) findViewById(R.id.arenalist);
         lView.setItemsCanFocus(false);
         lView.setAdapter(userAdapter);
@@ -76,6 +73,7 @@ public class Arena extends Activity {
             }
         });
 
+        //Call new discipline creation activity
         newdis.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent myIntent = new Intent(Arena.this,
@@ -87,6 +85,7 @@ public class Arena extends Activity {
         });
     }
 
+    //Fill the list view by the discipline
     void InitSampleData() {
         mDisciplineDao = mDaoSession.getDisciplineDao();
         mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
@@ -98,6 +97,7 @@ public class Arena extends Activity {
 
     }
 
+    //call when we want to reset the the database
     void defaultSetup() {
         mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
         mDisciplineDao.deleteAll();
@@ -113,8 +113,12 @@ public class Arena extends Activity {
         return true;
     }
 
+    //Initialize the layout
     public void Set_Add_Update_Screen() {
         newdis = (Button) findViewById(R.id.btndisnew);
+        //set item into adapter
+        userAdapter = new DisciplineListAdapter(Arena.this, R.layout.layout_discipline_list,
+                list);
 
     }
 
@@ -142,6 +146,7 @@ public class Arena extends Activity {
 
     }
 
+    //Adaper class for discipline view
     class DisciplineListAdapter extends ArrayAdapter<String> {
         Context context;
         int layoutResourceId;
@@ -183,13 +188,10 @@ public class Arena extends Activity {
                     //showToast(Integer.toString(position) + ": Edit button Clicked");
                     Intent myIntent = new Intent(Arena.this,
                             NewDiscipline.class);
-                    myIntent.putExtra("intVariableName", position);
+                    myIntent.putExtra("VariableName", position);
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(myIntent);
                     overridePendingTransition(0, 0);
-
-
-
                 }
             });
             holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -201,24 +203,42 @@ public class Arena extends Activity {
                     //showToast(Integer.toString(position) + ": Delete button Clicked");
                     long disID = (long) (int) position;
 
-                    Discipline deldis = disciplines.get(position);
-                    showToast(String.valueOf(deldis.getId()));
+                    final Discipline deldis = disciplines.get(position);
+                    //showToast(String.valueOf(deldis.getId()));
+                    AlertDialog.Builder alert = new AlertDialog.Builder(Arena.this);
+                    alert.setTitle("Alert!");
+                    alert.setMessage("Are you sure to delete this discipline");
+                    alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            List<Discipline_text_list> items = deldis.getDiscipline_text_listList();
+                            mDiscipline_text_listDao.deleteInTx(items);
+
+                            mDisciplineDao.delete(deldis);
+                            List<Discipline> newdisciplines = mDisciplineDao.loadAll();
 
 
-                    List<Discipline_text_list> items = deldis.getDiscipline_text_listList();
-                    mDiscipline_text_listDao.deleteInTx(items);
+                            mDaoSession.clear();
+                            Intent intent = getIntent();
+                            finish();
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
+                            overridePendingTransition(0, 0);
 
-                    mDisciplineDao.delete(deldis);
-                    List<Discipline> newdisciplines = mDisciplineDao.loadAll();
+                        }
+                    });
+                    alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                    mDaoSession.clear();
-                    Intent intent = getIntent();
-                    finish();
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
+                            dialog.dismiss();
+                        }
+                    });
 
+                    alert.show();
+                    //
                 }
             });
 
@@ -226,9 +246,8 @@ public class Arena extends Activity {
             holder.btnSelect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     Log.i("Run Button Clicked", "**********");
-                    showToast(Integer.toString(position) + ": Test button Clicked");
+                    //showToast(Integer.toString(position) + ": Test button Clicked");
                     Intent myIntent = new Intent(Arena.this,
                             Configure.class);
                     myIntent.putExtra("intVariableName", position);
@@ -247,6 +266,7 @@ public class Arena extends Activity {
         }
     }
 
+    //Override the back button press method
     @Override
     public void onBackPressed() {
         Intent myIntent = new Intent(Arena.this, MainActivity.class);

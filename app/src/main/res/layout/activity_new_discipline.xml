@@ -84,22 +84,34 @@
 
     </LinearLayout>
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="22dp"
-        android:text="Keep the Order"
-        android:id="@+id/cb_dis"
-        android:layout_gravity="center_horizontal"
-        android:checked="true" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="54dp">
 
-    <Button
-        android:layout_width="114dp"
-        android:layout_height="wrap_content"
-        android:text="DONE"
-        android:id="@+id/btndisdone"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|center_horizontal"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:text="Keep the Order"
+            android:id="@+id/cb_dis"
+            android:layout_gravity="center_horizontal"
+            android:checked="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="68dp">
+
+        <Button
+            android:layout_width="114dp"
+            android:layout_height="wrap_content"
+            android:text="DONE"
+            android:id="@+id/btndisdone"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>
