@@ -101,6 +101,7 @@ public class MainActivity extends Activity {
                         Arena.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                finish();
                 overridePendingTransition(0, 0);
             }
         });
@@ -112,6 +113,7 @@ public class MainActivity extends Activity {
                 Intent myIntent = new Intent(MainActivity.this, Help.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                finish();
                 overridePendingTransition(0, 0);
             }
         });
@@ -122,6 +124,7 @@ public class MainActivity extends Activity {
                 Intent myIntent = new Intent(MainActivity.this, Mindpalace.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                finish();
                 overridePendingTransition(0, 0);
             }
         });
@@ -132,6 +135,7 @@ public class MainActivity extends Activity {
                 Intent myIntent = new Intent(MainActivity.this, Analytics.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                finish();
                 overridePendingTransition(0, 0);
             }
         });
@@ -240,7 +244,10 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                System.exit(0);
+                finish();
+                android.os.Process.killProcess(android.os.Process.myPid());
+                onDestroy();
+                System.exit(1);
 
             }
         });

@@ -88,6 +88,7 @@ public class Arena extends Activity {
                         NewDiscipline.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                finish();
                 overridePendingTransition(0, 0);
             }
         });
@@ -289,6 +290,7 @@ public class Arena extends Activity {
         Intent myIntent = new Intent(Arena.this, MainActivity.class);
         myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(myIntent);
+        finish();
         overridePendingTransition(0, 0);
     }
 

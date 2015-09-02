@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kuviam.dopa.Arena.Configure;
+import com.kuviam.dopa.MainActivity;
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
@@ -157,19 +158,21 @@ public class NewLocus extends Activity {
                         myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         myIntent.putExtra("intVariableName", disID);
                         startActivity(myIntent);
+                        finish();
                         overridePendingTransition(0, 0);
 
                     } else {
                         Intent myIntent = new Intent(NewLocus.this, Mindpalace.class);
                         myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(myIntent);
+                        finish();
                         overridePendingTransition(0, 0);
                     }
 
                 } else
 
                 {
-                    showToast("Error in Db connection");
+                    showToast("Enter the locus name & add locations");
                 }
 
             }
@@ -290,4 +293,24 @@ public class NewLocus extends Activity {
         /** Defining the ArrayAdapter to set items to ListView */
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (disID >= 0) {
+            Intent myIntent = new Intent(NewLocus.this, Configure.class);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            myIntent.putExtra("intVariableName", disID);
+            startActivity(myIntent);
+            finish();
+            overridePendingTransition(0, 0);
+
+        } else {
+            Intent myIntent = new Intent(NewLocus.this, Mindpalace.class);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(myIntent);
+            finish();
+            overridePendingTransition(0, 0);
+        }
+    }
+
 }

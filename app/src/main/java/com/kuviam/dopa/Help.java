@@ -1,6 +1,7 @@
 package com.kuviam.dopa;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,5 +37,15 @@ public class Help extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //Override the back button press method
+    @Override
+    public void onBackPressed() {
+        Intent myIntent = new Intent(Help.this, MainActivity.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(myIntent);
+        finish();
+        overridePendingTransition(0, 0);
     }
 }

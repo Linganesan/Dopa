@@ -94,7 +94,7 @@ public class Score extends Activity {
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 // Start NewActivity.class
-                if (discipline.getRuns_to_sync() >= 100) {
+                if (discipline.getRuns_to_sync() >= 3) {
                     Intent myIntent = new Intent(Score.this, Analytics.class);
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(myIntent);

@@ -7,4 +7,22 @@
     tools:context="com.kuviam.dopa.Help"
     android:background="@drawable/helpbg">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/textView5"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="0.61"
+            android:textColor="@color/primary_material_dark"
+            android:textIsSelectable="true"
+            android:text="This APP, &apos;Dopa&apos; assist the user to utilize and ingrain the Method of Loci as second nature.\n\n This is how th app works: \n 1.Click on Arena and create your discipline. \n2.Click your discipline key button \n3.Configuration form will show up! Select a locus or create a new locus" />
+    </LinearLayout>
+
 </RelativeLayout>

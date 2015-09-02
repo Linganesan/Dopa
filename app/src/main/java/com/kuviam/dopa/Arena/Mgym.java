@@ -225,7 +225,7 @@ public class Mgym extends Activity {
 
         } else {
 
-            showToast("MANI FOOL");
+            showToast("ERROR");
         }
     }
 
@@ -277,7 +277,7 @@ public class Mgym extends Activity {
         LinearLayout toastLayout = (LinearLayout) toast.getView();
         TextView toastTV = (TextView) toastLayout.getChildAt(0);
         toast.setGravity(Gravity.TOP, 0, 40);
-        toastTV.setTextSize(35);
+        toastTV.setTextSize(45);
         toast.show();
     }
 

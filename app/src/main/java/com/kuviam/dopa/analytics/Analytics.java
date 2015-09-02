@@ -170,6 +170,10 @@ public class Analytics extends Activity {
                 holder.textName = (TextView) row.findViewById(R.id.Itemname);
                 holder.btnSyn = (ImageButton) row.findViewById(R.id.btnsyn);
                 row.setTag(holder);
+
+
+                holder.btnSyn.setEnabled(false);
+
             } else {
                 holder = (UserHolder) row.getTag();
             }
@@ -254,6 +258,7 @@ public class Analytics extends Activity {
         Intent myIntent = new Intent(Analytics.this, MainActivity.class);
         myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(myIntent);
+        finish();
         overridePendingTransition(0, 0);
     }
 

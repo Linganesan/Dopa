@@ -79,6 +79,7 @@ public class Mindpalace extends Activity {
                 Intent myIntent = new Intent(Mindpalace.this,
                         NewLocus.class);
                 startActivity(myIntent);
+                finish();
 
             }
         });
@@ -191,6 +192,7 @@ public class Mindpalace extends Activity {
                     myIntent.putExtra("VariableName", id);
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(myIntent);
+                    finish();
                     overridePendingTransition(0, 0);
 
                 }
@@ -216,9 +218,9 @@ public class Mindpalace extends Activity {
                             List<Locus> newloci = mLocusDao.loadAll();
                             mDaoSession.clear();
                             Intent intent = getIntent();
-                            finish();
                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
+                            finish();
                             overridePendingTransition(0, 0);
 
                         }
@@ -264,6 +266,7 @@ public class Mindpalace extends Activity {
         Intent myIntent = new Intent(Mindpalace.this, MainActivity.class);
         myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(myIntent);
+        finish();
         overridePendingTransition(0, 0);
     }
 

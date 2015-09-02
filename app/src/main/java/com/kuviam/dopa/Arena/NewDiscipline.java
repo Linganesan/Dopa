@@ -159,7 +159,7 @@ public class NewDiscipline extends Activity {
                     overridePendingTransition(0, 0);
 
                 } else {
-                    showToast("Error in Db connection");
+                    showToast("Enter the Discipline Name & add items");
                 }
 
             }
