@@ -67,6 +67,7 @@ public class DopaDaoGenerator {
         discipline.addLongProperty("recall_time");
         discipline.addLongProperty("per_practice_time");
         discipline.addLongProperty("per_recall_time");
+        discipline.addLongProperty("runs_to_sync");
 
         //Discipline Text type table
         Entity discipline_text_list = schema.addEntity("Discipline_text_list");

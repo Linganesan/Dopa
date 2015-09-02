@@ -5,16 +5,19 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kuviam.dopa.analytics.Analytics;
 import com.kuviam.dopa.MainActivity;
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
@@ -91,10 +94,21 @@ public class Score extends Activity {
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 // Start NewActivity.class
-                Intent myIntent = new Intent(Score.this, MainActivity.class);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(myIntent);
-                overridePendingTransition(0, 0);
+                if (discipline.getRuns_to_sync() >= 100) {
+                    Intent myIntent = new Intent(Score.this, Analytics.class);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(myIntent);
+                   // overridePendingTransition(0, 0);
+                    finish();
+
+                } else {
+
+                    Intent myIntent = new Intent(Score.this, MainActivity.class);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(myIntent);
+                    //overridePendingTransition(0, 0);
+                    finish();
+                }
             }
         });
 
@@ -316,9 +330,14 @@ public class Score extends Activity {
 
     //show messages in screen
     void showToast(CharSequence msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
 
+        Toast toast = Toast.makeText(this,msg,Toast.LENGTH_SHORT);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toast.setGravity(Gravity.TOP, 0, 40);
+        toastTV.setTextSize(35);
+        toast.show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -331,7 +350,8 @@ public class Score extends Activity {
         Intent myIntent = new Intent(Score.this, MainActivity.class);
         myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(myIntent);
-        overridePendingTransition(0, 0);
+        finish();
+        //overridePendingTransition(0, 0);
     }
 
     @Override

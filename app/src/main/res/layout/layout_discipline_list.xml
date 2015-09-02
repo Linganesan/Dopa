@@ -11,7 +11,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="70dp"
 		android:id="@+id/btndisplay"
-		android:src="@drawable/icon"
+		android:src="@drawable/key"
 		android:layout_weight="0.12" />
 
 	<TextView
@@ -20,7 +20,9 @@
 		android:layout_height="70dp"
 		android:textSize="20sp" 
 		android:paddingTop="5dp"
-		android:layout_weight="0.65" />
+		android:layout_weight="0.65"
+		android:textColor="@color/primary_material_dark"
+		android:textStyle="bold" />
 
 	<ImageButton
 		android:layout_width="wrap_content"
@@ -33,7 +35,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="70dp"
 		android:id="@+id/btndisdelete"
-		android:src="@drawable/cancel"
+		android:src="@drawable/delete"
 		android:layout_weight="0.12" />
 
 </LinearLayout>

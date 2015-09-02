@@ -14,9 +14,12 @@
         android:src="@drawable/logo"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:onClick="onClick"
+    />
 
-    <Button
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="MindPalace"
@@ -27,9 +30,10 @@
         android:layout_alignParentStart="true"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal"
+        android:src="@drawable/mindpalace" />
 
-    <Button
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Arena"
@@ -40,9 +44,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="20dp"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal"
+        android:src="@drawable/arena" />
 
-    <Button
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Help"
@@ -53,20 +58,22 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="20dp"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal"
+        android:src="@drawable/help" />
 
-    <Button
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Analytics"
-        android:id="@+id/button"
+        android:id="@+id/analytics"
         android:layout_weight="0.16"
         android:layout_below="@+id/lib"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal"
+        android:src="@drawable/button" />
 
     <LinearLayout
         android:orientation="vertical"

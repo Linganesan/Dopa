@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kuviam.dopa.R;
@@ -123,11 +126,18 @@ public class NewDiscipline extends Activity {
                     custom.setIs_Ordered(chkbx.isChecked());
                     int size = list.size();
                     custom.setNo_of_items(size);
-
-                    mDisciplineDao.insertOrReplace(custom);
-                    disciplineID = custom.getId();
+                    custom.setRuns_to_sync((long) 0);
 
                     mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
+
+                    long toatalpracticetime = list.size() * 5;
+                    long toatalrecalltime = list.size() * 10;
+                    custom.setPractice_time(toatalpracticetime);
+                    custom.setRecall_time(toatalrecalltime);
+                    custom.setPer_practice_time((long) 5);
+                    custom.setPer_recall_time((long) 10);
+                    mDisciplineDao.insertOrReplace(custom);
+                    disciplineID = custom.getId();
                     List<Discipline_text_list> items = custom.getDiscipline_text_listList();
                     mDiscipline_text_listDao.deleteInTx(items);
                     mDaoSession.clear();
@@ -141,6 +151,7 @@ public class NewDiscipline extends Activity {
                         //showToast(temp.getId().toString());
 
                     }
+
                     Intent myIntent = new Intent(NewDiscipline.this, Arena.class);
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
@@ -246,9 +257,15 @@ public class NewDiscipline extends Activity {
         }
     }
 
-    //Show messages in android screen by small dialog
+    //show messages in screen
     void showToast(CharSequence msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toast.setGravity(Gravity.TOP, 0, 40);
+        toastTV.setTextSize(35);
+        toast.show();
     }
 
     public void defaultSetup() {
@@ -277,6 +294,7 @@ public class NewDiscipline extends Activity {
     public void onBackPressed() {
         Intent myIntent = new Intent(NewDiscipline.this, Arena.class);
         startActivity(myIntent);
+        finish();
     }
 
     @Override

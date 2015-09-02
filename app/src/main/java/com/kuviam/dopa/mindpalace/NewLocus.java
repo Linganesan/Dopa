@@ -23,12 +23,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kuviam.dopa.Arena.Configure;
@@ -187,7 +191,9 @@ public class NewLocus extends Activity {
                         adapter.remove(item);
                         try {
                             list.remove(position);
-                        }catch(Exception e){}
+                        }catch(Exception e){
+                            Log.d("hi","df");
+                        }
                         adapter.notifyDataSetChanged();
 
                     }
@@ -263,9 +269,15 @@ public class NewLocus extends Activity {
 
     }
 
-    //Show messages in android screen by small dialog
-    private void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    //show messages in screen
+    void showToast(CharSequence msg) {
+
+        Toast toast = Toast.makeText(this,msg,Toast.LENGTH_SHORT);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toast.setGravity(Gravity.TOP, 0, 40);
+        toastTV.setTextSize(35);
+        toast.show();
     }
 
     //Initialize the layout

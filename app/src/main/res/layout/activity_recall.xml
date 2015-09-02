@@ -23,12 +23,22 @@
             android:text="Time: "
             android:paddingRight="10dip"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.80"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.79"
             android:gravity="center_vertical|center_horizontal"
             android:textStyle="bold"
             android:textSize="20dp"
             android:textColor="@color/primary_dark_material_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ithitem"
+            android:layout_weight="0.19"
+            android:textColor="@color/primary_material_dark"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:gravity="center_vertical|center_horizontal" />
 
     </LinearLayout>
 

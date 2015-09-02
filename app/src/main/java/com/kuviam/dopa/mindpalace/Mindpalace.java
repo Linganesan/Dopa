@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -97,7 +99,7 @@ public class Mindpalace extends Activity {
         // list  =  new ArrayList<String>();
         loci = mLocusDao.loadAll();
         for (Locus locus : loci) {
-            list.add("Name :" + locus.getName() + "\n ID:" + locus.getId());
+            list.add(" " + locus.getName() );
         }
     }
 
@@ -110,7 +112,13 @@ public class Mindpalace extends Activity {
 
     //show messages in screen
     void showToast(CharSequence msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+        Toast toast = Toast.makeText(this,msg,Toast.LENGTH_SHORT);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toast.setGravity(Gravity.TOP, 0, 40);
+        toastTV.setTextSize(35);
+        toast.show();
     }
 
     @Override

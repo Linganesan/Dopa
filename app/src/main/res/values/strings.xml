@@ -40,6 +40,7 @@
     <string name="title_activity_new_discipline">NewDiscipline</string>
     <string name="title_activity_mgym">Mgym</string>
     <string name="title_activity_recall">Recall</string>
+    <string name="title_activity_analytics">Analytics</string>
 
 
 </resources>

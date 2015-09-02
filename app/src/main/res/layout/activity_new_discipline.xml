@@ -15,7 +15,8 @@
         android:layout_weight="0.06"
         android:gravity="center_vertical|center_horizontal"
         android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/primary_material_dark" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -31,7 +32,8 @@
             android:layout_weight="0.37"
             android:gravity="center_vertical|center_horizontal"
             android:textStyle="bold"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="@color/primary_material_dark" />
 
         <EditText
             android:layout_width="wrap_content"

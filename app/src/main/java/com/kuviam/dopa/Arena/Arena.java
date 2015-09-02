@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,10 @@ import com.kuviam.dopa.model.DisciplineDao;
 import com.kuviam.dopa.model.Discipline_text_list;
 import com.kuviam.dopa.model.Discipline_text_listDao;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +60,7 @@ public class Arena extends Activity {
         mDaoSession = mApplication.getDaoSession();
         Set_Add_Update_Screen();
         InitSampleData();
+
         //defaultSetup();
 
         lView = (ListView) findViewById(R.id.arenalist);
@@ -92,7 +100,7 @@ public class Arena extends Activity {
         // list  =  new ArrayList<String>();
         disciplines = mDisciplineDao.loadAll();
         for (Discipline discipline : disciplines) {
-            list.add("Name :" + discipline.getName() + "\n No of items :" + discipline.getNo_of_items());
+            list.add(" " + discipline.getName() + "\n Items :" + discipline.getNo_of_items());
         }
 
     }
@@ -122,8 +130,15 @@ public class Arena extends Activity {
 
     }
 
+    //show messages in screen
     void showToast(CharSequence msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+        Toast toast = Toast.makeText(this,msg,Toast.LENGTH_SHORT);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toast.setGravity(Gravity.TOP, 0, 40);
+        toastTV.setTextSize(35);
+        toast.show();
     }
 
     @Override
@@ -146,7 +161,7 @@ public class Arena extends Activity {
 
     }
 
-    //Adaper class for discipline view
+    //Adapter class for discipline view
     class DisciplineListAdapter extends ArrayAdapter<String> {
         Context context;
         int layoutResourceId;
@@ -224,6 +239,7 @@ public class Arena extends Activity {
                             finish();
                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
+                            finish();
                             overridePendingTransition(0, 0);
 
                         }
@@ -252,6 +268,7 @@ public class Arena extends Activity {
                             Configure.class);
                     myIntent.putExtra("intVariableName", position);
                     startActivity(myIntent);
+                    finish();
                 }
             });
             return row;
@@ -274,5 +291,6 @@ public class Arena extends Activity {
         startActivity(myIntent);
         overridePendingTransition(0, 0);
     }
+
 
 }

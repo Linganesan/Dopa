@@ -17,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -123,11 +124,14 @@ public class Mgym extends Activity {
 
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                //run.setPractice_time();
                 Long runid = run.getId();
+                countDownTimer.cancel();
                 Intent myIntent = new Intent(Mgym.this, Recall.class);
                 myIntent.putExtra("longVariableName", runid);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                finish();
                 overridePendingTransition(0, 0);
             }
         });
@@ -209,6 +213,7 @@ public class Mgym extends Activity {
             mDiscipline_text_list = mDaoSession.getDiscipline_text_listDao();
             dislist = discipline.getDiscipline_text_listList();
             dissize = dislist.size();
+            //showToast(String.valueOf(dissize));
 
             if (dissize <= 0) {
                 next.setEnabled(false);
@@ -252,6 +257,7 @@ public class Mgym extends Activity {
             myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(myIntent);
             overridePendingTransition(0, 0);
+            finish();
 
             // timeElapsedView.setText("Time Elapsed: " + String.valueOf(startTime));
         }
@@ -266,7 +272,13 @@ public class Mgym extends Activity {
 
     //show messages in screen
     void showToast(CharSequence msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+
+        Toast toast = Toast.makeText(this,msg,Toast.LENGTH_SHORT);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toast.setGravity(Gravity.TOP, 0, 40);
+        toastTV.setTextSize(35);
+        toast.show();
     }
 
     @Override
@@ -288,6 +300,8 @@ public class Mgym extends Activity {
                 Intent myIntent = new Intent(Mgym.this, MainActivity.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
+                countDownTimer.cancel();
+                finish();
                 overridePendingTransition(0, 0);
             }
         });

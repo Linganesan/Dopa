@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kuviam.dopa" >
-
+    <!-- Internet permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:name=".db.GreenDaoApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-        android:name = "com.kuviam.dopa.db.GreenDaoApplication">>
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+>
         <activity
-            android:name="com.kuviam.dopa.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,11 +20,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.kuviam.dopa.mindpalace.Mindpalace"
+            android:name=".mindpalace.Mindpalace"
             android:label="@string/title_activity_mindpalace" >
         </activity>
         <activity
-            android:name="com.kuviam.dopa.Arena.Arena"
+            android:name=".Arena.Arena"
             android:label="Arena" >
         </activity>
         <activity
@@ -30,30 +32,33 @@
             android:label="Add" >
         </activity>
         <activity
-            android:name="com.kuviam.dopa.Help"
+            android:name=".Help"
             android:label="@string/title_activity_help" >
         </activity>
         <activity
-            android:name="com.kuviam.dopa.Arena.Configure"
+            android:name=".Arena.Configure"
             android:label="Cards" >
         </activity>
         <activity
-            android:name="com.kuviam.dopa.Arena.NewDiscipline"
+            android:name=".Arena.NewDiscipline"
             android:label="@string/title_activity_new_discipline" >
         </activity>
         <activity
-            android:name="com.kuviam.dopa.Arena.Mgym"
+            android:name=".Arena.Mgym"
             android:label="@string/title_activity_mgym" >
         </activity>
         <activity
-            android:name="com.kuviam.dopa.Arena.Score"
+            android:name=".Arena.Score"
             android:label="@string/title_activity_score" >
         </activity>
         <activity
-            android:name="com.kuviam.dopa.Arena.Recall"
+            android:name=".Arena.Recall"
             android:label="@string/title_activity_recall" >
         </activity>
-
+        <activity
+            android:name=".analytics.Analytics"
+            android:label="@string/title_activity_analytics" >
+        </activity>
     </application>
 
 </manifest>

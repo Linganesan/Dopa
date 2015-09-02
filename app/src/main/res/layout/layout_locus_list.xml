@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:id="@+id/btnlcselect"
-        android:src="@drawable/card_back"
+        android:src="@drawable/key"
         android:layout_weight="0.12" />
 
     <TextView
@@ -18,8 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:gravity="center_vertical"
-        android:textSize="14dp"
-        android:textColor="#0e0007"
+        android:textSize="20dp"
+        android:textColor="@color/primary_material_dark"
         android:layout_marginLeft="7dp"
         android:layout_weight="0.65"
         android:textStyle="bold" />
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:id="@+id/btnlcclose"
-        android:src="@drawable/cancel"
+        android:src="@drawable/delete"
         android:layout_weight="0.12" />
 
 </LinearLayout>

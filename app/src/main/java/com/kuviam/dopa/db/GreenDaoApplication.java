@@ -1,6 +1,7 @@
 package com.kuviam.dopa.db;
 
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.kuviam.dopa.model.DaoMaster;
@@ -12,6 +13,7 @@ public class GreenDaoApplication extends Application {
     DaoSession mDaoSession;
 
 
+
     public void onCreate() {
         super.onCreate();
         setupDatabase();
@@ -19,7 +21,7 @@ public class GreenDaoApplication extends Application {
 
     private void setupDatabase() {
         DaoMaster.DevOpenHelper helper =
-                new DaoMaster.DevOpenHelper(this, "kanna.db", null);
+                new DaoMaster.DevOpenHelper(this, "sdf.db", null);
         SQLiteDatabase db = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
         mDaoSession = daoMaster.newSession();
@@ -28,4 +30,5 @@ public class GreenDaoApplication extends Application {
     public DaoSession getDaoSession() {
         return mDaoSession;
     }
+
 }

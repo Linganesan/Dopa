@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -75,6 +77,8 @@ public class Configure extends Activity {
         List<Discipline> disciplines = mDisciplineDao.loadAll();
         discipline = disciplines.get(intValue);
         disname.setText(discipline.getName().toString());
+        ptime.setText(String.valueOf(discipline.getPractice_time()).toString());
+        rtime.setText(String.valueOf(discipline.getRecall_time()).toString());
 
         InitSampleData();
 
@@ -83,14 +87,18 @@ public class Configure extends Activity {
         locilist.setItemsCanFocus(false);
         locilist.setAdapter(userAdapter);
 
+
         start.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                Log.i("start befButton Clicked", "**********");
                 // Start NewActivity.class
                 if (addDb()) {
+                    Log.i("Start afrButton Clicked", "**********");
                     Long runid = run.getId();
                     Intent myIntent = new Intent(Configure.this, Mgym.class);
                     myIntent.putExtra("longVariableName", runid);
                     startActivity(myIntent);
+                    finish();
                 }
             }
         });
@@ -100,6 +108,7 @@ public class Configure extends Activity {
                 Intent myIntent = new Intent(Configure.this, NewLocus.class);
                 myIntent.putExtra("intVariableName", intValue);
                 startActivity(myIntent);
+                finish();
             }
         });
 
@@ -108,7 +117,12 @@ public class Configure extends Activity {
 
     //show messages in screen
     void showToast(CharSequence msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toast.setGravity(Gravity.TOP, 0, 40);
+        toastTV.setTextSize(30);
+        toast.show();
     }
 
     //Fill the list view by the loci
@@ -121,7 +135,7 @@ public class Configure extends Activity {
             List<Locus_text_list> checklist = locus.getLocus_text_listList();
 
             if (checklist.size() >= size) {
-                list.add("Name :" + locus.getName() + "\n ID:" + locus.getId());
+                list.add(" " + locus.getName());
             } else {
                 updatedloci.remove(locus);
             }
@@ -139,7 +153,9 @@ public class Configure extends Activity {
             run.setAssigned_practice_time(pti);
             run.setAssigned_recall_time(rti);
             run.setDiscipline(discipline.getName());
+            run.setNo_of_items(discipline.getNo_of_items());
             run.setLocus(locus.getName());
+            //run.setStart_timestamp(Date);
             mRunDao.insert(run);
             return true;
 
@@ -151,7 +167,7 @@ public class Configure extends Activity {
             rtime.setError("Enter the Recall time");
             return false;
         } else {
-            showToast("Error");
+            showToast("Select Locus");
             return false;
 
         }
@@ -166,15 +182,17 @@ public class Configure extends Activity {
         start = (Button) findViewById(R.id.btnstart);
         locilist = (ListView) findViewById(R.id.listloci);
         disname = (TextView) findViewById(R.id.disname);
-        slocus = (TextView) findViewById(R.id.selectedloucs);
+
 
     }
 
     @Override
     public void onBackPressed() {
+
         Intent myIntent = new Intent(Configure.this, Arena.class);
         myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(myIntent);
+        finish();
         overridePendingTransition(0, 0);
     }
 
@@ -240,7 +258,7 @@ public class Configure extends Activity {
                     mLocusDao = mDaoSession.getLocusDao();
                     locus = updatedloci.get(position);
                     //showToast(locus.getName().toString());
-                    slocus.setText(locus.getName().toString());
+                    showToast(locus.getName().toString());
                 }
 
             });

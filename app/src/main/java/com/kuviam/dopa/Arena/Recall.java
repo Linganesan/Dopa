@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class Recall extends Activity {
     private MalibuCountDownTimer countDownTimer;
     private boolean timerHasStarted = false;
     private TextView text;
+    private TextView ithitem;
     private Button check;
     private ImageButton next, pre, hint;
     private EditText entertext;
@@ -78,6 +81,7 @@ public class Recall extends Activity {
         String val = Long.toString(runid);
         //showToast(val);
 
+
         Set_Add_Update_Screen();
 
         mApplication = (GreenDaoApplication) getApplication();
@@ -88,7 +92,7 @@ public class Recall extends Activity {
         run = mRunDao.load(runid);
 
         setupDb();
-
+        ithitem.setText(String.valueOf(counter+1));
         countDownTimer = new MalibuCountDownTimer(startTime, interval);
         text.setText(text.getText() + String.valueOf(startTime));
         startTimer();
@@ -109,11 +113,15 @@ public class Recall extends Activity {
 
                 //showToast(Integer.valueOf(dissize).toString());
                 addRecallList();
+                long temp =discipline.getRuns_to_sync();
+                discipline.setRuns_to_sync(++temp);
+                mDisciplineDao.insertOrReplace(discipline);
+                countDownTimer.cancel();
                 Intent myIntent = new Intent(Recall.this, Score.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 myIntent.putExtra("longVariableName", runid);
                 startActivity(myIntent);
-                overridePendingTransition(0, 0);
+                finish();
             }
         });
 
@@ -127,6 +135,7 @@ public class Recall extends Activity {
                     //  showToast("counter/previous :" + Integer.toString(counter) + userinputs.get(counter).toString());
                 }
                 counter++;
+                ithitem.setText(String.valueOf(counter + 1));
                 //showToast("counter :" + Integer.toString(counter));
                 if (counter >= 0 && counter < dissize) {
 
@@ -145,6 +154,7 @@ public class Recall extends Activity {
                     //showToast("nextF");
                     next.setEnabled(false);
                     --counter;
+                    ithitem.setText(String.valueOf(counter+1));
                 }
             }
         });
@@ -161,6 +171,7 @@ public class Recall extends Activity {
                     //  showToast("counter/previous :" + Integer.toString(counter) + userinputs.get(counter).toString());
                 }
                 --counter;
+                ithitem.setText(String.valueOf(counter + 1));
                 //showToast("counter :" + Integer.toString(counter));
                 if (counter > -1 && counter <= dissize) {
                     try {
@@ -180,6 +191,7 @@ public class Recall extends Activity {
                     //showToast("preF");
                     pre.setEnabled(false);
                     ++counter;
+                    ithitem.setText(String.valueOf(counter+1));
                 }
             }
         });
@@ -214,6 +226,7 @@ public class Recall extends Activity {
         hint = (ImageButton) findViewById(R.id.btnrchint);
         text = (TextView) findViewById(R.id.recalltimer);
         entertext = (EditText) findViewById(R.id.rcedittext);
+        ithitem=(TextView) findViewById(R.id.ithitem);
 
 
     }
@@ -273,7 +286,7 @@ public class Recall extends Activity {
             runitem = new Run_discipline_item_list();
             runitem.setRunId(run.getId());
             runitem.setDiscipline_item(i);
-            if (dislist.get(i).getItem().toString().equals(userinputs.get(i).toString())) {
+            if (dislist.get(i).getItem().toString().equalsIgnoreCase(userinputs.get(i).toString())) {
                 runitem.setStatus(true);
             } else {
                 runitem.setStatus(false);
@@ -294,7 +307,12 @@ public class Recall extends Activity {
     //show messages in screen
     void showToast(CharSequence msg) {
 
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        Toast toast = Toast.makeText(this,msg,Toast.LENGTH_SHORT);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toast.setGravity(Gravity.TOP, 0, 40);
+        toastTV.setTextSize(35);
+        toast.show();
     }
 
     // CountDownTimer class
@@ -321,7 +339,7 @@ public class Recall extends Activity {
             myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             myIntent.putExtra("longVariableName", runid);
             startActivity(myIntent);
-            overridePendingTransition(0, 0);
+            finish();
 
             // timeElapsedView.setText("Time Elapsed: " + String.valueOf(startTime));
         }
@@ -352,6 +370,10 @@ public class Recall extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 addRecallList();
+
+                run.setStatus("false");
+                mRunDao.insertOrReplace(run);
+
                 Intent myIntent = new Intent(Recall.this, MainActivity.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);
