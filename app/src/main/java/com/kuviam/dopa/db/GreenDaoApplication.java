@@ -21,7 +21,7 @@ public class GreenDaoApplication extends Application {
 
     private void setupDatabase() {
         DaoMaster.DevOpenHelper helper =
-                new DaoMaster.DevOpenHelper(this, "sdf.db", null);
+                new DaoMaster.DevOpenHelper(this, "dopa.db", null);
         SQLiteDatabase db = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
         mDaoSession = daoMaster.newSession();

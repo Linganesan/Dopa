@@ -127,6 +127,9 @@ public class DopaDaoGenerator {
         runitemlist.addLongProperty("practice_time");
         runitemlist.addLongProperty("recall_time");
 
+        Entity dic = schema.addEntity("Dictionary");
+        dic.addIdProperty().autoincrement();
+        dic.addStringProperty("word").notNull();
 
         //Generate all tables
 

@@ -121,7 +121,7 @@ public class NewDiscipline extends Activity {
 
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                if (custom != null && list.size() != 0) {
+                if (custom != null && list.size() != 0 && name.getText().toString() != null) {
                     custom.setName(name.getText().toString());
                     custom.setIs_Ordered(chkbx.isChecked());
                     int size = list.size();
@@ -156,6 +156,7 @@ public class NewDiscipline extends Activity {
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
                     startActivity(myIntent);
+                    finish();
                     overridePendingTransition(0, 0);
 
                 } else {

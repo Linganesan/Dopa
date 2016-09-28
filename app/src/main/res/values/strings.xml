@@ -42,5 +42,12 @@
     <string name="title_activity_recall">Recall</string>
     <string name="title_activity_analytics">Analytics</string>
 
+    <string name="title_activity_memorypalace_info">MemorypalaceInfo</string>
+
+    <string name="dopahow">" Lorem ipsum dolor sit amet, consectetur
+  adipiscing elit. Nunc pellentesque, urna
+  nec hendrerit pellentesque, risus massa"
+</string>
+
 
 </resources>

@@ -52,7 +52,7 @@ public class Score extends Activity {
     private DisciplineDao mDisciplineDao;
     private RunDao mRunDao;
     private Run_discipline_item_listDao mRun_discipline_item_listDao;
-    private Discipline_text_listDao mDiscipline_text_list;
+    private Discipline_text_listDao mDiscipline_text_listDao;
 
     private List<Discipline> disciplines;
     private List<Locus> loci;
@@ -60,6 +60,7 @@ public class Score extends Activity {
     private int dissize;
     private ArrayList<String> missinputs;
     private int miss = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +91,20 @@ public class Score extends Activity {
         // Go through each item in the array
         setupTable();
 
+        if(discipline.getName().equals("Default")){
+            List<Discipline_text_list> dfsf = discipline.getDiscipline_text_listList();
+            mDiscipline_text_listDao=mDaoSession.getDiscipline_text_listDao();
+            mDisciplineDao=mDaoSession.getDisciplineDao();
+            mDiscipline_text_listDao.deleteInTx(dfsf);
+            mDisciplineDao.delete(discipline);
+            mDaoSession.clear();
+
+        }
 
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 // Start NewActivity.class
+
                 if (discipline.getRuns_to_sync() >= 3) {
                     Intent myIntent = new Intent(Score.this, Analytics.class);
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -294,7 +305,7 @@ public class Score extends Activity {
                 }
             }
             //get discipline list for findout the size of userinput array
-            mDiscipline_text_list = mDaoSession.getDiscipline_text_listDao();
+          //  mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
             dislist = discipline.getDiscipline_text_listList();
             dissize = dislist.size();
 

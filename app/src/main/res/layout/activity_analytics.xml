@@ -30,15 +30,21 @@
                 android:gravity="center_vertical|center_horizontal" />
         </LinearLayout>
 
+        <Space
+            android:layout_width="377dp"
+            android:layout_height="32dp" />
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="365dp"
+            android:weightSum="1">
 
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/analyticslist" />
+
         </LinearLayout>
 
     </LinearLayout>

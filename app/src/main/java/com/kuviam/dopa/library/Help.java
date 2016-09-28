@@ -1,20 +1,32 @@
-package com.kuviam.dopa;
+package com.kuviam.dopa.library;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 
+import com.kuviam.dopa.MainActivity;
 import com.kuviam.dopa.R;
 
 public class Help extends Activity {
+    private ImageButton howmemory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+        howmemory = (ImageButton) findViewById(R.id.howmemory);
+        howmemory.setEnabled(false);
+      /*  howmemory.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(Help.this, MemorypalaceInfo.class);
+                startActivity(myIntent);
+                finish();
+
+            }
+        });*/
     }
 
     @Override

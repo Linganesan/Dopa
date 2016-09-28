@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:gravity="center_vertical"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textColor="@color/primary_material_dark"
         android:layout_marginLeft="7dp"
         android:layout_weight="0.65"

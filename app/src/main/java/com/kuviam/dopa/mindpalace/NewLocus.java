@@ -36,7 +36,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kuviam.dopa.Arena.Configure;
-import com.kuviam.dopa.MainActivity;
 import com.kuviam.dopa.R;
 import com.kuviam.dopa.db.GreenDaoApplication;
 import com.kuviam.dopa.model.DaoSession;
@@ -133,7 +132,7 @@ public class NewLocus extends Activity {
 
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                if (custom != null) {
+                if (custom != null && name.getText().toString() != null) {
                     custom.setName(name.getText().toString());
                     mLocusDao.insertOrReplace(custom);
 
@@ -194,8 +193,8 @@ public class NewLocus extends Activity {
                         adapter.remove(item);
                         try {
                             list.remove(position);
-                        }catch(Exception e){
-                            Log.d("hi","df");
+                        } catch (Exception e) {
+                            Log.d("hi", "df");
                         }
                         adapter.notifyDataSetChanged();
 
@@ -275,7 +274,7 @@ public class NewLocus extends Activity {
     //show messages in screen
     void showToast(CharSequence msg) {
 
-        Toast toast = Toast.makeText(this,msg,Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
         LinearLayout toastLayout = (LinearLayout) toast.getView();
         TextView toastTV = (TextView) toastLayout.getChildAt(0);
         toast.setGravity(Gravity.TOP, 0, 40);

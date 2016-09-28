@@ -58,7 +58,7 @@ public class Recall extends Activity {
     private DisciplineDao mDisciplineDao;
     private RunDao mRunDao;
     private Run_discipline_item_listDao mRun_discipline_item_listDao;
-    private Discipline_text_listDao mDiscipline_text_list;
+    private Discipline_text_listDao mDiscipline_text_listDao;
     private List<Locus_text_list> hints;
 
     private List<Discipline> disciplines;
@@ -256,7 +256,7 @@ public class Recall extends Activity {
             hints = locus.getLocus_text_listList();
 
             //get discipline list for findout the size of userinput array
-            mDiscipline_text_list = mDaoSession.getDiscipline_text_listDao();
+            // mDiscipline_text_list = mDaoSession.getDiscipline_text_listDao();
             dislist = discipline.getDiscipline_text_listList();
             dissize = dislist.size();
 
@@ -369,11 +369,20 @@ public class Recall extends Activity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+
                 addRecallList();
 
                 run.setStatus("false");
                 mRunDao.insertOrReplace(run);
-
+                if (discipline.getName().equals("Default")) {
+                    List<Discipline_text_list> dfsf = discipline.getDiscipline_text_listList();
+                    mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
+                    mDisciplineDao = mDaoSession.getDisciplineDao();
+                    mDiscipline_text_listDao.deleteInTx(dfsf);
+                    mDisciplineDao.delete(discipline);
+                    mDaoSession.clear();
+                }
                 Intent myIntent = new Intent(Recall.this, MainActivity.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);

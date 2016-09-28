@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextSwitcher;
@@ -34,7 +33,6 @@ import com.kuviam.dopa.model.Discipline_text_listDao;
 import com.kuviam.dopa.model.Locus;
 import com.kuviam.dopa.model.LocusDao;
 import com.kuviam.dopa.model.Locus_text_list;
-import com.kuviam.dopa.model.Locus_text_listDao;
 import com.kuviam.dopa.model.Run;
 import com.kuviam.dopa.model.RunDao;
 
@@ -45,23 +43,21 @@ public class Mgym extends Activity {
     private MalibuCountDownTimer countDownTimer;
     private boolean timerHasStarted = false;
     private TextView text;
+    private TextView ithitem;
     private Button done;
     private ImageButton next, pre, hint;
     private TextSwitcher textsw;
-    private Chronometer timer;
     private Discipline discipline;
     private Locus locus;
     private Run run;
     private List<Discipline_text_list> dislist;
-    private List<Locus_text_list> lclist;
 
     private GreenDaoApplication mApplication;
     private DaoSession mDaoSession;
     private LocusDao mLocusDao;
     private DisciplineDao mDisciplineDao;
     private RunDao mRunDao;
-    private Discipline_text_listDao mDiscipline_text_list;
-    private Locus_text_listDao mLocus_text_list;
+    private Discipline_text_listDao mDiscipline_text_listDao;
     private List<Locus_text_list> hints;
 
     private List<Discipline> disciplines;
@@ -118,6 +114,8 @@ public class Mgym extends Activity {
         textsw.setInAnimation(in);
         textsw.setOutAnimation(out);
 
+        ithitem.setText(String.valueOf(counter + 1));
+
         pre.setEnabled(false);
         textsw.setText(dislist.get(counter).getItem().toString());
         showhint = hints.get(counter).getItem().toString();
@@ -144,10 +142,12 @@ public class Mgym extends Activity {
                     textsw.setText(dislist.get(counter).getItem().toString());
                     showhint = hints.get(counter).getItem().toString();
                     pre.setEnabled(true);
+                    ithitem.setText(String.valueOf(counter + 1));
 
                 } else {
                     next.setEnabled(false);
                     --counter;
+                    ithitem.setText(String.valueOf(counter + 1));
                 }
             }
         });
@@ -160,9 +160,11 @@ public class Mgym extends Activity {
                     textsw.setText(dislist.get(counter).getItem().toString());
                     showhint = hints.get(counter).getItem().toString();
                     next.setEnabled(true);
+                    ithitem.setText(String.valueOf(counter + 1));
                 } else {
                     pre.setEnabled(false);
                     ++counter;
+                    ithitem.setText(String.valueOf(counter + 1));
                 }
             }
         });
@@ -210,7 +212,7 @@ public class Mgym extends Activity {
             hints = locus.getLocus_text_listList();
 
 
-            mDiscipline_text_list = mDaoSession.getDiscipline_text_listDao();
+            //mDiscipline_text_list = mDaoSession.getDiscipline_text_listDao();
             dislist = discipline.getDiscipline_text_listList();
             dissize = dislist.size();
             //showToast(String.valueOf(dissize));
@@ -238,6 +240,8 @@ public class Mgym extends Activity {
         hint = (ImageButton) findViewById(R.id.btnmgymhint);
         textsw = (TextSwitcher) findViewById(R.id.mgymtextSwitcher);
         text = (TextView) this.findViewById(R.id.timer);
+        ithitem = (TextView) this.findViewById(R.id.mgymitemno);
+
 
     }
 
@@ -273,7 +277,7 @@ public class Mgym extends Activity {
     //show messages in screen
     void showToast(CharSequence msg) {
 
-        Toast toast = Toast.makeText(this,msg,Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
         LinearLayout toastLayout = (LinearLayout) toast.getView();
         TextView toastTV = (TextView) toastLayout.getChildAt(0);
         toast.setGravity(Gravity.TOP, 0, 40);
@@ -297,6 +301,15 @@ public class Mgym extends Activity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                if (discipline.getName().equals("Default")) {
+                    List<Discipline_text_list> dfsf = discipline.getDiscipline_text_listList();
+                    mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
+                    mDisciplineDao = mDaoSession.getDisciplineDao();
+                    mDiscipline_text_listDao.deleteInTx(dfsf);
+                    mDisciplineDao.delete(discipline);
+                    mDaoSession.clear();
+                }
                 Intent myIntent = new Intent(Mgym.this, MainActivity.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(myIntent);

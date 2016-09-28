@@ -27,6 +27,8 @@ import com.kuviam.dopa.mindpalace.NewLocus;
 import com.kuviam.dopa.model.DaoSession;
 import com.kuviam.dopa.model.Discipline;
 import com.kuviam.dopa.model.DisciplineDao;
+import com.kuviam.dopa.model.Discipline_text_list;
+import com.kuviam.dopa.model.Discipline_text_listDao;
 import com.kuviam.dopa.model.Locus;
 import com.kuviam.dopa.model.LocusDao;
 import com.kuviam.dopa.model.Locus_text_list;
@@ -38,13 +40,13 @@ import java.util.List;
 
 public class Configure extends Activity {
     private Button start, newlocus;
-    private EditText ptime, rtime, items;
+    private EditText ptime, rtime;
     private ListView locilist;
     private TextView disname;
     private int intValue;
+    private long longValue;
     private Run run;
     private Long pti, rti;
-    private TextView slocus;
 
     private List<Locus> loci;
     private List<Locus> updatedloci;
@@ -57,6 +59,7 @@ public class Configure extends Activity {
     private DisciplineDao mDisciplineDao;
     private Discipline discipline;
     private RunDao mRunDao;
+    private Discipline_text_listDao mDiscipline_text_listDao;
 
     private ArrayList<String> list = new ArrayList<String>();
     private LocusListAdapter userAdapter;
@@ -67,7 +70,7 @@ public class Configure extends Activity {
         setContentView(R.layout.activity_configure);
         Intent mIntent = getIntent();
         intValue = mIntent.getIntExtra("intVariableName", -1);
-
+        longValue = mIntent.getLongExtra("longVariableName", -1);
         Set_Add_Update_Screen();
 
         mApplication = (GreenDaoApplication) getApplication();
@@ -75,7 +78,12 @@ public class Configure extends Activity {
         mDisciplineDao = mDaoSession.getDisciplineDao();
 
         List<Discipline> disciplines = mDisciplineDao.loadAll();
-        discipline = disciplines.get(intValue);
+
+        if (longValue != -1) {
+            discipline = mDisciplineDao.load(longValue);
+        } else {
+            discipline = disciplines.get(intValue);
+        }
         disname.setText(discipline.getName().toString());
         ptime.setText(String.valueOf(discipline.getPractice_time()).toString());
         rtime.setText(String.valueOf(discipline.getRecall_time()).toString());
@@ -178,7 +186,6 @@ public class Configure extends Activity {
         ptime = (EditText) findViewById(R.id.txtmgymtime);
         rtime = (EditText) findViewById(R.id.txtrecalltime);
         newlocus = (Button) findViewById(R.id.btnmgmnewlocus);
-        // items=(EditText)findViewById(R.id.nonetxt);
         start = (Button) findViewById(R.id.btnstart);
         locilist = (ListView) findViewById(R.id.listloci);
         disname = (TextView) findViewById(R.id.disname);
@@ -188,7 +195,14 @@ public class Configure extends Activity {
 
     @Override
     public void onBackPressed() {
-
+        if (discipline.getName().equals("Default")) {
+            List<Discipline_text_list> dfsf = discipline.getDiscipline_text_listList();
+            mDiscipline_text_listDao = mDaoSession.getDiscipline_text_listDao();
+            mDisciplineDao = mDaoSession.getDisciplineDao();
+            mDiscipline_text_listDao.deleteInTx(dfsf);
+            mDisciplineDao.delete(discipline);
+            mDaoSession.clear();
+        }
         Intent myIntent = new Intent(Configure.this, Arena.class);
         myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(myIntent);

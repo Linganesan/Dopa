@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.kuviam.dopa.mindpalace.NewLocus"/>
+      <point      
+        x = "5074"      
+        y = "301"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.kuviam.dopa.Arena.Score"/>
+      <point      
+        x = "-228"      
+        y = "368"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.kuviam.dopa.Arena.NewDiscipline"/>
+      <point      
+        x = "3508"      
+        y = "962"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.kuviam.dopa.Arena.Mgym"/>
+      <point      
+        x = "2235"      
+        y = "1829"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.kuviam.dopa.Arena.Recall"/>
+      <point      
+        x = "2282"      
+        y = "650"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.kuviam.dopa.mindpalace.Mindpalace"/>
+      <point      
+        x = "1207"      
+        y = "1858"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.kuviam.dopa.Arena.Configure"/>
+      <point      
+        x = "1301"      
+        y = "113"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.kuviam.dopa.MainActivity"/>
+      <point      
+        x = "1377"      
+        y = "547"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.kuviam.dopa.Arena.Arena"/>
+      <point      
+        x = "900"      
+        y = "500"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.kuviam.dopa.library.Help"/>
+      <point      
+        x = "950"      
+        y = "550"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>

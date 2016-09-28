@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.kuviam.dopa.library.MemorypalaceInfo"
+    android:background="@drawable/helpbg">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/howmemory"
+                android:text="You need to choose a place that you are extremely familiar with. For example, as one of my memory palaces, I have chosen my childhood home:/n/n 1) I have a strong visual memory of it /n/n 2) it has lots of different places that I can &apos;see&apos; things being placed or happening. /n/n  When you need to remember a sequence of items (let&apos;s say of order consequence), start by imagining yourself walking through your &apos;memory palace&apos;. At the front door, I would &apos;place&apos; my first item to remember. When you place something, you want to take a moment to make the memory memorable, or ridiculous. Let&apos;s say I want to remember a grocery list, and the first item in the list is cottage cheese./n/n  I might imagine an oversized tub of cottage cheese that a child  is messily playing in in front of my front door. In the kitchen, I might imagine my father, who loves to cook, wrestling with a live chicken that he wanted to prepare for dinner. Under the kitchen table, etc. /n/n "
+                android:textSize="15dp"
+                android:textColor="@color/primary_material_dark"
+                android:background="#98fff7" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

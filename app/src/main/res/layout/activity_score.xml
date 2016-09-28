@@ -10,7 +10,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="match_parent"
@@ -23,28 +24,44 @@
             android:textColor="@color/primary_material_dark"
             android:gravity="center_vertical|center_horizontal" />
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView" >
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_above="@+id/btnscoreok"
-                android:layout_below="@+id/textView4"
-                android:stretchColumns="0,1"
-                android:id="@+id/scoretable"></TableLayout>
-        </ScrollView>
-
-        <Button
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="69dp"
-            android:text="Ok"
-            android:id="@+id/btnscoreok"
-            android:layout_alignParentBottom="true" />
+            android:layout_height="342dp"
+            android:layout_weight="0.09">
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView" >
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_above="@+id/btnscoreok"
+                    android:layout_below="@+id/textView4"
+                    android:stretchColumns="0,1"
+                    android:id="@+id/scoretable"></TableLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="84dp">
+
+            <Button
+                android:layout_width="167dp"
+                android:layout_height="58dp"
+                android:text="Ok"
+                android:id="@+id/btnscoreok"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

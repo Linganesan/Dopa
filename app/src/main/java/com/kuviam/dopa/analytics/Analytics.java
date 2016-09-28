@@ -172,7 +172,7 @@ public class Analytics extends Activity {
                 row.setTag(holder);
 
 
-                holder.btnSyn.setEnabled(false);
+                //holder.btnSyn.setEnabled(false);
 
             } else {
                 holder = (UserHolder) row.getTag();
@@ -192,28 +192,30 @@ public class Analytics extends Activity {
                     QueryBuilder<Run> qb = mRunDao.queryBuilder();
                     qb.where(RunDao.Properties.Discipline.eq(name));
                     runlist = qb.list();
-                    List<AnalyticsDTO> passingobjects = new ArrayList<AnalyticsDTO>();
+                    List<AnalyticDTO> passingobjects = new ArrayList<AnalyticDTO>();
 
 
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpPost post = new HttpPost("http://101.2.187.52:8080/dopa-analytical-engine/");
-                    post.setHeader("content-type", "/postentity");
+                    HttpPost post = new HttpPost("http://10.0.2.2:8080/dopa-analytical-engine/dopa/postentity");
+                    post.setHeader("content-type", "application/json");
 
 
                     for (Run run : runlist) {
 
-                        AnalyticsDTO temp = new AnalyticsDTO(run.getDiscipline(), run.getLocus(), run.getAssigned_practice_time(),
+                        AnalyticDTO analyticDTO = new AnalyticDTO(run.getDiscipline(), run.getLocus(), run.getAssigned_practice_time(),
                                 run.getAssigned_recall_time(),
                                 run.getNo_of_items());
                         Gson gson = new Gson();
-                        String strAnalyticsData = gson.toJson(temp);
+                        String strAnalyticsData = gson.toJson(analyticDTO);
                         StringEntity entity = null;
                         try {
-                            entity = new StringEntity(temp.toString());
+                            entity = new StringEntity(strAnalyticsData);
                             post.setEntity(entity);
-
+                            Log.d("","About to connect");
                             HttpResponse resp = httpClient.execute(post);
+                            Log.d(resp.getEntity().toString(),"Connected");
                             String respStr = EntityUtils.toString(resp.getEntity());
+                            Log.d("debug","Response");
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         } catch (ClientProtocolException e) {
@@ -228,7 +230,7 @@ public class Analytics extends Activity {
 
 
 
-                    analydis.setRuns_to_sync((long) 0);
+                    //analydis.setRuns_to_sync((long) 0);
 
                     mDisciplineDao.insertOrReplace(analydis);
 

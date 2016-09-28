@@ -199,7 +199,7 @@ public class Arena extends Activity {
 
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
+
                     Log.i("Edit Button Clicked", "**********");
                     //showToast(Integer.toString(position) + ": Edit button Clicked");
                     Intent myIntent = new Intent(Arena.this,
@@ -207,6 +207,7 @@ public class Arena extends Activity {
                     myIntent.putExtra("VariableName", position);
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(myIntent);
+                    finish();
                     overridePendingTransition(0, 0);
                 }
             });
@@ -214,7 +215,7 @@ public class Arena extends Activity {
 
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
+
                     Log.i("Delete Button Clicked", "**********");
                     //showToast(Integer.toString(position) + ": Delete button Clicked");
                     long disID = (long) (int) position;
